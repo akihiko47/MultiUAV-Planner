@@ -51,7 +51,7 @@ function App() {
           <ul>
             <li>
               <a href="https://github.com/Prazdnic-Moscow" target="_blank" rel="noreferrer">
-                GitHub
+                GitHub!
               </a>
             </li>
           </ul>
