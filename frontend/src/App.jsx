@@ -47,7 +47,7 @@ function App() {
 
       <section id="next-steps">
         <div id="social">
-          <h2>Connect with us</h2>
+          <h2>Connect with us!</h2>
           <ul>
             <li>
               <a href="https://github.com/Prazdnic-Moscow" target="_blank" rel="noreferrer">
