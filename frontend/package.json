@@ -6,10 +6,12 @@
     "start": "vite start"
   },
   "dependencies": {
+    "@geoman-io/leaflet-geoman-free": "^2.20.1",
     "leaflet": "^1.9.4",
-    "react": "^19.2.8",
-    "react-dom": "^19.2.8",
-    "react-leaflet": "^5.0.0"
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "react-leaflet": "^5.0.0",
+    "react-leaflet-geoman-v2": "^1.1.1"
   },
   "devDependencies": {
     "@types/react": "^19.2.18",
