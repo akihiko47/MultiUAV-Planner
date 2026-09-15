@@ -7,14 +7,12 @@ import SidePanel from './components/SidePanel';
 
 function App() {
   return (
-    <>
-      <div className='main'>
-        <div className='map-area'>
-          <MapView/>
-        </div>
-        <SidePanel/>
+    <div className="app">
+      <div className="map-area">
+        <MapView />
       </div>
-    </>
+      <SidePanel />
+    </div>
   );
 }
 

@@ -1,41 +1,102 @@
-.App {
-  font-family: sans-serif;
-  text-align: center;
+/* ===== Переменные темы ===== */
+:root {
+  --text: #6b6375;
+  --text-h: #08060d;
+  --bg: #fff;
+  --border: #e5e4e7;
+  --code-bg: #f4f3ec;
+  --accent: #aa3bff;
+  --panel-bg: #fafafa;
+  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
 }
 
+body.dark {
+  --text: #9ca3af;
+  --text-h: #f3f4f6;
+  --bg: #16171d;
+  --border: #2e303a;
+  --code-bg: #1f2028;
+  --accent: #c084fc;
+  --panel-bg: #1f2028;
+}
+
+/* ===== Базовый сброс ===== */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-#root {
-  height: 100vh;
+html, body, #root {
+  height: 100%;
 }
 
-.main {
+body {
+  font: 16px/145% var(--sans);
+  color: var(--text);
+  background: var(--bg);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== Раскладка приложения ===== */
+.app {
   display: flex;
-  height: 100vh;
+  height: 100vh;   /* вся высота окна */
 }
 
 .map-area {
-  flex: 1;
+  flex: 1;         /* карта забирает всё свободное место */
   height: 100%;
 }
 
 .side-panel {
-  width: 320px;
+  width: 340px;
   height: 100%;
   padding: 16px;
+  background: var(--panel-bg);
+  border-left: 1px solid var(--border);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 
-/* sizing of map container */
+/* ===== Кнопка темы ===== */
+.theme-toggle-btn {
+  align-self: flex-end;    /* прижать к правому краю панели */
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 14px;
+  transition: background 0.2s, transform 0.1s, color 0.3s, border-color 0.3s;
+}
+
+.theme-toggle-btn:hover {
+  background: var(--code-bg);
+}
+
+.theme-toggle-btn:active {
+  transform: scale(0.98);
+}
+
+/* ===== Leaflet: обязательно задать высоту ===== */
 .leaflet-container {
   height: 100%;
   width: 100%;
 }
 
-/* remove some unfortunate signs */
-.leaflet-control-attribution {
-  display: none;
+/* Цвет заголовков в панели */
+.side-panel h2 {
+  font-family: var(--heading);
+  font-weight: 500;
+  color: var(--text-h);
+  font-size: 20px;
+  margin-bottom: 8px;
 }
