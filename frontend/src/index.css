@@ -49,6 +49,7 @@ body {
 .map-area {
   flex: 1;         /* карта забирает всё свободное место */
   height: 100%;
+  isolation: isolate;
 }
 
 .side-panel {
@@ -62,6 +63,9 @@ body {
   flex-direction: column;
   gap: 16px;
   transition: background 0.3s ease, border-color 0.3s ease;
+  box-shadow: -6px 0 16px rgba(0, 0, 0, 0.32);
+  position: relative;
+  z-index: 10;
 }
 
 /* ===== Кнопка темы ===== */
