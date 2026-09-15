@@ -6,7 +6,7 @@ export default function MapView() {
   const zoom = 13;
 
   return (
-    <MapContainer center={center} zoom={zoom}>
+    <MapContainer center={center} zoom={zoom} zoomControl={false}>
         <TileLayer
             url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         />

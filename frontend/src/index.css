@@ -100,3 +100,8 @@ body {
   font-size: 20px;
   margin-bottom: 8px;
 }
+
+/* Убрать символику */
+.leaflet-control-attribution {
+  display: none;
+}
