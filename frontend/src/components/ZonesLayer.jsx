@@ -10,6 +10,7 @@ export default function ZonesLayer() {
             <Circle
               key={index}
               center={zone.center}
+              pmIgnore={true}
               radius={zone.radius_km * 1000} /* км → метры */
               pathOptions={{
                 color: 'red',
@@ -25,6 +26,7 @@ export default function ZonesLayer() {
             <Polygon
               key={index}
               positions={zone.coordinates}
+              pmIgnore={true}
               pathOptions={{
                 color: 'red',
                 fillColor: 'red',
