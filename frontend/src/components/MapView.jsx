@@ -3,11 +3,32 @@ import { Icon } from "leaflet"
 import { GeomanControls } from "react-leaflet-geoman-v2"
 
 import SaveControl from "./SaveControl"
+import ZonesLayer from "./ZonesLayer"
 
 import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css'  // для редактирования полигонов
 
 import pinImg from "../img/pin.png"
 import airportImg from "../img/airport.png"
+import MouseCoordinates from "./MouseCoordinages"
+
+function LocationMarker() {
+  const [position, setPosition] = useState(null);
+
+  useMapEvents({
+    click(e) {
+      setPosition(e.latlng);
+    },
+  });
+
+  return position === null ? null : (
+    <Marker position={position}>
+      <Popup>
+        Координаты: <br />
+        {position.lat.toFixed(6)}, {position.lng.toFixed(6)}
+      </Popup>
+    </Marker>
+  );
+}
 
 
 export default function MapView() {
@@ -55,6 +76,10 @@ export default function MapView() {
         positions={[[55.751244, 37.618423], [55.751244, 37.628423], [55.741244, 37.618423]]}
       />
 
+      <ZonesLayer/>
+      {/* <MouseCoordinates/> */}
+     
+
       <GeomanControls
         options={{
           drawCircle: false,
@@ -64,7 +89,8 @@ export default function MapView() {
         }}
         globalOptions={{
           markerStyle: {
-            icon: airportIcon
+            icon: airportIcon,
+            text: "asdf"
           }
         }}
       />
