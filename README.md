@@ -1,3 +1,55 @@
+# Запуск
+## Запуск бэкенда
+
+### Требования
+
+- Установленный Docker Desktop (Windows/macOS) или docker + docker compose (Linux).
+- Свободный порт 8000.
+
+### Сборка и запуск
+
+Из корня репозитория (там, где лежит docker-compose.yml):
+
+    # Собрать образ бэкенда (внутри автоматически собирается C++-модуль)
+    docker compose build backend
+
+    # Запустить в фоне
+    docker compose up -d backend
+
+После запуска можно посмотреть описание API по адресу:
+
+- Swagger UI: http://localhost:8000/docs
+- ReDoc: http://localhost:8000/redoc
+
+### Проверка
+
+    # Логи в реальном времени
+    docker compose logs -f backend
+
+    # Статус контейнера (должен быть Up)
+    docker compose ps
+
+    # Тестовый запрос
+    curl -X POST http://localhost:8000/api/v1/plan \
+      -H "Content-Type: application/json" \
+      -d @request.json
+
+где request.json — пример запроса из раздела «Формат входных данных API».
+
+### Остановка
+
+    docker compose down
+
+### Пересборка после изменений
+
+| Что изменилось                        | Команда                                      |
+|---------------------------------------|----------------------------------------------|
+| Python-код (backend/app/)             | docker compose restart backend               |
+| C++-код (cpp-module/)                 | docker compose up -d --build backend         |
+| requirements.txt или Dockerfile       | docker compose up -d --build backend         |
+
+
+
 # Формат входных данных API планирования БВС
 
 Эта часть документа описывает JSON-формат, который принимает REST API сервиса планирования и распределения беспилотных авиационных работ. Формат предназначен для передачи всех необходимых параметров для расчёта оптимальных полётных заданий для группы БВС.
