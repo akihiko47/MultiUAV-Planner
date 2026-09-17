@@ -9,12 +9,13 @@
 ### Сборка и запуск
 
 Из корня репозитория (там, где лежит docker-compose.yml):
+```bash
+# Собрать образ бэкенда (внутри автоматически собирается C++-модуль)
+docker compose build backend
 
-    # Собрать образ бэкенда (внутри автоматически собирается C++-модуль)
-    docker compose build backend
-
-    # Запустить в фоне
-    docker compose up -d backend
+# Запустить в фоне
+docker compose up -d backend
+```
 
 После запуска можно посмотреть описание API по адресу:
 
@@ -22,23 +23,25 @@
 - ReDoc: http://localhost:8000/redoc
 
 ### Проверка
+```bash
+# Логи в реальном времени
+docker compose logs -f backend
 
-    # Логи в реальном времени
-    docker compose logs -f backend
+# Статус контейнера (должен быть Up)
+docker compose ps
 
-    # Статус контейнера (должен быть Up)
-    docker compose ps
-
-    # Тестовый запрос
-    curl -X POST http://localhost:8000/api/v1/plan \
-      -H "Content-Type: application/json" \
-      -d @request.json
+# Тестовый запрос
+curl -X POST http://localhost:8000/api/v1/plan \
+  -H "Content-Type: application/json" \
+  -d @request.json
+```
 
 где request.json — пример запроса из раздела «Формат входных данных API».
 
 ### Остановка
-
+```bash
     docker compose down
+```
 
 ### Пересборка после изменений
 
@@ -70,16 +73,16 @@
 
 ## Структура запроса
 ```json
-    {
-      "survey_area": { ... },
-      "start_points": [ ... ],
-      "uav_types": [ ... ],
-      "uavs": [ ... ],
-      "survey_type": "RGB",
-      "optimization_criteria": "min_time",
-      "operation_start_time": "2026-04-15T08:00:00Z",
-      "operation_end_time": "2026-04-15T09:00:00Z"
-    }
+{
+  "survey_area": { ... },
+  "start_points": [ ... ],
+  "uav_types": [ ... ],
+  "uavs": [ ... ],
+  "survey_type": "RGB",
+  "optimization_criteria": "min_time",
+  "operation_start_time": "2026-04-15T08:00:00Z",
+  "operation_end_time": "2026-04-15T09:00:00Z"
+}
 ```
 
 ## Детальное описание полей
@@ -110,14 +113,14 @@
 
 Используется стандарт GeoJSON. Поддерживается тип `Polygon`, который может содержать внутренние отверстия. Структура:
 ```json
-    {
-      "type": "Polygon",
-      "coordinates": [
-        [ [lon, lat], [lon, lat], ... ],   // внешнее кольцо
-        [ [lon, lat], [lon, lat], ... ],   // отверстие 1 (опционально)
-        [ [lon, lat], [lon, lat], ... ]    // отверстие 2 (опционально)
-      ]
-    }
+{
+  "type": "Polygon",
+  "coordinates": [
+    [ [lon, lat], [lon, lat], ... ],   // внешнее кольцо
+    [ [lon, lat], [lon, lat], ... ],   // отверстие 1 (опционально)
+    [ [lon, lat], [lon, lat], ... ]    // отверстие 2 (опционально)
+  ]
+}
 ```
 - Первое кольцо — внешняя граница полигона.
 - Последующие кольца — отверстия (например, озёра, запретные зоны внутри участка).
@@ -126,75 +129,75 @@
 
 ## Пример запроса
 ```json
+{
+  "survey_area": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [37.6000, 55.7000],
+        [37.7000, 55.7000],
+        [37.7000, 55.8000],
+        [37.6000, 55.8000],
+        [37.6000, 55.7000]
+      ],
+      [
+        [37.6300, 55.7300],
+        [37.6500, 55.7300],
+        [37.6500, 55.7500],
+        [37.6300, 55.7500],
+        [37.6300, 55.7300]
+      ]
+    ]
+  },
+  "start_points": [
     {
-      "survey_area": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [37.6000, 55.7000],
-            [37.7000, 55.7000],
-            [37.7000, 55.8000],
-            [37.6000, 55.8000],
-            [37.6000, 55.7000]
-          ],
-          [
-            [37.6300, 55.7300],
-            [37.6500, 55.7300],
-            [37.6500, 55.7500],
-            [37.6300, 55.7500],
-            [37.6300, 55.7300]
-          ]
-        ]
-      },
-      "start_points": [
-        {
-          "id": "sp1",
-          "coordinates": [37.6200, 55.7200]
-        },
-        {
-          "id": "sp2",
-          "coordinates": [37.6800, 55.7800]
-        }
-      ],
-      "uav_types": [
-        {
-          "id": "type_201",
-          "name": "Геоскан 201",
-          "max_flight_time": 120,
-          "cruise_speed": 15,
-          "max_speed": 25,
-          "battery_capacity": 5000,
-          "supported_survey_types": ["RGB", "multispectral"]
-        },
-        {
-          "id": "type_801",
-          "name": "Геоскан 801",
-          "max_flight_time": 180,
-          "cruise_speed": 18,
-          "max_speed": 30,
-          "battery_capacity": 8000,
-          "supported_survey_types": ["RGB", "LiDAR"]
-        }
-      ],
-      "uavs": [
-        {
-          "id": "uav1",
-          "type_id": "type_201"
-        },
-        {
-          "id": "uav2",
-          "type_id": "type_201"
-        },
-        {
-          "id": "uav3",
-          "type_id": "type_801"
-        }
-      ],
-      "survey_type": "RGB",
-      "optimization_criteria": "min_time",
-      "operation_start_time": "2026-04-15T08:00:00Z",
-      "operation_end_time": "2026-04-15T09:00:00Z"
+      "id": "sp1",
+      "coordinates": [37.6200, 55.7200]
+    },
+    {
+      "id": "sp2",
+      "coordinates": [37.6800, 55.7800]
     }
+  ],
+  "uav_types": [
+    {
+      "id": "type_201",
+      "name": "Геоскан 201",
+      "max_flight_time": 120,
+      "cruise_speed": 15,
+      "max_speed": 25,
+      "battery_capacity": 5000,
+      "supported_survey_types": ["RGB", "multispectral"]
+    },
+    {
+      "id": "type_801",
+      "name": "Геоскан 801",
+      "max_flight_time": 180,
+      "cruise_speed": 18,
+      "max_speed": 30,
+      "battery_capacity": 8000,
+      "supported_survey_types": ["RGB", "LiDAR"]
+    }
+  ],
+  "uavs": [
+    {
+      "id": "uav1",
+      "type_id": "type_201"
+    },
+    {
+      "id": "uav2",
+      "type_id": "type_201"
+    },
+    {
+      "id": "uav3",
+      "type_id": "type_801"
+    }
+  ],
+  "survey_type": "RGB",
+  "optimization_criteria": "min_time",
+  "operation_start_time": "2026-04-15T08:00:00Z",
+  "operation_end_time": "2026-04-15T09:00:00Z"
+}
 ```
 
 
@@ -212,11 +215,11 @@
 
 ## Структура ответа
 ```json
-    {
-      "summary": { ... },
-      "uav_assignments": [ ... ],
-      "warnings": [ ... ]
-    }
+{
+  "summary": { ... },
+  "uav_assignments": [ ... ],
+  "warnings": [ ... ]
+}
 ```
 
 ## Сводная информация (`summary`)
@@ -260,149 +263,149 @@
 
 ## Пример ответа
 ```json
+{
+  "summary": {
+    "optimization_criteria": "min_time",
+    "total_time": 3600,
+    "total_distance": 45000,
+    "uavs_used": 2,
+    "uavs_total": 3,
+    "operation_start": "2026-04-15T08:00:00Z",
+    "operation_end": "2026-04-15T09:00:00Z"
+  },
+  "uav_assignments": [
     {
-      "summary": {
-        "optimization_criteria": "min_time",
-        "total_time": 3600,
-        "total_distance": 45000,
-        "uavs_used": 2,
-        "uavs_total": 3,
-        "operation_start": "2026-04-15T08:00:00Z",
-        "operation_end": "2026-04-15T09:00:00Z"
+      "uav_id": "uav1",
+      "type_id": "type_201",
+      "takeoff_time": "2026-04-15T08:00:00Z",
+      "landing_time": "2026-04-15T08:23:00Z",
+      "start_point": {
+        "id": "sp1",
+        "coordinates": [37.6200, 55.7200]
       },
-      "uav_assignments": [
+      "landing_point": {
+        "id": "sp1",
+        "coordinates": [37.6200, 55.7200]
+      },
+      "route": {
+        "type": "LineString",
+        "coordinates": [
+          [37.6200, 55.7200],
+          [37.6210, 55.7210],
+          [37.6300, 55.7300],
+          [37.6400, 55.7400],
+          [37.6200, 55.7200]
+        ]
+      },
+      "waypoints": [
         {
-          "uav_id": "uav1",
-          "type_id": "type_201",
-          "takeoff_time": "2026-04-15T08:00:00Z",
-          "landing_time": "2026-04-15T08:23:00Z",
-          "start_point": {
-            "id": "sp1",
-            "coordinates": [37.6200, 55.7200]
-          },
-          "landing_point": {
-            "id": "sp1",
-            "coordinates": [37.6200, 55.7200]
-          },
-          "route": {
-            "type": "LineString",
-            "coordinates": [
-              [37.6200, 55.7200],
-              [37.6210, 55.7210],
-              [37.6300, 55.7300],
-              [37.6400, 55.7400],
-              [37.6200, 55.7200]
-            ]
-          },
-          "waypoints": [
-            {
-              "sequence": 1,
-              "coordinates": [37.6200, 55.7200],
-              "altitude": 0,
-              "speed": 0,
-              "action": "takeoff",
-              "time": "2026-04-15T08:00:00Z"
-            },
-            {
-              "sequence": 2,
-              "coordinates": [37.6210, 55.7210],
-              "altitude": 100,
-              "speed": 15,
-              "action": "transit",
-              "time": "2026-04-15T08:01:00Z"
-            },
-            {
-              "sequence": 3,
-              "coordinates": [37.6300, 55.7300],
-              "altitude": 120,
-              "speed": 15,
-              "action": "survey_start",
-              "time": "2026-04-15T08:02:00Z"
-            },
-            {
-              "sequence": 4,
-              "coordinates": [37.6400, 55.7400],
-              "altitude": 120,
-              "speed": 15,
-              "action": "survey_end",
-              "time": "2026-04-15T08:20:00Z"
-            },
-            {
-              "sequence": 5,
-              "coordinates": [37.6200, 55.7200],
-              "altitude": 0,
-              "speed": 0,
-              "action": "landing",
-              "time": "2026-04-15T08:23:00Z"
-            }
-          ],
-          "estimated_time": 1380,
-          "estimated_distance": 17500,
-          "battery_usage": 45
+          "sequence": 1,
+          "coordinates": [37.6200, 55.7200],
+          "altitude": 0,
+          "speed": 0,
+          "action": "takeoff",
+          "time": "2026-04-15T08:00:00Z"
         },
         {
-          "uav_id": "uav3",
-          "type_id": "type_801",
-          "takeoff_time": "2026-04-15T08:15:00Z",
-          "landing_time": "2026-04-15T08:29:00Z",
-          "start_point": {
-            "id": "sp2",
-            "coordinates": [37.6800, 55.7800]
-          },
-          "landing_point": {
-            "id": "sp2",
-            "coordinates": [37.6800, 55.7800]
-          },
-          "route": {
-            "type": "LineString",
-            "coordinates": [
-              [37.6800, 55.7800],
-              [37.6700, 55.7700],
-              [37.6600, 55.7600],
-              [37.6800, 55.7800]
-            ]
-          },
-          "waypoints": [
-            {
-              "sequence": 1,
-              "coordinates": [37.6800, 55.7800],
-              "altitude": 0,
-              "speed": 0,
-              "action": "takeoff",
-              "time": "2026-04-15T08:15:00Z"
-            },
-            {
-              "sequence": 2,
-              "coordinates": [37.6700, 55.7700],
-              "altitude": 150,
-              "speed": 18,
-              "action": "survey_start",
-              "time": "2026-04-15T08:16:30Z"
-            },
-            {
-              "sequence": 3,
-              "coordinates": [37.6600, 55.7600],
-              "altitude": 150,
-              "speed": 18,
-              "action": "survey_end",
-              "time": "2026-04-15T08:26:30Z"
-            },
-            {
-              "sequence": 4,
-              "coordinates": [37.6800, 55.7800],
-              "altitude": 0,
-              "speed": 0,
-              "action": "landing",
-              "time": "2026-04-15T08:29:00Z"
-            }
-          ],
-          "estimated_time": 840,
-          "estimated_distance": 13300,
-          "battery_usage": 30
+          "sequence": 2,
+          "coordinates": [37.6210, 55.7210],
+          "altitude": 100,
+          "speed": 15,
+          "action": "transit",
+          "time": "2026-04-15T08:01:00Z"
+        },
+        {
+          "sequence": 3,
+          "coordinates": [37.6300, 55.7300],
+          "altitude": 120,
+          "speed": 15,
+          "action": "survey_start",
+          "time": "2026-04-15T08:02:00Z"
+        },
+        {
+          "sequence": 4,
+          "coordinates": [37.6400, 55.7400],
+          "altitude": 120,
+          "speed": 15,
+          "action": "survey_end",
+          "time": "2026-04-15T08:20:00Z"
+        },
+        {
+          "sequence": 5,
+          "coordinates": [37.6200, 55.7200],
+          "altitude": 0,
+          "speed": 0,
+          "action": "landing",
+          "time": "2026-04-15T08:23:00Z"
         }
       ],
-      "warnings": [
-        "БВС uav2 не задействован: недостаточно заряда для покрытия оставшейся области."
-      ]
+      "estimated_time": 1380,
+      "estimated_distance": 17500,
+      "battery_usage": 45
+    },
+    {
+      "uav_id": "uav3",
+      "type_id": "type_801",
+      "takeoff_time": "2026-04-15T08:15:00Z",
+      "landing_time": "2026-04-15T08:29:00Z",
+      "start_point": {
+        "id": "sp2",
+        "coordinates": [37.6800, 55.7800]
+      },
+      "landing_point": {
+        "id": "sp2",
+        "coordinates": [37.6800, 55.7800]
+      },
+      "route": {
+        "type": "LineString",
+        "coordinates": [
+          [37.6800, 55.7800],
+          [37.6700, 55.7700],
+          [37.6600, 55.7600],
+          [37.6800, 55.7800]
+        ]
+      },
+      "waypoints": [
+        {
+          "sequence": 1,
+          "coordinates": [37.6800, 55.7800],
+          "altitude": 0,
+          "speed": 0,
+          "action": "takeoff",
+          "time": "2026-04-15T08:15:00Z"
+        },
+        {
+          "sequence": 2,
+          "coordinates": [37.6700, 55.7700],
+          "altitude": 150,
+          "speed": 18,
+          "action": "survey_start",
+          "time": "2026-04-15T08:16:30Z"
+        },
+        {
+          "sequence": 3,
+          "coordinates": [37.6600, 55.7600],
+          "altitude": 150,
+          "speed": 18,
+          "action": "survey_end",
+          "time": "2026-04-15T08:26:30Z"
+        },
+        {
+          "sequence": 4,
+          "coordinates": [37.6800, 55.7800],
+          "altitude": 0,
+          "speed": 0,
+          "action": "landing",
+          "time": "2026-04-15T08:29:00Z"
+        }
+      ],
+      "estimated_time": 840,
+      "estimated_distance": 13300,
+      "battery_usage": 30
     }
+  ],
+  "warnings": [
+    "БВС uav2 не задействован: недостаточно заряда для покрытия оставшейся области."
+  ]
+}
 ```
