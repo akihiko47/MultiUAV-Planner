@@ -66,7 +66,6 @@ export default function MapView() {
           drawCircle: false,
           drawCircleMarker: false,
           drawPolyline: false,
-          cutPolygon: false,
         }}
         globalOptions={{
           markerStyle: {
