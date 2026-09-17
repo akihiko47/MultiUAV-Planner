@@ -40,7 +40,7 @@ curl -X POST http://localhost:8000/api/v1/plan \
 
 ### Остановка
 ```bash
-    docker compose down
+docker compose down
 ```
 
 ### Пересборка после изменений
