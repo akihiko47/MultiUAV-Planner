@@ -11,25 +11,6 @@ import pinImg from "../img/pin.png"
 import airportImg from "../img/airport.png"
 import MouseCoordinates from "./MouseCoordinages"
 
-function LocationMarker() {
-  const [position, setPosition] = useState(null);
-
-  useMapEvents({
-    click(e) {
-      setPosition(e.latlng);
-    },
-  });
-
-  return position === null ? null : (
-    <Marker position={position}>
-      <Popup>
-        Координаты: <br />
-        {position.lat.toFixed(6)}, {position.lng.toFixed(6)}
-      </Popup>
-    </Marker>
-  );
-}
-
 
 export default function MapView() {
 
@@ -85,7 +66,6 @@ export default function MapView() {
           drawCircle: false,
           drawCircleMarker: false,
           drawPolyline: false,
-          cutPolygon: false,
         }}
         globalOptions={{
           markerStyle: {

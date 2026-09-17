@@ -11,6 +11,7 @@ export default function ZonesLayer() {
               key={index}
               center={zone.center}
               pmIgnore={true}
+              noSave={true} 
               radius={zone.radius_km * 1000} /* км → метры */
               pathOptions={{
                 color: 'red',
@@ -27,6 +28,7 @@ export default function ZonesLayer() {
               key={index}
               positions={zone.coordinates}
               pmIgnore={true}
+              noSave={true} 
               pathOptions={{
                 color: 'red',
                 fillColor: 'red',

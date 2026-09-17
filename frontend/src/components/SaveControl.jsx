@@ -9,6 +9,9 @@ export default function SaveControl({ label = 'Сохранить', position = '
     const handleSave = () => {
       const features = [];
       map.eachLayer((layer) => {
+        
+        if (layer.options?.noSave) return;
+
         if (layer instanceof L.Polygon) features.push(layer.toGeoJSON());
         else if (layer instanceof L.Marker) {
           const ll = layer.getLatLng();
