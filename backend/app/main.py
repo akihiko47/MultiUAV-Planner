@@ -1,3 +1,6 @@
+import logging
+logger = logging.getLogger("uvicorn.error")
+
 from fastapi import FastAPI, HTTPException
 from fastapi.concurrency import run_in_threadpool
 from fastapi.middleware.cors import CORSMiddleware
@@ -24,4 +27,6 @@ async def plan(request: PlanRequest):
         return PlanResponse.model_validate(result_dict)
 
     except Exception as e:
+        logger.exception("Planning failed")
         raise HTTPException(status_code=500, detail=str(e))
+        

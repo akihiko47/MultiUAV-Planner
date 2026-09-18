@@ -76,24 +76,31 @@ export default function SaveControl({
       };
 
       // 5. Отправляем на бэкенд
-    fetch(API_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),})
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return res.json();
-      })
-      .then((data) => {
-        console.log('Ответ сервера:', data);
-        alert('Задача отправлена');
-      })
-      .catch((err) => {
-        console.error('Ошибка отправки:', err);
-        alert('Не удалось отправить: ' + err.message);
-      });
+    // 5. Сохраняем на ПК
+      try {
+        const json = JSON.stringify(payload, null, 2);
+        const blob = new Blob([json], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+
+        const ts = new Date()
+          .toISOString()
+          .replace(/[:.]/g, '-')
+          .slice(0, 19);
+        const filename = `plan_${ts}.json`;
+
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        console.log('💾 Сохранено:', filename, payload);
+      } catch (err) {
+        console.error('Ошибка сохранения файла:', err);
+        alert('Не удалось сохранить файл: ' + err.message);
+      }
     };
 
     const control = L.control({ position });
