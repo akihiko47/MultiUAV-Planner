@@ -33,6 +33,9 @@ namespace planner
 
         std::vector<StartPoint> startPoints;
         std::vector<Uav> uavs;
+
+        std::string operationStart;  // ISO 8601
+        std::string operationEnd;    // ISO 8601
     };
 
     struct PlanSummary
@@ -44,6 +47,9 @@ namespace planner
 
         std::size_t uavsUsed = 0;
         std::size_t uavsTotal = 0;
+
+        std::string operationStart;  // ISO 8601
+        std::string operationEnd;    // ISO 8601
     };
 
     struct PlanResult

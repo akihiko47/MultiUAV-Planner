@@ -54,6 +54,14 @@ namespace{
                             {
                                 "uavs_total",
                                 result.summary.uavsTotal
+                            },
+                            {
+                                "operation_start",
+                                result.summary.operationStart
+                            },
+                            {
+                                "operation_end",
+                                result.summary.operationEnd
                             }
                         }
                     },
