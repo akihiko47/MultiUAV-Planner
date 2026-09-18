@@ -1,15 +1,24 @@
 #include "planner.hpp"
 
+//std
 #include <string>
 #include <cstdlib>
 #include <cstring>
 #include <stdexcept>
 
+//json lib
+#include <nlohmann/json.hpp>
+
+using json = nlohmann::json;
 
 std::string compute_plan(const std::string& request_json) {
     // 1. Распарсить request_json, например через nlohmann/json.
     // 2. Посчитать маршруты.
     // 3. Собрать ответ по формату README.
+
+    //Измения****
+
+    json j;
 
     // Заглушка:
     return R"({
