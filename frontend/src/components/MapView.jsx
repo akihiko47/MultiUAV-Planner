@@ -12,7 +12,7 @@ import airportImg from "../img/airport.png"
 import MouseCoordinates from "./MouseCoordinages"
 
 
-export default function MapView() {
+export default function MapView({ selectedUavs = [], surveyType = "RGB", optimization = "min_time"}) {
 
   const center = [55.751244, 37.618423];
   const zoom = 13;
@@ -45,16 +45,11 @@ export default function MapView() {
         </LayersControl.BaseLayer>
       </LayersControl>
         
-      <SaveControl label="Сохранить метки"/>
-
-      <Marker position={center} icon={airportIcon}>
-        <Popup>
-          <p>Airport 1</p>
-        </Popup>
-      </Marker>
-
-      <Polygon 
-        positions={[[55.751244, 37.618423], [55.751244, 37.628423], [55.741244, 37.618423]]}
+      <SaveControl
+        label="Скачать JSON"
+        selectedUavs={selectedUavs}
+        surveyType={surveyType}
+        optimization={optimization}
       />
 
       <ZonesLayer/>

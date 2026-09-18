@@ -1,0 +1,31 @@
+{
+  "uavs": [
+    {
+      "id": "geoscan_201",
+      "name": "Геоскан 201",
+      "max_flight_time": 120,
+      "cruise_speed": 15,
+      "max_speed": 25,
+      "battery_capacity": 5000,
+      "supported_survey_types": ["RGB", "multispectral"]
+    },
+    {
+      "id": "geoscan_801",
+      "name": "Геоскан 801",
+      "max_flight_time": 180,
+      "cruise_speed": 18,
+      "max_speed": 30,
+      "battery_capacity": 8000,
+      "supported_survey_types": ["RGB", "LiDAR"]
+    },
+    {
+      "id": "geoscan_404",
+      "name": "Геоскан 404",
+      "max_flight_time": 170,
+      "cruise_speed": 19,
+      "max_speed": 33,
+      "battery_capacity": 8500,
+      "supported_survey_types": ["RGB"]
+    }
+  ]
+}

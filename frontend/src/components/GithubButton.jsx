@@ -1,4 +1,4 @@
-export default function GithubButton({ url = 'https://github.com/Prazdnic-Moscow' }) {
+export default function GithubButton({ url = 'https://github.com/akihiko47/MultiUAV-Planner' }) {
   return (
     <a
       className="github-btn"
