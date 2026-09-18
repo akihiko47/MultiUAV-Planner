@@ -108,6 +108,7 @@ export default function SaveControl({
       const div = L.DomUtil.create('div', 'leaflet-bar');
       const btn = L.DomUtil.create('button', '', div);
       btn.textContent = label;
+      btn.className = 'save-marks-btn'
       btn.style.cssText =
         'padding:6px 10px; cursor:pointer; background:#fff; border:none; font:inherit;';
       L.DomEvent.disableClickPropagation(div);

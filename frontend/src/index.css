@@ -36,7 +36,6 @@ html, body, #root {
 
 body {
   font: 16px/145% var(--sans);
-  color: var(--text);
   background: var(--bg);
   transition: background-color 0.3s ease, color 0.3s ease;
   -webkit-font-smoothing: antialiased;
@@ -140,6 +139,10 @@ body {
 /* Убрать символику */
 .leaflet-control-attribution {
   display: none;
+}
+
+.save-marks-btn {
+  color: #16171d;
 }
 
 /* ===== Заголовки блоков в панели ===== */
