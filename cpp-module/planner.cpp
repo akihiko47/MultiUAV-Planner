@@ -1,63 +1,134 @@
 #include "planner.hpp"
 
+//planner
+#include "Planner/Planner.hpp"
+#include "Planner/RequestParser.hpp"
+
 //std
-#include <string>
 #include <cstdlib>
 #include <cstring>
-#include <stdexcept>
+#include <new>
+#include <string>
 
-//json lib
+//json
 #include <nlohmann/json.hpp>
 
-using json = nlohmann::json;
+namespace{
 
-std::string compute_plan(const std::string& request_json) {
-    // 1. Распарсить request_json, например через nlohmann/json.
-    // 2. Посчитать маршруты.
-    // 3. Собрать ответ по формату README.
+    using Json = nlohmann::json;
 
-    //Измения****
+    char* allocateCString(const std::string& value) {
 
-    json j;
+        char* buffer = static_cast<char*>(std::malloc(value.size() + 1));
 
-    // Заглушка:
-    return R"({
-      "summary": {
-        "optimization_criteria": "min_time",
-        "total_time": 0,
-        "total_distance": 0,
-        "uavs_used": 0,
-        "uavs_total": 0,
-        "operation_start": "2026-04-15T08:00:00Z",
-        "operation_end": "2026-04-15T08:00:00Z"
-      },
-      "uav_assignments": [],
-      "warnings": []
-    })";
-}
+        if (buffer == nullptr){
+            throw std::bad_alloc();
+        }
 
-extern "C" {
+        std::memcpy(buffer, value.c_str(), value.size() + 1);
 
-char* plan_json(const char* request_json) {
-    try {
-        std::string req = request_json ? request_json : "";
-        std::string result = compute_plan(req);
+        return buffer;
+    }
 
-        char* out = static_cast<char*>(std::malloc(result.size() + 1));
-        if (!out) throw std::bad_alloc();
+    Json serializeResult(const planner::PlanResult& result) {
+        return Json({
+                    {
+                        "summary",
+                        {
+                            {
+                                "optimization_criteria",
+                                result.summary.optimizationCriteria
+                            },
+                            {
+                                "total_time",
+                                result.summary.totalTime
+                            },
+                            {
+                                "total_distance",
+                                result.summary.totalDistance
+                            },
+                            {
+                                "uavs_used",
+                                result.summary.uavsUsed
+                            },
+                            {
+                                "uavs_total",
+                                result.summary.uavsTotal
+                            }
+                        }
+                    },
+                    {
+                        "uav_assignments",
+                        Json::array()
+                    },
+                    {
+                        "warnings",
+                        result.warnings
+                    }
+                });
+    }
 
-        std::memcpy(out, result.c_str(), result.size() + 1);
-        return out;
-    } catch (const std::exception& e) {
-        std::string err = std::string("{\"error\":\"") + e.what() + "\"}";
-        char* out = static_cast<char*>(std::malloc(err.size() + 1));
-        if (out) std::memcpy(out, err.c_str(), err.size() + 1);
-        return out;
+    std::string makeErrorResponse(const std::string& message){
+        const Json response = {
+            {"error", message}
+        };
+
+        return response.dump();
     }
 }
 
-void free_string(char* p) {
-    std::free(p);
+
+std::string compute_plan(const std::string& requestJson){
+    
+    const Json jsonRequest = Json::parse(requestJson);
+
+    const planner::RequestParser parser;
+
+    const planner::PlanRequest request = parser.parse(jsonRequest);
+
+    const planner::Planner planner;
+
+    const planner::PlanResult result = planner.plan(request);
+
+    return serializeResult(result).dump();
 }
+
+
+extern "C"{
+
+    char* plan_json(const char* requestJson){
+
+        try{
+            if (requestJson == nullptr){
+                throw std::invalid_argument(
+                    "request_json must not be null, dude");
+            }
+
+            const std::string result = compute_plan(requestJson);
+
+            return allocateCString(result);
+        }
+        catch (const std::exception& exception){
+            try{
+                return allocateCString(makeErrorResponse(exception.what()));
+            }
+            catch (...){
+                return nullptr;
+            }
+        }
+        catch (...){
+            try{
+                return allocateCString(makeErrorResponse("Unknown planner error, dude"));
+            }
+            catch (...){
+                return nullptr;
+            }
+        }
+    }
+
+
+    void free_string(char* pointer){
+        std::free(pointer);
+    }
 
 } // extern "C"
