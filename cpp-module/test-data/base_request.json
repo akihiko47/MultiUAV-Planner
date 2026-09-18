@@ -1,0 +1,69 @@
+{
+	"survey_area": {
+		"type": "Polygon",
+		"coordinates": [
+			[
+				[ 37.6000, 55.7000 ],
+				[ 37.7000, 55.7000 ],
+				[ 37.7000, 55.8000 ],
+				[ 37.6000, 55.8000 ],
+				[ 37.6000, 55.7000 ]
+			],
+			[
+				[ 37.6300, 55.7300 ],
+				[ 37.6500, 55.7300 ],
+				[ 37.6500, 55.7500 ],
+				[ 37.6300, 55.7500 ],
+				[ 37.6300, 55.7300 ]
+			]
+		]
+	},
+	"start_points": [
+		{
+			"id": "sp1",
+			"coordinates": [ 37.6200, 55.7200 ]
+		},
+		{
+			"id": "sp2",
+			"coordinates": [ 37.6800, 55.7800 ]
+		}
+	],
+	"uav_types": [
+		{
+			"id": "type_201",
+			"name": "Geoscan 201",
+			"max_flight_time": 120,
+			"cruise_speed": 15,
+			"max_speed": 25,
+			"battery_capacity": 5000,
+			"supported_survey_types": [ "RGB", "multispectral" ]
+		},
+		{
+			"id": "type_801",
+			"name": "Geoscan 801",
+			"max_flight_time": 180,
+			"cruise_speed": 18,
+			"max_speed": 30,
+			"battery_capacity": 8000,
+			"supported_survey_types": [ "RGB", "LiDAR" ]
+		}
+	],
+	"uavs": [
+		{
+			"id": "uav1",
+			"type_id": "type_201"
+		},
+		{
+			"id": "uav2",
+			"type_id": "type_201"
+		},
+		{
+			"id": "uav3",
+			"type_id": "type_801"
+		}
+	],
+	"survey_type": "RGB",
+	"optimization_criteria": "min_time",
+	"operation_start_time": "2026-04-15T08:00:00Z",
+	"operation_end_time": "2026-04-15T09:00:00Z"
+}
