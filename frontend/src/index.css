@@ -166,9 +166,84 @@ body {
   border-color: var(--accent);
 }
 
-/* ===== Кнопка отправки ===== */
-.submit-btn {
+/* ===== Кнопки ===== */
+/* Подсказка под полем */
+
+.panel-actions {
   margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.panel-actions-row {
+  display: flex;
+  gap: 8px;
+}
+
+.panel-actions-row .download-btn {
+  flex: 1;   /* делим поровну */
+}
+
+.download-btn {
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-h);
+  font-family: var(--sans);
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s, border-color 0.2s;
+}
+
+.download-btn:hover {
+  background: var(--code-bg);
+}
+
+.download-btn:active {
+  transform: scale(0.98);
+}
+
+.form-hint {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--text);
+  opacity: 0.7;
+}
+
+/* Контейнер для кнопок внизу панели */
+.panel-actions {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Вторичная кнопка — «Скачать» */
+.download-btn {
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-h);
+  font-family: var(--sans);
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s, border-color 0.2s;
+}
+
+.download-btn:hover {
+  background: var(--code-bg);
+}
+
+.download-btn:active {
+  transform: scale(0.98);
+}
+
+/* submit-btn — убираем margin-top: auto, теперь он не нужен (был на одиночной кнопке) */
+.submit-btn {
   height: 44px;
   border: none;
   border-radius: 8px;
@@ -215,11 +290,40 @@ body {
 }
 
 .uav-selector .uav-check input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
+  appearance: none;              /* отключаем браузерный стиль */
+  -webkit-appearance: none;      /* для Safari */
+  width: 18px;
+  height: 18px;
   flex-shrink: 0;
-  accent-color: var(--accent);
+
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg);
   cursor: pointer;
+  position: relative;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.uav-selector .uav-check input[type="checkbox"]:checked {
+  background: var(--accent);     /* ← фон выбранного чекбокса */
+  border-color: var(--accent);
+}
+
+.uav-selector .uav-check input[type="checkbox"]::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 2px;
+  width: 4px;
+  height: 8px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg) scale(0);
+  transition: transform 0.15s;
+}
+
+.uav-selector .uav-check input[type="checkbox"]:checked::after {
+  transform: rotate(45deg) scale(1);
 }
 
 /* Счётчик — как было */

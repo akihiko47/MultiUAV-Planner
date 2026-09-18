@@ -1,60 +1,33 @@
-import { MapContainer, TileLayer, Marker, Polygon, Popup, Polyline, LayersControl } from "react-leaflet"
-import { Icon } from "leaflet"
-import { GeomanControls } from "react-leaflet-geoman-v2"
+import { MapContainer, TileLayer, LayersControl } from "react-leaflet";
+import { GeomanControls } from "react-leaflet-geoman-v2";
 
-import SaveControl from "./SaveControl"
-import ZonesLayer from "./ZonesLayer"
+import { airportIcon } from "../utils/icons";
 
-import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css'  // для редактирования полигонов
+import ZonesLayer from "./ZonesLayer";
 
-import pinImg from "../img/pin.png"
-import airportImg from "../img/airport.png"
-import MouseCoordinates from "./MouseCoordinages"
+import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css';
 
-
-export default function MapView({ selectedUavs = [], surveyType = "RGB", optimization = "min_time"}) {
-
+export default function MapView({ mapRef }) {
   const center = [55.751244, 37.618423];
-  const zoom = 13;
-
-  const pinIcon = new Icon({
-    iconUrl: pinImg,
-    iconSize: [38, 38],
-    iconAnchor: [19, 38],
-  })
-
-  const airportIcon = new Icon({
-    iconUrl: airportImg,
-    iconSize: [38, 38],
-    iconAnchor: [19, 35],
-  })
+  const zoom = 11;
 
   return (
-    <MapContainer center={center} zoom={zoom} zoomControl={false}>
-
+    <MapContainer
+      ref={mapRef}
+      center={center}
+      zoom={zoom}
+      zoomControl={false}
+    >
       <LayersControl position="topleft">
-        <LayersControl.BaseLayer checked={true} name="Схема">
-          <TileLayer
-            url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-          />
+        <LayersControl.BaseLayer checked name="Схема">
+          <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' />
         </LayersControl.BaseLayer>
         <LayersControl.BaseLayer name="Спутник">
-          <TileLayer
-            url='https://tiles.stadiamaps.com/tiles/alidade_satellite/{z}/{x}/{y}{r}.jpg'
-          />
+          <TileLayer url='https://tiles.stadiamaps.com/tiles/alidade_satellite/{z}/{x}/{y}{r}.jpg' />
         </LayersControl.BaseLayer>
       </LayersControl>
-        
-      <SaveControl
-        label="Скачать JSON"
-        selectedUavs={selectedUavs}
-        surveyType={surveyType}
-        optimization={optimization}
-      />
 
-      <ZonesLayer/>
-      {/* <MouseCoordinates/> */}
-     
+      <ZonesLayer />
 
       <GeomanControls
         options={{
@@ -65,11 +38,9 @@ export default function MapView({ selectedUavs = [], surveyType = "RGB", optimiz
         globalOptions={{
           markerStyle: {
             icon: airportIcon,
-            text: "asdf"
           }
         }}
       />
-
     </MapContainer>
   );
 }

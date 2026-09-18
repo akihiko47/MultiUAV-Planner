@@ -1,7 +1,7 @@
+import { useRef } from 'react';
 import ThemeToggle from './ThemeToggle';
 import GithubButton from './GithubButton';
 import UavSelector from './UavSelector';
-
 
 export default function SidePanel({
   uavs,
@@ -16,7 +16,32 @@ export default function SidePanel({
   startDate,
   setStartDate,
   onSubmit,
+  onDownload,
+  onImport,
+  isSending
 }) {
+  const fileInputRef = useRef(null);
+
+  const handleFileChange = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      try {
+        const data = JSON.parse(ev.target.result);
+        onImport(data);
+      } catch (err) {
+        alert('Не удалось прочитать файл: ' + err.message);
+      }
+    };
+    reader.onerror = () => alert('Ошибка чтения файла');
+    reader.readAsText(file);
+
+    // Сбрасываем input, чтобы можно было выбрать тот же файл повторно
+    e.target.value = '';
+  };
+
   return (
     <aside className="side-panel">
       <div className="panel-header">
@@ -39,6 +64,11 @@ export default function SidePanel({
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}
         />
+        {!startDate && (
+          <small className="form-hint">
+            Не указано — будет использовано текущее время
+          </small>
+        )}
       </div>
 
       <div className="form-field">
@@ -60,9 +90,32 @@ export default function SidePanel({
         </select>
       </div>
 
-      <button className="submit-btn" onClick={onSubmit}>
-        Запустить расчёт
-      </button>
+      <div className="panel-actions">
+        <div className="panel-actions-row">
+          <button className="download-btn" onClick={onDownload}>
+            Экспорт JSON
+          </button>
+          <button
+            className="download-btn"
+            onClick={() => fileInputRef.current?.click()}
+          >
+            Импорт JSON
+          </button>
+        </div>
+
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept=".json,application/json"
+          onChange={handleFileChange}
+          style={{ display: 'none' }}
+        />
+
+        <button className="submit-btn" onClick={onSubmit} disabled={isSending}>
+          {isSending ? 'Считаем…' : 'Запустить расчёт'}
+        </button>
+        
+      </div>
     </aside>
   );
 }

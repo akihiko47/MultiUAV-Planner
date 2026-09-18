@@ -1,48 +1,56 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import './index.css';
 import 'leaflet/dist/leaflet.css';
 import MapView from './components/MapView';
 import SidePanel from './components/SidePanel';
 import uavsData from './data/uavs.json';
+import * as ops from './utils/operations';
 
 const UAVS = uavsData.uavs;
 const DEFAULT_UAV = UAVS[0].id;
 
 function App() {
+  const mapRef = useRef(null);
+
   const [selectedUavs, setSelectedUavs] = useState([DEFAULT_UAV]);
   const [uavCounts, setUavCounts] = useState({ [DEFAULT_UAV]: 2 });
   const [surveyType, setSurveyType] = useState('RGB');
   const [optimization, setOptimization] = useState('min_time');
   const [startDate, setStartDate] = useState('');
+  const [isSending, setIsSending] = useState(false);
 
-  const handleSubmit = () => {
-    const uavs = selectedUavs.map((id) => {
-      const uav = UAVS.find((u) => u.id === id);
-      return {
-        id,
-        name: uav?.name,
-        count: Math.max(1, Number(uavCounts[id]) || 1),
-      };
-    });
+  // Собираем все настройки в один объект — чтобы не передавать их по одному
+  const settings = {
+    selectedUavs, uavCounts, surveyType, optimization, startDate,
+  };
 
-    const payload = {
-      uavs,
-      survey_type: surveyType,
-      optimization,
-      start_date: startDate ? new Date(startDate).toISOString() : null,
-    };
+  // Обёртки, которые связывают функции из operations.js с состоянием App
+  const onDownload = () => ops.handleDownload(mapRef, settings);
 
-    console.log('Отправляем:', payload);
+  const onSubmit = async () => {
+    setIsSending(true);
+    try {
+      await ops.handleSubmit(mapRef, settings);
+    } finally {
+      setIsSending(false);
+    }
+  };
+
+  const onImport = (plan) => {
+    const updates = ops.handleImport(mapRef, plan);
+
+    // Применяем обновления формы
+    if (updates.selectedUavs) setSelectedUavs(updates.selectedUavs);
+    if (updates.uavCounts) setUavCounts(updates.uavCounts);
+    if (updates.surveyType) setSurveyType(updates.surveyType);
+    if (updates.optimization) setOptimization(updates.optimization);
+    if (updates.startDate) setStartDate(updates.startDate);
   };
 
   return (
     <div className="app">
       <div className="map-area">
-        <MapView
-          selectedUavs={selectedUavs}
-          surveyType={surveyType}
-          optimization={optimization}
-        />
+        <MapView mapRef={mapRef} />
       </div>
 
       <SidePanel
@@ -57,7 +65,10 @@ function App() {
         setOptimization={setOptimization}
         startDate={startDate}
         setStartDate={setStartDate}
-        onSubmit={handleSubmit}
+        onSubmit={onSubmit}
+        onDownload={onDownload}
+        onImport={onImport}
+        isSending={isSending}
       />
     </div>
   );
