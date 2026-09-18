@@ -1,353 +1,604 @@
-/* ===== Переменные темы ===== */
+/* =========================================
+   ПЕРЕМЕННЫЕ ТЕМЫ
+   ========================================= */
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #c084fc;
-  --panel-bg: #fafafa;
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --text: #475569;
+  --text-h: #0f172a;
+  --bg: #f1f5f9;
+  --panel-bg: #ffffff;
+  --border: #cbd5e1;
+  --input-bg: #ffffff;
+  --code-bg: #e2e8f0;
+  
+  --accent: #0ea5e9;
+  --accent-hover: #0284c7;
+  
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: -4px 0 24px rgba(0, 0, 0, 0.08);
+  --radius: 10px;
+  --radius-sm: 8px;
+  
+  --height-input: 42px;
+  --height-btn: 44px;
+  --height-btn-main: 48px;
+  
+  --sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --heading: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   color-scheme: light;
 }
 
 body.dark {
-  --text: #9ca3af;
-  --text-h: #f3f4f6;
-  --bg: #16171d;
-  --border: #2e303a;
-  --code-bg: #1f2028;
-  --accent: #c084fc;
-  --panel-bg: #1f2028;
+  --text: #94a3b8;
+  --text-h: #f8fafc;
+  --bg: #0f172a;
+  --panel-bg: #1e293b;
+  --border: #334155;
+  --input-bg: #0f172a;
+  --code-bg: #334155;
+  
+  --accent: #38bdf8;
+  --accent-hover: #7dd3fc;
+  
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+  --shadow-lg: -4px 0 24px rgba(0, 0, 0, 0.6);
   color-scheme: dark;
 }
 
-/* ===== Базовый сброс ===== */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html, body, #root {
-  height: 100%;
-}
+/* =========================================
+   БАЗОВЫЙ СБРОС
+   ========================================= */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body, #root { height: 100%; }
 
 body {
-  font: 16px/145% var(--sans);
+  font: 15px/1.5 var(--sans);
   background: var(--bg);
+  color: var(--text);
   transition: background-color 0.3s ease, color 0.3s ease;
   -webkit-font-smoothing: antialiased;
 }
 
-/* ===== Раскладка приложения ===== */
-.app {
-  display: flex;
-  height: 100vh;
-}
-
-.map-area {
-  flex: 1;
-  height: 100%;
-  isolation: isolate;
-}
+/* =========================================
+   РАСКЛАДКА
+   ========================================= */
+.app { display: flex; height: 100vh; }
+.map-area { flex: 1; height: 100%; isolation: isolate; }
 
 .side-panel {
-  width: 340px;
+  width: 370px;
   height: 100%;
-  padding: 16px;
+  padding: 24px;
   background: var(--panel-bg);
   border-left: 1px solid var(--border);
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
   transition: background 0.3s ease, border-color 0.3s ease;
-  box-shadow: -6px 0 16px rgba(0, 0, 0, 0.32);
+  box-shadow: var(--shadow-lg);
   position: relative;
   z-index: 10;
 }
 
-/* ===== Leaflet ===== */
-.leaflet-container {
-  height: 100%;
-  width: 100%;
-}
+.side-panel::-webkit-scrollbar { width: 6px; }
+.side-panel::-webkit-scrollbar-track { background: transparent; }
+.side-panel::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+.side-panel::-webkit-scrollbar-thumb:hover { background: var(--text); }
 
-.leaflet-control-attribution {
-  display: none;
-}
-
-/* ===== Кнопки в шапке панели ===== */
+/* =========================================
+   HEADER: Шапка панели
+   ========================================= */
 .panel-header {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
-  gap: 8px;
-}
-
-.theme-toggle-btn,
-.github-btn {
-  height: 36px;
-  padding: 0 16px;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  font-family: var(--sans);
-  font-size: 14px;
-  cursor: pointer;
-  text-decoration: none;
-  white-space: nowrap;
-  transition: background 0.2s, transform 0.1s, color 0.3s, border-color 0.3s;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 4px;
 }
 
 .theme-toggle-btn {
-  min-width: 90px;
+  height: 36px;
+  padding: 0 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
   background: transparent;
   color: var(--text-h);
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-.theme-toggle-btn:hover,
-.github-btn:hover {
-  background: var(--code-bg);
+.theme-toggle-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  transition: all 0.4s ease;
 }
 
-.theme-toggle-btn:active {
-  transform: scale(0.98);
+.theme-toggle-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(14, 165, 233, 0.05);
 }
+
+.theme-toggle-btn:hover::after { left: 150%; }
+.theme-toggle-btn:active { transform: scale(0.98); }
 
 .github-btn {
-  background: transparent;
-  color: var(--text-h);
+  height: 36px;
+  padding: 0 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  background: #24292e;
+  color: #ffffff;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
 }
 
-/* ===== Заголовки блоков в панели ===== */
-.form-field h3,
-.uav-selector h3 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
-  font-size: 15px;
-  margin-bottom: 8px;
+body.dark .github-btn {
+  background: #f0f6fc;
+  color: #0f172a;
 }
 
-/* ===== Блоки формы ===== */
+.github-btn:hover {
+  background: #1b1f23;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+body.dark .github-btn:hover { background: #ffffff; }
+.github-btn:active { transform: translateY(0); }
+.github-btn svg { width: 16px; height: 16px; fill: currentColor; }
+
+/* =========================================
+   CONTENT: Основной контент
+   ========================================= */
+.form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+}
+
 .form-field,
 .uav-selector {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
+  background: var(--bg);
+  padding: 16px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.2s;
 }
 
-/* ===== Селекты и инпуты — единый стиль ===== */
+.form-field:hover,
+.uav-selector:hover { border-color: var(--text); }
+
+.form-field h3,
+.uav-selector h3 {
+  font-family: var(--heading);
+  font-weight: 600;
+  color: var(--text-h);
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.form-field h3 { padding-left: 14px; }
+
+/* --- Селекты и инпуты --- */
 .form-field select,
 .form-field input {
   width: 100%;
-  height: 36px;
-  padding: 0 10px;
+  height: var(--height-input);
+  padding: 0 14px;
   border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--bg);
+  border-radius: var(--radius-sm);
+  background: var(--input-bg);
   color: var(--text-h);
   font-family: var(--sans);
   font-size: 14px;
   cursor: pointer;
-  transition: border-color 0.2s;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  padding-right: 40px;
+}
+
+body.dark .form-field select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+}
+
+.form-field select::selection { background: transparent; }
+
+.form-field select option {
+  background-color: var(--panel-bg);
+  color: var(--text-h);
+  padding: 10px;
 }
 
 .form-field select:focus,
 .form-field input:focus {
   outline: none;
   border-color: var(--accent);
-}
-
-/* ===== Кнопки ===== */
-/* Подсказка под полем */
-
-.panel-actions {
-  margin-top: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.panel-actions-row {
-  display: flex;
-  gap: 8px;
-}
-
-.panel-actions-row .download-btn {
-  flex: 1;   /* делим поровну */
-}
-
-.download-btn {
-  height: 40px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  background: transparent;
-  color: var(--text-h);
-  font-family: var(--sans);
-  font-size: 13px;
-  cursor: pointer;
-  transition: background 0.2s, transform 0.1s, border-color 0.2s;
-}
-
-.download-btn:hover {
-  background: var(--code-bg);
-}
-
-.download-btn:active {
-  transform: scale(0.98);
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
 }
 
 .form-hint {
   display: block;
-  margin-top: 4px;
+  margin-top: 6px;
   font-size: 12px;
   color: var(--text);
   opacity: 0.7;
+  line-height: 1.4;
 }
 
-/* Контейнер для кнопок внизу панели */
-.panel-actions {
-  margin-top: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-/* Вторичная кнопка — «Скачать» */
-.download-btn {
-  height: 40px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  background: transparent;
-  color: var(--text-h);
-  font-family: var(--sans);
-  font-size: 14px;
-  cursor: pointer;
-  transition: background 0.2s, transform 0.1s, border-color 0.2s;
-}
-
-.download-btn:hover {
-  background: var(--code-bg);
-}
-
-.download-btn:active {
-  transform: scale(0.98);
-}
-
-/* submit-btn — убираем margin-top: auto, теперь он не нужен (был на одиночной кнопке) */
-.submit-btn {
-  height: 44px;
-  border: none;
-  border-radius: 8px;
-  background: var(--accent);
-  color: #fff;
-  font-family: var(--sans);
-  font-size: 15px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: filter 0.2s, transform 0.1s;
-}
-
-.submit-btn:hover {
-  filter: brightness(0.9);
-}
-
-.submit-btn:active {
-  transform: scale(0.98);
-}
-
-/* UAV Селекторы */
-
+/* --- UAV Селекторы --- */
 .uav-selector .uav-item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  height: 36px;
+  justify-content: space-between;
+  gap: 12px;
+  height: var(--height-input);
   font-size: 14px;
 }
 
 .uav-selector .uav-check {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   flex: 1;
   height: 100%;
   cursor: pointer;
   color: var(--text);
+  transition: color 0.2s;
 }
+
+.uav-selector .uav-check:hover { color: var(--text-h); }
 
 .uav-selector .uav-check span {
   color: var(--text-h);
   line-height: 1;
+  font-weight: 500;
 }
 
 .uav-selector .uav-check input[type="checkbox"] {
-  appearance: none;              /* отключаем браузерный стиль */
-  -webkit-appearance: none;      /* для Safari */
-  width: 18px;
-  height: 18px;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
   flex-shrink: 0;
-
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  background: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  background: var(--input-bg);
   cursor: pointer;
   position: relative;
-  transition: background 0.15s, border-color 0.15s;
+  transition: all 0.2s ease;
 }
 
+.uav-selector .uav-check input[type="checkbox"]:hover { border-color: var(--accent); }
+
 .uav-selector .uav-check input[type="checkbox"]:checked {
-  background: var(--accent);     /* ← фон выбранного чекбокса */
+  background: var(--accent);
   border-color: var(--accent);
+  box-shadow: 0 0 8px rgba(14, 165, 233, 0.4);
 }
 
 .uav-selector .uav-check input[type="checkbox"]::after {
   content: '';
   position: absolute;
-  left: 5px;
+  left: 6px;
   top: 2px;
   width: 4px;
-  height: 8px;
+  height: 9px;
   border: solid #fff;
   border-width: 0 2px 2px 0;
   transform: rotate(45deg) scale(0);
-  transition: transform 0.15s;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .uav-selector .uav-check input[type="checkbox"]:checked::after {
   transform: rotate(45deg) scale(1);
 }
 
-/* Счётчик — как было */
 .uav-selector .uav-count {
-  width: 64px;
-  height: 32px;
+  width: 60px;
+  height: 34px;
   padding: 0 8px;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--border);
-  background: var(--bg);
+  background: var(--input-bg);
   color: var(--text-h);
   font-family: var(--sans);
   font-size: 14px;
+  font-weight: 600;
   text-align: center;
-  cursor: text;
-  transition: border-color 0.2s;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .uav-selector .uav-count:focus {
   outline: none;
   border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
 }
 
-/* Фикс изменения цвета при смене темы */
-.save-marks-btn {
-  color: #16171d;
+/* =========================================
+   FOOTER: Нижняя панель действий
+   ========================================= */
+.panel-actions {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.panel-actions-row { display: flex; gap: 12px; }
+.panel-actions-row .download-btn { flex: 1; }
+
+.download-btn {
+  height: var(--height-btn);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-h);
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+}
+
+.download-btn:hover {
+  background: var(--code-bg);
+  border-color: var(--text);
+  transform: translateY(-1px);
+}
+
+.download-btn:active { transform: translateY(0); }
+
+.submit-btn {
+  height: var(--height-btn-main);
+  border: none;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--accent) 0%, #3b82f6 100%);
+  color: #fff;
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  box-shadow: 0 4px 14px 0 rgba(14, 165, 233, 0.4);
+  transition: all 0.2s ease;
+}
+
+.submit-btn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px 0 rgba(14, 165, 233, 0.5);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px 0 rgba(14, 165, 233, 0.4);
+}
+
+.save-marks-btn { color: var(--text-h); }
+
+/* =========================================
+   LEAFLET & GEOMAN
+   ========================================= */
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+  font-family: var(--sans) !important;
+  background: var(--bg) !important;
+}
+
+.leaflet-control-attribution { display: none; }
+
+/* --- Контейнер панели инструментов (единый блок) --- */
+.leaflet-bar,
+.leaflet-pm-toolbar {
+  background: var(--panel-bg) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-sm) !important;
+  box-shadow: var(--shadow-md) !important;
+  overflow: hidden !important;
+}
+
+/* --- Кнопки внутри панели (просто ячейки) --- */
+.leaflet-bar a,
+.leaflet-pm-toolbar .leaflet-buttons-control-button {
+  width: 40px !important;
+  height: 40px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background-color: var(--panel-bg) !important;
+  border: none !important;
+  border-bottom: 1px solid var(--border) !important;
+  border-radius: 0 !important;
+  transition: background-color 0.2s ease !important;
+  position: relative;
+}
+
+.leaflet-bar a:last-child,
+.leaflet-pm-toolbar .leaflet-buttons-control-button:last-child {
+  border-bottom: none !important;
+}
+
+.leaflet-bar a:hover,
+.leaflet-pm-toolbar .leaflet-buttons-control-button:hover,
+.leaflet-bar a.active,
+.leaflet-pm-toolbar .leaflet-buttons-control-button.active {
+  background-color: var(--accent) !important;
+}
+
+/* --- Перекрашивание иконок (через filter, работает везде) --- */
+/* Светлая тема: темные иконки */
+.leaflet-bar a > i,
+.leaflet-bar a > span,
+.leaflet-bar a > svg,
+.leaflet-bar a > div,
+.leaflet-pm-toolbar .leaflet-buttons-control-button > i,
+.leaflet-pm-toolbar .leaflet-buttons-control-button > span,
+.leaflet-pm-toolbar .leaflet-buttons-control-button > svg,
+.leaflet-pm-toolbar .leaflet-buttons-control-button > div,
+.leaflet-pm-toolbar [class*="leaflet-pm-icon"] {
+  filter: brightness(0) opacity(0.75) !important;
+  transition: filter 0.2s ease !important;
+}
+
+/* Темная тема: белые иконки */
+body.dark .leaflet-bar a > i,
+body.dark .leaflet-bar a > span,
+body.dark .leaflet-bar a > svg,
+body.dark .leaflet-bar a > div,
+body.dark .leaflet-pm-toolbar .leaflet-buttons-control-button > i,
+body.dark .leaflet-pm-toolbar .leaflet-buttons-control-button > span,
+body.dark .leaflet-pm-toolbar .leaflet-buttons-control-button > svg,
+body.dark .leaflet-pm-toolbar .leaflet-buttons-control-button > div,
+body.dark .leaflet-pm-toolbar [class*="leaflet-pm-icon"] {
+  filter: brightness(0) invert(1) !important;
+}
+
+/* Ховер/актив: иконки чисто белые */
+.leaflet-bar a:hover > i,
+.leaflet-bar a:hover > span,
+.leaflet-bar a:hover > svg,
+.leaflet-bar a:hover > div,
+.leaflet-bar a.active > i,
+.leaflet-bar a.active > span,
+.leaflet-bar a.active > svg,
+.leaflet-bar a.active > div,
+.leaflet-pm-toolbar .leaflet-buttons-control-button:hover > i,
+.leaflet-pm-toolbar .leaflet-buttons-control-button:hover > span,
+.leaflet-pm-toolbar .leaflet-buttons-control-button:hover > svg,
+.leaflet-pm-toolbar .leaflet-buttons-control-button:hover > div,
+.leaflet-pm-toolbar .leaflet-buttons-control-button.active > i,
+.leaflet-pm-toolbar .leaflet-buttons-control-button.active > span,
+.leaflet-pm-toolbar .leaflet-buttons-control-button.active > svg,
+.leaflet-pm-toolbar .leaflet-buttons-control-button.active > div,
+.leaflet-pm-toolbar .leaflet-buttons-control-button:hover [class*="leaflet-pm-icon"],
+.leaflet-pm-toolbar .leaflet-buttons-control-button.active [class*="leaflet-pm-icon"] {
+  filter: brightness(0) invert(1) !important;
+}
+
+/* --- Кнопка выбора слоев --- */
+.leaflet-control-layers {
+  background: var(--panel-bg) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-sm) !important;
+  box-shadow: var(--shadow-md) !important;
+  overflow: hidden !important; /* Обрезает всё внутри по скругленным углам */
+}
+
+.leaflet-control-layers-toggle {
+  background-color: var(--panel-bg) !important;
+  width: 40px !important;
+  height: 40px !important;
+  background-size: 22px 22px !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  border-radius: var(--radius-sm) !important; /* Скругляем саму кнопку */
+  box-shadow: none !important; /* Убираем возможные тени */
+  outline: none !important; /* Убираем стандартную обводку при фокусе */
+  
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230f172a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolygon points='12 2 2 7 12 12 22 7 12 2'%3E%3C/polygon%3E%3Cpolyline points='2 12 12 17 22 12'%3E%3C/polyline%3E%3Cpolyline points='2 17 12 22 22 17'%3E%3C/polyline%3E%3C/svg%3E") !important;
+}
+
+body.dark .leaflet-control-layers-toggle {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f8fafc' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolygon points='12 2 2 7 12 12 22 7 12 2'%3E%3C/polygon%3E%3Cpolyline points='2 12 12 17 22 12'%3E%3C/polyline%3E%3Cpolyline points='2 17 12 22 22 17'%3E%3C/polyline%3E%3C/svg%3E") !important;
+}
+
+/* --- Развернутый список слоев --- */
+.leaflet-control-layers-expanded {
+  padding: 12px !important;
+  background: var(--panel-bg) !important;
+  color: var(--text-h) !important;
+  border-radius: var(--radius-sm) !important;
+  min-width: 130px;
+}
+
+.leaflet-control-layers label {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 8px !important;
+  margin: 0 0 8px 0 !important;
+  padding: 0 !important;
+  color: var(--text-h) !important;
+  font-family: var(--sans) !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  line-height: 1.2 !important;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.leaflet-control-layers label:last-child {
+  margin-bottom: 0 !important;
+}
+
+.leaflet-control-layers label span {
+  margin: 0 !important;
+  padding: 0 !important;
+  position: static !important;
+  line-height: 1.2 !important;
+  display: inline !important;
+}
+
+/* Радиокнопка — сбрасываем всё, что навесил Leaflet */
+.leaflet-control-layers input[type="radio"],
+.leaflet-control-layers input[type="checkbox"],
+.leaflet-control-layers .leaflet-control-layers-selector {
+  position: static !important;
+  top: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 16px !important;
+  height: 16px !important;
+  flex: 0 0 16px !important;
+  accent-color: var(--accent) !important;
+  cursor: pointer;
 }
