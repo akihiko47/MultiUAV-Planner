@@ -4,10 +4,11 @@ import { GeomanControls } from "react-leaflet-geoman-v2";
 import { airportIcon } from "../utils/icons";
 
 import ZonesLayer from "./ZonesLayer";
+import RoutesLayer from "./RoutesLayer";
 
 import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css';
 
-export default function MapView({ mapRef }) {
+export default function MapView({ mapRef, assignments, hiddenRoutes }) {
   const center = [55.751244, 37.618423];
   const zoom = 11;
 
@@ -28,6 +29,7 @@ export default function MapView({ mapRef }) {
       </LayersControl>
 
       <ZonesLayer />
+      <RoutesLayer assignments={assignments} hiddenRoutes={hiddenRoutes} />
 
       <GeomanControls
         options={{

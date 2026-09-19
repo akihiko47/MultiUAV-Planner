@@ -9,20 +9,21 @@
   --border: #cbd5e1;
   --input-bg: #ffffff;
   --code-bg: #e2e8f0;
-  
+
   --accent: #0ea5e9;
   --accent-hover: #0284c7;
-  
+
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   --shadow-lg: -4px 0 24px rgba(0, 0, 0, 0.08);
   --radius: 10px;
   --radius-sm: 8px;
-  
-  --height-input: 42px;
-  --height-btn: 44px;
-  --height-btn-main: 48px;
-  
+
+  /* Компактнее: было 42/44/48 */
+  --height-input: 38px;
+  --height-btn: 38px;
+  --height-btn-main: 44px;
+
   --sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --heading: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   color-scheme: light;
@@ -36,10 +37,10 @@ body.dark {
   --border: #334155;
   --input-bg: #0f172a;
   --code-bg: #334155;
-  
+
   --accent: #38bdf8;
   --accent-hover: #7dd3fc;
-  
+
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
   --shadow-lg: -4px 0 24px rgba(0, 0, 0, 0.6);
@@ -53,7 +54,7 @@ body.dark {
 html, body, #root { height: 100%; }
 
 body {
-  font: 15px/1.5 var(--sans);
+  font: 14px/1.5 var(--sans);
   background: var(--bg);
   color: var(--text);
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -67,15 +68,15 @@ body {
 .map-area { flex: 1; height: 100%; isolation: isolate; }
 
 .side-panel {
-  width: 370px;
+  width: 360px;
   height: 100%;
-  padding: 24px;
+  padding: 18px;
   background: var(--panel-bg);
   border-left: 1px solid var(--border);
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
   transition: background 0.3s ease, border-color 0.3s ease;
   box-shadow: var(--shadow-lg);
   position: relative;
@@ -95,14 +96,13 @@ body {
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-  padding-bottom: 16px;
+  padding-bottom: 12px;
   border-bottom: 1px solid var(--border);
-  margin-bottom: 4px;
 }
 
 .theme-toggle-btn {
-  height: 36px;
-  padding: 0 16px;
+  height: 32px;
+  padding: 0 14px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -141,8 +141,8 @@ body {
 .theme-toggle-btn:active { transform: scale(0.98); }
 
 .github-btn {
-  height: 36px;
-  padding: 0 16px;
+  height: 32px;
+  padding: 0 14px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -174,25 +174,19 @@ body.dark .github-btn {
 
 body.dark .github-btn:hover { background: #ffffff; }
 .github-btn:active { transform: translateY(0); }
-.github-btn svg { width: 16px; height: 16px; fill: currentColor; }
+.github-btn svg { width: 14px; height: 14px; fill: currentColor; }
 
 /* =========================================
-   CONTENT: Основной контент
+   КАРТОЧКИ ФОРМЫ (общий контейнер)
    ========================================= */
-.form-content {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  flex: 1;
-}
-
 .form-field,
-.uav-selector {
+.uav-selector,
+.routes-panel {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
   background: var(--bg);
-  padding: 16px;
+  padding: 12px 14px 14px;
   border-radius: var(--radius);
   border: 1px solid var(--border);
   box-shadow: var(--shadow-sm);
@@ -200,52 +194,52 @@ body.dark .github-btn:hover { background: #ffffff; }
 }
 
 .form-field:hover,
-.uav-selector:hover { border-color: var(--text); }
+.uav-selector:hover,
+.routes-panel:hover { border-color: var(--text); }
 
 .form-field h3,
-.uav-selector h3 {
+.uav-selector h3,
+.routes-panel h3 {
   font-family: var(--heading);
   font-weight: 600;
   color: var(--text-h);
-  font-size: 13px;
-  letter-spacing: 0.05em;
-  margin-bottom: 8px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
   text-transform: uppercase;
-  opacity: 0.8;
+  opacity: 0.7;
 }
 
-.form-field h3 { padding-left: 14px; }
-
-/* --- Селекты и инпуты --- */
+/* =========================================
+   ИНПУТЫ И СЕЛЕКТЫ
+   ========================================= */
 .form-field select,
 .form-field input {
   width: 100%;
   height: var(--height-input);
-  padding: 0 14px;
+  padding: 0 12px;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   background: var(--input-bg);
   color: var(--text-h);
   font-family: var(--sans);
-  font-size: 14px;
+  font-size: 13px;
   cursor: pointer;
   box-shadow: var(--shadow-sm);
   transition: border-color 0.2s, box-shadow 0.2s;
-  
+
   appearance: none;
   -webkit-appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 12px center;
-  background-size: 16px;
-  padding-right: 40px;
+  background-size: 14px;
+  padding-right: 36px;
 }
 
 body.dark .form-field select {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
 }
-
-.form-field select::selection { background: transparent; }
 
 .form-field select option {
   background-color: var(--panel-bg);
@@ -257,26 +251,77 @@ body.dark .form-field select {
 .form-field input:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.18);
 }
 
 .form-hint {
   display: block;
-  margin-top: 6px;
-  font-size: 12px;
+  margin-top: 4px;
+  font-size: 11px;
   color: var(--text);
-  opacity: 0.7;
+  opacity: 0.65;
   line-height: 1.4;
 }
 
-/* --- UAV Селекторы --- */
+/* =========================================
+   ЕДИНЫЙ ЧЕКБОКС (для UAV и маршрутов)
+   ========================================= */
+.uav-selector .uav-check input[type="checkbox"],
+.routes-panel .route-item input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  border: 2px solid var(--border);
+  border-radius: 5px;
+  background: var(--input-bg);
+  cursor: pointer;
+  position: relative;
+  transition: all 0.18s ease;
+}
+
+.uav-selector .uav-check input[type="checkbox"]:hover,
+.routes-panel .route-item input[type="checkbox"]:hover {
+  border-color: var(--accent);
+}
+
+.uav-selector .uav-check input[type="checkbox"]:checked,
+.routes-panel .route-item input[type="checkbox"]:checked {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 6px rgba(14, 165, 233, 0.35);
+}
+
+.uav-selector .uav-check input[type="checkbox"]::after,
+.routes-panel .route-item input[type="checkbox"]::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  width: 4px;
+  height: 8px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg) scale(0);
+  transition: transform 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.uav-selector .uav-check input[type="checkbox"]:checked::after,
+.routes-panel .route-item input[type="checkbox"]:checked::after {
+  transform: rotate(45deg) scale(1);
+}
+
+/* =========================================
+   UAV SELECTOR
+   ========================================= */
 .uav-selector .uav-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  height: var(--height-input);
-  font-size: 14px;
+  gap: 10px;
+  height: 34px;
+  font-size: 13px;
 }
 
 .uav-selector .uav-check {
@@ -298,55 +343,16 @@ body.dark .form-field select {
   font-weight: 500;
 }
 
-.uav-selector .uav-check input[type="checkbox"] {
-  appearance: none;
-  -webkit-appearance: none;
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-  border: 2px solid var(--border);
-  border-radius: 6px;
-  background: var(--input-bg);
-  cursor: pointer;
-  position: relative;
-  transition: all 0.2s ease;
-}
-
-.uav-selector .uav-check input[type="checkbox"]:hover { border-color: var(--accent); }
-
-.uav-selector .uav-check input[type="checkbox"]:checked {
-  background: var(--accent);
-  border-color: var(--accent);
-  box-shadow: 0 0 8px rgba(14, 165, 233, 0.4);
-}
-
-.uav-selector .uav-check input[type="checkbox"]::after {
-  content: '';
-  position: absolute;
-  left: 6px;
-  top: 2px;
-  width: 4px;
-  height: 9px;
-  border: solid #fff;
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg) scale(0);
-  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.uav-selector .uav-check input[type="checkbox"]:checked::after {
-  transform: rotate(45deg) scale(1);
-}
-
 .uav-selector .uav-count {
-  width: 60px;
-  height: 34px;
-  padding: 0 8px;
+  width: 56px;
+  height: 30px;
+  padding: 0 6px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
   background: var(--input-bg);
   color: var(--text-h);
   font-family: var(--sans);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   text-align: center;
   box-shadow: var(--shadow-sm);
@@ -356,7 +362,60 @@ body.dark .form-field select {
 .uav-selector .uav-count:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.18);
+}
+
+/* =========================================
+   ROUTES PANEL
+   ========================================= */
+.routes-empty {
+  font-size: 12px;
+  color: var(--text);
+  opacity: 0.65;
+  padding: 0;
+  line-height: 1.4;
+}
+
+.route-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 30px;
+  padding: 0 6px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.route-item:hover { background: var(--code-bg); }
+
+.route-swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
+}
+
+.route-label {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+  color: var(--text-h);
+  font-weight: 500;
+}
+
+.route-type {
+  font-size: 11px;
+  color: var(--text);
+  opacity: 0.7;
+  font-weight: 400;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* =========================================
@@ -366,12 +425,12 @@ body.dark .form-field select {
   margin-top: auto;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding-top: 20px;
+  gap: 10px;
+  padding-top: 16px;
   border-top: 1px solid var(--border);
 }
 
-.panel-actions-row { display: flex; gap: 12px; }
+.panel-actions-row { display: flex; gap: 10px; }
 .panel-actions-row .download-btn { flex: 1; }
 
 .download-btn {
@@ -381,7 +440,7 @@ body.dark .form-field select {
   background: var(--bg);
   color: var(--text-h);
   font-family: var(--sans);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   cursor: pointer;
   box-shadow: var(--shadow-sm);
@@ -403,26 +462,30 @@ body.dark .form-field select {
   background: linear-gradient(135deg, var(--accent) 0%, #3b82f6 100%);
   color: #fff;
   font-family: var(--sans);
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.02em;
   cursor: pointer;
-  box-shadow: 0 4px 14px 0 rgba(14, 165, 233, 0.4);
+  box-shadow: 0 4px 14px 0 rgba(14, 165, 233, 0.35);
   transition: all 0.2s ease;
 }
 
-.submit-btn:hover {
+.submit-btn:hover:not(:disabled) {
   filter: brightness(1.1);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px 0 rgba(14, 165, 233, 0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px 0 rgba(14, 165, 233, 0.45);
 }
 
-.submit-btn:active {
+.submit-btn:active:not(:disabled) {
   transform: translateY(0);
   box-shadow: 0 2px 8px 0 rgba(14, 165, 233, 0.4);
 }
 
-.save-marks-btn { color: var(--text-h); }
+.submit-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  filter: grayscale(0.2);
+}
 
 /* =========================================
    LEAFLET & GEOMAN
@@ -436,7 +499,7 @@ body.dark .form-field select {
 
 .leaflet-control-attribution { display: none; }
 
-/* --- Контейнер панели инструментов (единый блок) --- */
+/* --- Контейнер панели инструментов --- */
 .leaflet-bar,
 .leaflet-pm-toolbar {
   background: var(--panel-bg) !important;
@@ -446,11 +509,11 @@ body.dark .form-field select {
   overflow: hidden !important;
 }
 
-/* --- Кнопки внутри панели (просто ячейки) --- */
+/* --- Кнопки внутри панели --- */
 .leaflet-bar a,
 .leaflet-pm-toolbar .leaflet-buttons-control-button {
-  width: 40px !important;
-  height: 40px !important;
+  width: 34px !important;
+  height: 34px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -474,8 +537,7 @@ body.dark .form-field select {
   background-color: var(--accent) !important;
 }
 
-/* --- Перекрашивание иконок (через filter, работает везде) --- */
-/* Светлая тема: темные иконки */
+/* --- Перекрашивание иконок --- */
 .leaflet-bar a > i,
 .leaflet-bar a > span,
 .leaflet-bar a > svg,
@@ -489,7 +551,6 @@ body.dark .form-field select {
   transition: filter 0.2s ease !important;
 }
 
-/* Темная тема: белые иконки */
 body.dark .leaflet-bar a > i,
 body.dark .leaflet-bar a > span,
 body.dark .leaflet-bar a > svg,
@@ -502,7 +563,6 @@ body.dark .leaflet-pm-toolbar [class*="leaflet-pm-icon"] {
   filter: brightness(0) invert(1) !important;
 }
 
-/* Ховер/актив: иконки чисто белые */
 .leaflet-bar a:hover > i,
 .leaflet-bar a:hover > span,
 .leaflet-bar a:hover > svg,
@@ -524,26 +584,26 @@ body.dark .leaflet-pm-toolbar [class*="leaflet-pm-icon"] {
   filter: brightness(0) invert(1) !important;
 }
 
-/* --- Кнопка выбора слоев --- */
+/* --- Кнопка выбора слоёв --- */
 .leaflet-control-layers {
   background: var(--panel-bg) !important;
   border: 1px solid var(--border) !important;
   border-radius: var(--radius-sm) !important;
   box-shadow: var(--shadow-md) !important;
-  overflow: hidden !important; /* Обрезает всё внутри по скругленным углам */
+  overflow: hidden !important;
 }
 
 .leaflet-control-layers-toggle {
   background-color: var(--panel-bg) !important;
-  width: 40px !important;
-  height: 40px !important;
-  background-size: 22px 22px !important;
+  width: 34px !important;
+  height: 34px !important;
+  background-size: 18px 18px !important;
   background-position: center !important;
   background-repeat: no-repeat !important;
-  border-radius: var(--radius-sm) !important; /* Скругляем саму кнопку */
-  box-shadow: none !important; /* Убираем возможные тени */
-  outline: none !important; /* Убираем стандартную обводку при фокусе */
-  
+  border-radius: var(--radius-sm) !important;
+  box-shadow: none !important;
+  outline: none !important;
+
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230f172a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolygon points='12 2 2 7 12 12 22 7 12 2'%3E%3C/polygon%3E%3Cpolyline points='2 12 12 17 22 12'%3E%3C/polyline%3E%3Cpolyline points='2 17 12 22 22 17'%3E%3C/polyline%3E%3C/svg%3E") !important;
 }
 
@@ -551,9 +611,9 @@ body.dark .leaflet-control-layers-toggle {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f8fafc' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolygon points='12 2 2 7 12 12 22 7 12 2'%3E%3C/polygon%3E%3Cpolyline points='2 12 12 17 22 12'%3E%3C/polyline%3E%3Cpolyline points='2 17 12 22 22 17'%3E%3C/polyline%3E%3C/svg%3E") !important;
 }
 
-/* --- Развернутый список слоев --- */
+/* --- Развёрнутый список слоёв --- */
 .leaflet-control-layers-expanded {
-  padding: 12px !important;
+  padding: 10px 12px !important;
   background: var(--panel-bg) !important;
   color: var(--text-h) !important;
   border-radius: var(--radius-sm) !important;
@@ -565,20 +625,18 @@ body.dark .leaflet-control-layers-toggle {
   align-items: center !important;
   justify-content: flex-start !important;
   gap: 8px !important;
-  margin: 0 0 8px 0 !important;
+  margin: 0 0 6px 0 !important;
   padding: 0 !important;
   color: var(--text-h) !important;
   font-family: var(--sans) !important;
-  font-size: 14px !important;
+  font-size: 13px !important;
   font-weight: 500 !important;
   line-height: 1.2 !important;
   cursor: pointer;
   transition: color 0.2s;
 }
 
-.leaflet-control-layers label:last-child {
-  margin-bottom: 0 !important;
-}
+.leaflet-control-layers label:last-child { margin-bottom: 0 !important; }
 
 .leaflet-control-layers label span {
   margin: 0 !important;
@@ -588,7 +646,6 @@ body.dark .leaflet-control-layers-toggle {
   display: inline !important;
 }
 
-/* Радиокнопка — сбрасываем всё, что навесил Leaflet */
 .leaflet-control-layers input[type="radio"],
 .leaflet-control-layers input[type="checkbox"],
 .leaflet-control-layers .leaflet-control-layers-selector {
@@ -596,9 +653,9 @@ body.dark .leaflet-control-layers-toggle {
   top: auto !important;
   margin: 0 !important;
   padding: 0 !important;
-  width: 16px !important;
-  height: 16px !important;
-  flex: 0 0 16px !important;
+  width: 14px !important;
+  height: 14px !important;
+  flex: 0 0 14px !important;
   accent-color: var(--accent) !important;
   cursor: pointer;
 }

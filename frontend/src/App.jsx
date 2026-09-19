@@ -18,19 +18,23 @@ function App() {
   const [optimization, setOptimization] = useState('min_time');
   const [startDate, setStartDate] = useState('');
   const [isSending, setIsSending] = useState(false);
+  const [planResult, setPlanResult] = useState(null);
+  const [hiddenRoutes, setHiddenRoutes] = useState({});
 
-  // Собираем все настройки в один объект — чтобы не передавать их по одному
   const settings = {
     selectedUavs, uavCounts, surveyType, optimization, startDate,
   };
 
-  // Обёртки, которые связывают функции из operations.js с состоянием App
   const onDownload = () => ops.handleDownload(mapRef, settings);
 
   const onSubmit = async () => {
     setIsSending(true);
     try {
-      await ops.handleSubmit(mapRef, settings);
+      const result = await ops.handleSubmit(mapRef, settings);
+      if (result) {
+        setPlanResult(result);
+        setHiddenRoutes({});
+      }
     } finally {
       setIsSending(false);
     }
@@ -39,18 +43,28 @@ function App() {
   const onImport = (plan) => {
     const updates = ops.handleImport(mapRef, plan);
 
-    // Применяем обновления формы
     if (updates.selectedUavs) setSelectedUavs(updates.selectedUavs);
     if (updates.uavCounts) setUavCounts(updates.uavCounts);
     if (updates.surveyType) setSurveyType(updates.surveyType);
     if (updates.optimization) setOptimization(updates.optimization);
     if (updates.startDate) setStartDate(updates.startDate);
+
+    setPlanResult(null);
+    setHiddenRoutes({});
+  };
+
+  const onToggleRoute = (uavId) => {
+    setHiddenRoutes((prev) => ({ ...prev, [uavId]: !prev[uavId] }));
   };
 
   return (
     <div className="app">
       <div className="map-area">
-        <MapView mapRef={mapRef} />
+        <MapView
+          mapRef={mapRef}
+          assignments={planResult?.uav_assignments}
+          hiddenRoutes={hiddenRoutes}
+        />
       </div>
 
       <SidePanel
@@ -69,6 +83,9 @@ function App() {
         onDownload={onDownload}
         onImport={onImport}
         isSending={isSending}
+        assignments={planResult?.uav_assignments}
+        hiddenRoutes={hiddenRoutes}
+        onToggleRoute={onToggleRoute}
       />
     </div>
   );

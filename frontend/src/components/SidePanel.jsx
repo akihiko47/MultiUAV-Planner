@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import ThemeToggle from './ThemeToggle';
 import GithubButton from './GithubButton';
 import UavSelector from './UavSelector';
+import RoutesPanel from './RoutesPanel';
 
 export default function SidePanel({
   uavs,
@@ -18,7 +19,10 @@ export default function SidePanel({
   onSubmit,
   onDownload,
   onImport,
-  isSending
+  isSending,
+  assignments,
+  hiddenRoutes,
+  onToggleRoute,
 }) {
   const fileInputRef = useRef(null);
 
@@ -37,8 +41,6 @@ export default function SidePanel({
     };
     reader.onerror = () => alert('Ошибка чтения файла');
     reader.readAsText(file);
-
-    // Сбрасываем input, чтобы можно было выбрать тот же файл повторно
     e.target.value = '';
   };
 
@@ -90,6 +92,12 @@ export default function SidePanel({
         </select>
       </div>
 
+      <RoutesPanel
+        assignments={assignments}
+        hiddenRoutes={hiddenRoutes}
+        onToggle={onToggleRoute}
+      />
+
       <div className="panel-actions">
         <div className="panel-actions-row">
           <button className="download-btn" onClick={onDownload}>
@@ -114,7 +122,6 @@ export default function SidePanel({
         <button className="submit-btn" onClick={onSubmit} disabled={isSending}>
           {isSending ? 'Считаем…' : 'Запустить расчёт'}
         </button>
-        
       </div>
     </aside>
   );

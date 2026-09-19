@@ -54,7 +54,6 @@ export async function handleSubmit(mapRef, settings) {
     console.log('Отправляем:', plan);
     const result = await sendPlan(plan);
     console.log('Ответ сервера:', result);
-    alert('План отправлен');
     return result;
   } catch (err) {
     console.error(err);
