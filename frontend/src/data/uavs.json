@@ -19,8 +19,8 @@
       "supported_survey_types": ["RGB", "LiDAR"]
     },
     {
-      "id": "geoscan_404",
-      "name": "Геоскан 404",
+      "id": "geoscan_gemini",
+      "name": "Геоскан Gemini",
       "max_flight_time": 170,
       "cruise_speed": 19,
       "max_speed": 33,
