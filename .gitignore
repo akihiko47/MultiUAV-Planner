@@ -5,3 +5,5 @@
 /.vs
 /cpp-module/.vs
 /cpp-module/out/build/x64-Debug
+
+docker-compose.override.yml
