@@ -19,7 +19,7 @@ app.add_middleware(
 )
 
 
-@app.post("/api/v1/plan", response_model=PlanResponse)
+@app.post("/v1/plan", response_model=PlanResponse)
 async def plan(request: PlanRequest):
     try:
         request_json = request.model_dump_json()

@@ -4,8 +4,19 @@ services:
       context: .
       dockerfile: backend/Dockerfile
     container_name: geoscan-backend
-    ports:
-      - "8000:8000"
     environment:
       - PLANNER_LIB=/app/lib/libplanner.so
+    expose:
+      - "8000"
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: geoscan-frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
     restart: unless-stopped

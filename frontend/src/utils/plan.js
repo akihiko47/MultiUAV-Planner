@@ -2,7 +2,7 @@ import L from 'leaflet';
 import uavsData from '../data/uavs.json';
 
 const UAV_CATALOG = uavsData.uavs;
-const API_URL = 'http://localhost:8000/api/v1/plan';
+const API_URL = '/api/v1/plan';
 
 /* ---------- 1. Сбор данных с карты ---------- */
 export function collectMapData(map) {

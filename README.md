@@ -1,42 +1,22 @@
 # Запуск
-## Запуск бэкенда
+
+## Запуск всего решения
 
 ### Требования
 
-- Установленный Docker Desktop (Windows/macOS) или docker + docker compose (Linux).
-- Свободный порт 8000.
+- Docker Desktop (Windows/macOS) или docker + docker compose (Linux).
 
 ### Сборка и запуск
 
-Из корня репозитория (там, где лежит docker-compose.yml):
+Из корня репозитория:
 ```bash
-# Собрать образ бэкенда (внутри автоматически собирается C++-модуль)
-docker compose build backend
-
-# Запустить в фоне
-docker compose up -d backend
+docker compose build
+docker compose up -d
 ```
 
-После запуска можно посмотреть описание API по адресу:
-
-- Swagger UI: http://localhost:8000/docs
-- ReDoc: http://localhost:8000/redoc
-
-### Проверка
-```bash
-# Логи в реальном времени
-docker compose logs -f backend
-
-# Статус контейнера (должен быть Up)
-docker compose ps
-
-# Тестовый запрос
-curl -X POST http://localhost:8000/api/v1/plan \
-  -H "Content-Type: application/json" \
-  -d @request.json
-```
-
-где request.json — пример запроса из раздела «Формат входных данных API».
+Сервисы:
+- Frontend: http://localhost:8080
+- Backend API: http://localhost:8000/docs
 
 ### Остановка
 ```bash
@@ -45,13 +25,12 @@ docker compose down
 
 ### Пересборка после изменений
 
-| Что изменилось                        | Команда                                      |
-|---------------------------------------|----------------------------------------------|
-| Python-код (backend/app/)             | docker compose restart backend               |
-| C++-код (cpp-module/)                 | docker compose up -d --build backend         |
-| requirements.txt или Dockerfile       | docker compose up -d --build backend         |
-
-
+| Что изменилось        | Команда                                      |
+|-----------------------|----------------------------------------------|
+| Python-код (backend/) | docker compose restart backend               |
+| C++-код (cpp-module/) | docker compose up -d --build backend         |
+| Frontend (src/)       | docker compose up -d --build frontend        |
+| Dockerfile / compose  | docker compose up -d --build                 |
 
 # Формат входных данных API планирования БВС
 
