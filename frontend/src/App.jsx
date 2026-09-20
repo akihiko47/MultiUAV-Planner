@@ -21,6 +21,8 @@ function App() {
   const [planResult, setPlanResult] = useState(null);
   const [hiddenRoutes, setHiddenRoutes] = useState({});
 
+  const [isPanelOpen, setIsPanelOpen] = useState(false);
+
   const settings = {
     selectedUavs, uavCounts, surveyType, optimization, startDate,
   };
@@ -65,7 +67,24 @@ function App() {
           assignments={planResult?.uav_assignments}
           hiddenRoutes={hiddenRoutes}
         />
+
+        <button
+          className="panel-toggle-btn"
+          onClick={() => setIsPanelOpen(true)}
+          aria-label="Открыть настройки"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
       </div>
+
+      <div
+        className={`panel-overlay ${isPanelOpen ? 'open' : ''}`}
+        onClick={() => setIsPanelOpen(false)}
+      />
 
       <SidePanel
         uavs={UAVS}
@@ -86,6 +105,8 @@ function App() {
         assignments={planResult?.uav_assignments}
         hiddenRoutes={hiddenRoutes}
         onToggleRoute={onToggleRoute}
+        isOpen={isPanelOpen}
+        onClose={() => setIsPanelOpen(false)}
       />
     </div>
   );

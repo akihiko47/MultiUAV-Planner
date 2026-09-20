@@ -23,6 +23,8 @@ export default function SidePanel({
   assignments,
   hiddenRoutes,
   onToggleRoute,
+  isOpen,
+  onClose,
 }) {
   const fileInputRef = useRef(null);
 
@@ -45,10 +47,23 @@ export default function SidePanel({
   };
 
   return (
-    <aside className="side-panel">
+    <aside className={`side-panel ${isOpen ? 'open' : ''}`}>
       <div className="panel-header">
         <ThemeToggle />
-        <GithubButton />
+        <div className="panel-header-right">
+          <GithubButton />
+          {/* крестик на мобильном */}
+          <button
+            className="panel-close-btn"
+            onClick={onClose}
+            aria-label="Закрыть панель"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <line x1="6" y1="6" x2="18" y2="18" />
+              <line x1="18" y1="6" x2="6" y2="18" />
+            </svg>
+          </button>
+        </div>
       </div>
 
       <UavSelector
