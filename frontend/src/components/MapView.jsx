@@ -10,7 +10,7 @@ import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css';
 
 export default function MapView({ mapRef, assignments, hiddenRoutes }) {
   const center = [55.751244, 37.618423];
-  const zoom = 11;
+  const zoom = 10;
 
   return (
     <MapContainer
@@ -24,7 +24,7 @@ export default function MapView({ mapRef, assignments, hiddenRoutes }) {
           <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' />
         </LayersControl.BaseLayer>
         <LayersControl.BaseLayer name="Спутник">
-          <TileLayer url='https://tiles.stadiamaps.com/tiles/alidade_satellite/{z}/{x}/{y}{r}.jpg' />
+          <TileLayer url='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}' />
         </LayersControl.BaseLayer>
       </LayersControl>
 
