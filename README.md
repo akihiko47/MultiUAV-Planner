@@ -29,7 +29,7 @@ docker compose down
 |-----------------------|----------------------------------------------|
 | Python-код (backend/) | docker compose restart backend               |
 | C++-код (cpp-module/) | docker compose up -d --build backend         |
-| Frontend (src/)       | docker compose up -d --build frontend        |
+| Frontend (frontend/)       | docker compose up -d --build frontend        |
 | Dockerfile / compose  | docker compose up -d --build                 |
 
 # Формат входных данных API планирования БВС
