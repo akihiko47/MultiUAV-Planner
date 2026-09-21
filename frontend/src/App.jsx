@@ -27,7 +27,8 @@ function App() {
     selectedUavs, uavCounts, surveyType, optimization, startDate,
   };
 
-  const onDownload = () => ops.handleDownload(mapRef, settings);
+  const onDownloadPayload  = () => ops.handleDownload(mapRef, settings);
+  const onDownloadResult = () => ops.downloadPlanResult(planResult);
 
   const onSubmit = async () => {
     setIsSending(true);
@@ -99,11 +100,13 @@ function App() {
         startDate={startDate}
         setStartDate={setStartDate}
         onSubmit={onSubmit}
-        onDownload={onDownload}
+        onDownloadResult={onDownloadResult}
+        onDownloadPayload={onDownloadPayload}
         onImport={onImport}
         isSending={isSending}
         assignments={planResult?.uav_assignments}
         hiddenRoutes={hiddenRoutes}
+        planResult={planResult}  
         onToggleRoute={onToggleRoute}
         isOpen={isPanelOpen}
         onClose={() => setIsPanelOpen(false)}

@@ -773,3 +773,13 @@ body.dark .leaflet-control-layers-toggle {
     max-width: 100vw;
   }
 }
+
+/* =========================================
+   EXPORT PANEL
+   ========================================= */
+.export-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}

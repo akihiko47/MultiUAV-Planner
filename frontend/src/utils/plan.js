@@ -1,5 +1,6 @@
 import L from 'leaflet';
 import uavsData from '../data/uavs.json';
+import JSZip from 'jszip';
 
 const UAV_CATALOG = uavsData.uavs;
 const API_URL = '/api/v1/plan';
@@ -161,4 +162,61 @@ export function applyPlanToMap(map, plan, options = {}) {
     const group = L.featureGroup(added);
     map.fitBounds(group.getBounds(), { padding: [40, 40], maxZoom: 18 });
   }
+}
+
+/* ---------- 5. Экспорт всего плана в Mission Planner (.waypoints) ---------- */
+export async function downloadWaypointsZip(planResult) {
+  const assignments = planResult?.uav_assignments;
+  if (!assignments || assignments.length === 0) {
+    alert('Нет маршрутов — сначала запусти расчёт');
+    return;
+  }
+
+  const fmt = (n) => Number(n).toFixed(6);
+  const line = (seq, cur, frame, cmd, p1, p2, p3, p4, lat, lon, alt, autocon) =>
+    [seq, cur, frame, cmd,
+      fmt(p1), fmt(p2), fmt(p3), fmt(p4),
+      fmt(lat), fmt(lon), fmt(alt), autocon].join('\t');
+
+  const ACTION_TO_CMD = {
+    takeoff: 22,
+    transit: 16,
+    survey_end: 16,
+    landing: 21,
+  };
+
+  const zip = new JSZip();
+
+  assignments.forEach((a) => {
+    console.log('=== Обрабатываю', a.uav_id, '===');
+    console.log('route:', a.route.coordinates);
+    console.log('waypoints:', a.waypoints.map(w => w.coordinates));
+    const wps = a?.waypoints;
+    if (!wps || wps.length === 0) return;
+
+    const lines = ['QGC WPL 110'];
+    let seq = 0;
+
+    const [homeLon, homeLat] = a.start_point.coordinates;
+    lines.push(line(seq++, 1, 0, 177, 0, 0, 0, 0, homeLat, homeLon, 0, 1));
+
+    wps.forEach((wp) => {
+      const [lon, lat] = wp.coordinates;
+      const cmd = ACTION_TO_CMD[wp.action] ?? 16;
+      const alt = (wp.action === 'takeoff' && wp.altitude === 0) ? 100 : wp.altitude;
+      lines.push(line(seq++, 0, 3, cmd, 0, 0, 0, 0, lat, lon, alt, 1));
+    });
+
+    zip.file(`${a.uav_id}.waypoints`, lines.join('\n'));
+  });
+
+  const blob = await zip.generateAsync({ type: 'blob' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'plan_waypoints.zip';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
 }

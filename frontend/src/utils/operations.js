@@ -41,6 +41,15 @@ export function handleDownload(mapRef, settings) {
   console.log('Сохранено:', plan);
 }
 
+// Скачивание результата расчёта (ответа сервера)
+export function downloadPlanResult(planResult) {
+  if (!planResult) {
+    alert('Сначала выполните расчёт');
+    return;
+  }
+  downloadPlan(planResult);
+}
+
 // Отправка
 export async function handleSubmit(mapRef, settings) {
   const plan = makePayload(mapRef, settings);

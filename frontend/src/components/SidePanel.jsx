@@ -3,6 +3,7 @@ import ThemeToggle from './ThemeToggle';
 import GithubButton from './GithubButton';
 import UavSelector from './UavSelector';
 import RoutesPanel from './RoutesPanel';
+import ExportPanel from './ExportPanel';
 
 export default function SidePanel({
   uavs,
@@ -17,7 +18,9 @@ export default function SidePanel({
   startDate,
   setStartDate,
   onSubmit,
-  onDownload,
+  onDownloadResult,
+  onDownloadPayload,
+  planResult,
   onImport,
   isSending,
   assignments,
@@ -27,6 +30,13 @@ export default function SidePanel({
   onClose,
 }) {
   const fileInputRef = useRef(null);
+  console.log('=== planResult в SidePanel ===');
+  console.log(planResult);
+  if (planResult?.uav_assignments) {
+    planResult.uav_assignments.forEach((a) => {
+      console.log(a.uav_id, '→ route[0]:', a.route?.coordinates?.[0], '| waypoint[0]:', a.waypoints?.[0]?.coordinates);
+    });
+  }
 
   const handleFileChange = (e) => {
     const file = e.target.files?.[0];
@@ -113,10 +123,15 @@ export default function SidePanel({
         onToggle={onToggleRoute}
       />
 
+      <ExportPanel
+      planResult={planResult}
+      onDownloadResult={onDownloadResult}
+    />
+
       <div className="panel-actions">
         <div className="panel-actions-row">
-          <button className="download-btn" onClick={onDownload}>
-            Экспорт JSON
+          <button className="download-btn" onClick={onDownloadPayload}>
+            Скачать JSON с карты
           </button>
           <button
             className="download-btn"
