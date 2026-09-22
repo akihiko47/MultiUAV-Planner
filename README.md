@@ -24,7 +24,7 @@ docker compose up -d
 
 Сервисы:
 - **Frontend**: http://localhost:8080
-- **Backend API**: http://localhost:8000/docs
+- **Backend API**: http://localhost:8080/docs
 
 Остановка:
 ```bash
@@ -43,13 +43,13 @@ docker compose down
 
 ## API
 
-- **Интерактивная документация (Swagger UI)**: http://localhost:8000/docs
-- **OpenAPI-схема**: http://localhost:8000/openapi.json
+- **Интерактивная документация (Swagger UI)**: http://localhost:8080/docs
+- **OpenAPI-схема**: http://localhost:8080/openapi.json
 - **Описание контракта**: [docs/api.md](docs/api.md)
 
 Пример вызова:
 ```bash
-curl -X POST http://localhost:8000/v1/plan \
+curl -X POST http://localhost:8080/v1/plan \
   -H "Content-Type: application/json" \
   -d @request.json
 ```

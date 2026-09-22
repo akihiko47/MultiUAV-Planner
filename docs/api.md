@@ -2,7 +2,7 @@
 
 REST API для расчёта оптимальных полётных заданий группы БВС.
 
-- **Base URL (dev)**: `http://localhost:8000`
+- **Base URL (dev)**: `http://localhost:8080`
 - **Base URL (prod)**: `https://<домен>`
 - **Формат**: JSON, `Content-Type: application/json`
 - **Авторизация**: отсутствует
