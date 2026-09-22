@@ -1,0 +1,114 @@
+{
+    "cameras": [
+    {
+      "id": "geoscan_pf1b",
+      "name": "Geoscan PF1B",
+      "type": "RGB",
+      "focalLength": 20,
+      "matrixX": 23.5,
+      "matrixY": 15.6,
+      "matrixPixX": 6000,
+      "matrixPixY": 4000
+    },
+    {
+      "id": "geoscan_pollux",
+      "name": "Geoscan Pollux",
+      "type": "Multispectral",
+      "focalLength": 8,
+      "matrixX": 5.04,
+      "matrixY": 3.78,
+      "matrixPixX": 1440,
+      "matrixPixY": 1080
+    },
+    {
+      "id": "riebo_r4",
+      "name": "Riebo R4",
+      "type": "RGB",
+      "focalLength": 40,
+      "matrixX": 35.9,
+      "matrixY": 23.9,
+      "matrixPixX": 9504,
+      "matrixPixY": 6336
+    },
+    {
+      "id": "riebo_r6",
+      "name": "Riebo R6",
+      "type": "RGB",
+      "focalLength": 40,
+      "matrixX": 35.9,
+      "matrixY": 23.9,
+      "matrixPixX": 9504,
+      "matrixPixY": 6336
+    },
+    {
+      "id": "sony_dsc_rx1rm3",
+      "name": "Sony DSC-RX1RM3",
+      "type": "RGB",
+      "focalLength": 35,
+      "matrixX": 35.7,
+      "matrixY": 23.8,
+      "matrixPixX": 9504,
+      "matrixPixY": 6336
+    },
+    {
+      "id": "sony_dsc_rx1rm2",
+      "name": "Sony DSC-RX1RM2",
+      "type": "RGB",
+      "focalLength": 35,
+      "matrixX": 35.9,
+      "matrixY": 24.0,
+      "matrixPixX": 7952,
+      "matrixPixY": 5304
+    },
+    {
+      "id": "sony_zv_e10",
+      "name": "Sony ZV-E10",
+      "type": "RGB",
+      "focalLength": 16,
+      "matrixX": 23.5,
+      "matrixY": 15.6,
+      "matrixPixX": 6000,
+      "matrixPixY": 4000
+    },
+    {
+      "id": "sony_umc_r10c",
+      "name": "Sony UMC-R10C",
+      "type": "RGB",
+      "focalLength": 16,
+      "matrixX": 23.2,
+      "matrixY": 15.4,
+      "matrixPixX": 5456,
+      "matrixPixY": 3632
+    },
+    {
+      "id": "geoscan_801_visible_wide",
+      "name": "Geoscan 801 Visible Wide",
+      "type": "RGB",
+      "focalLength": 4.35,
+      "matrixX": 6.17,
+      "matrixY": 4.55,
+      "matrixPixX": 4000,
+      "matrixPixY": 3000
+    },
+    {
+      "id": "geoscan_801_visible_narrow",
+      "name": "Geoscan 801 Visible Narrow",
+      "type": "RGB",
+      "focalLength": 16,
+      "matrixX": 6.17,
+      "matrixY": 4.55,
+      "matrixPixX": 4000,
+      "matrixPixY": 3000
+    },
+    {
+      "id": "geoscan_801_thermal",
+      "name": "Geoscan 801 Thermal",
+      "type": "Thermal",
+      "focalLength": 9.1,
+      "matrixX": 6.4,
+      "matrixY": 5.12,
+      "matrixPixX": 640,
+      "matrixPixY": 512
+    }
+  ]
+}

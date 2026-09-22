@@ -29,8 +29,10 @@ docker compose down
 |-----------------------|----------------------------------------------|
 | Python-код (backend/) | docker compose restart backend               |
 | C++-код (cpp-module/) | docker compose up -d --build backend         |
-| Frontend (frontend/)       | docker compose up -d --build frontend        |
+| Frontend (frontend/)  | docker compose up -d --build frontend        |
 | Dockerfile / compose  | docker compose up -d --build                 |
+
+---
 
 # Формат входных данных API планирования БВС
 
@@ -42,7 +44,9 @@ docker compose down
 
 - зону съёмки (полигон, возможно с отверстиями);
 - возможные точки старта БВС;
-- перечень доступных БВС и их типов с характеристиками;
+- каталог типов БВС с их лётно-техническими характеристиками;
+- каталог камер (полезных нагрузок) с их характеристиками;
+- перечень доступных экземпляров БВС с указанием типа и установленной камеры;
 - тип съёмки;
 - критерий оптимизации (опционально);
 - время начала операции (опционально);
@@ -56,6 +60,7 @@ docker compose down
   "survey_area": { ... },
   "start_points": [ ... ],
   "uav_types": [ ... ],
+  "cameras": [ ... ],
   "uavs": [ ... ],
   "survey_type": "RGB",
   "optimization_criteria": "min_time",
@@ -72,21 +77,46 @@ docker compose down
 | `start_points` | Array | Да | Список возможных точек старта БВС. |
 | `start_points[].id` | String | Да | Уникальный идентификатор точки старта. |
 | `start_points[].coordinates` | Array | Да | Координаты точки в формате `[долгота, широта]`. |
-| `uav_types` | Array | Да | Список типов БВС с их характеристиками. |
-| `uav_types[].id` | String | Да | Уникальный идентификатор типа. |
-| `uav_types[].name` | String | Нет | Человекочитаемое название типа. |
-| `uav_types[].max_flight_time` | Number | Да | Максимальное время полёта в минутах. |
-| `uav_types[].cruise_speed` | Number | Да | Крейсерская скорость в м/с. |
-| `uav_types[].max_speed` | Number | Нет | Максимальная скорость в м/с. |
-| `uav_types[].battery_capacity` | Number | Нет | Ёмкость аккумулятора (мА·ч). |
-| `uav_types[].supported_survey_types` | Array of String | Да | Поддерживаемые типы съёмки: `"RGB"`, `"multispectral"`, `"IR"`, `"LiDAR"`, `"geophysical"`. |
-| `uavs` | Array | Да | Список доступных БВС. |
-| `uavs[].id` | String | Да | Уникальный идентификатор аппарата. |
+| `uav_types` | Array | Да | Каталог типов (моделей) БВС с их характеристиками. |
+| `uav_types[].id` | String | Да | Уникальный идентификатор типа БВС (например, `"geoscan_201"`). |
+| `uav_types[].name` | String | Нет | Человекочитаемое название модели. |
+| `uav_types[].max_flight_distance` | Number | Да | Максимальная дальность полёта (метры). |
+| `uav_types[].max_distance_from_home` | Number | Да | Максимальное удаление от точки старта (метры). |
+| `uav_types[].cruise_speed` | Number | Да | Крейсерская скорость (м/с). |
+| `uav_types[].min_speed` | Number | Да | Минимальная скорость (м/с). |
+| `uav_types[].max_speed` | Number | Да | Максимальная скорость (м/с). |
+| `uav_types[].min_alt` | Number | Да | Минимальная высота полёта (метры). |
+| `uav_types[].max_alt` | Number | Да | Максимальная высота полёта (метры). |
+| `uav_types[].min_turn_radius` | Number | Да | Минимальный радиус виража (метры). |
+| `uav_types[].min_voltage` | Number | Да | Минимальное напряжение питания (В). |
+| `uav_types[].climb_speed` | Number | Да | Скорость набора высоты (м/с). |
+| `uav_types[].descent_speed` | Number | Да | Скорость снижения (м/с). |
+| `uav_types[].cameras` | Array of String | Да | Список `id` камер из каталога `cameras`, совместимых с этим типом БВС. |
+| `cameras` | Array | Да | Каталог камер (полезных нагрузок). |
+| `cameras[].id` | String | Да | Уникальный идентификатор камеры. |
+| `cameras[].name` | String | Нет | Человекочитаемое название камеры. |
+| `cameras[].type` | String | Да | Тип камеры: `"RGB"`, `"Multispectral"`, `"Thermal"`. |
+| `cameras[].focalLength` | Number | Да | Фокусное расстояние (мм). |
+| `cameras[].matrixX` | Number | Да | Физическая ширина матрицы (мм). |
+| `cameras[].matrixY` | Number | Да | Физическая высота матрицы (мм). |
+| `cameras[].matrixPixX` | Number | Да | Ширина снимка в пикселях. |
+| `cameras[].matrixPixY` | Number | Да | Высота снимка в пикселях. |
+| `uavs` | Array | Да | Список доступных экземпляров БВС. |
+| `uavs[].id` | String | Да | Уникальный идентификатор экземпляра БВС. |
 | `uavs[].type_id` | String | Да | Ссылка на `id` из `uav_types`. |
+| `uavs[].camera_id` | String | Да | Ссылка на `id` из `cameras` (камера, установленная на этом БВС). |
 | `survey_type` | String | Да | Тип съёмки. Допустимые значения: `"RGB"`, `"multispectral"`, `"IR"`, `"LiDAR"`, `"geophysical"`. |
 | `optimization_criteria` | String | Нет | Критерий оптимизации: `"min_time"` (минимизация времени выполнения работ) или `"min_flight_distance"` (минимизация суммарного налёта). По умолчанию `"min_time"`. |
 | `operation_start_time` | String (ISO 8601) | Нет | Планируемое время начала операции (время первого взлёта). Если не указано, используется текущее время или значение по умолчанию. |
 | `operation_end_time` | String (ISO 8601) | Нет | Планируемое время окончания операции (время последней посадки). |
+
+### Соответствие типов камер и типов съёмки
+
+| `cameras[].type` | Соответствующий `survey_type` |
+|------------------|-------------------------------|
+| `"RGB"` | `"RGB"` |
+| `"Multispectral"` | `"multispectral"` |
+| `"Thermal"` | `"IR"` |
 
 ## Формат зоны съёмки (`survey_area`)
 
@@ -95,12 +125,13 @@ docker compose down
 {
   "type": "Polygon",
   "coordinates": [
-    [ [lon, lat], [lon, lat], ... ],   // внешнее кольцо
-    [ [lon, lat], [lon, lat], ... ],   // отверстие 1 (опционально)
-    [ [lon, lat], [lon, lat], ... ]    // отверстие 2 (опционально)
+    [ [lon, lat], [lon, lat], ... ],
+    [ [lon, lat], [lon, lat], ... ],
+    [ [lon, lat], [lon, lat], ... ]
   ]
 }
 ```
+
 - Первое кольцо — внешняя граница полигона.
 - Последующие кольца — отверстия (например, озёра, запретные зоны внутри участка).
 - Каждое кольцо должно быть замкнуто (первая и последняя точки совпадают).
@@ -129,48 +160,110 @@ docker compose down
     ]
   },
   "start_points": [
-    {
-      "id": "sp1",
-      "coordinates": [37.6200, 55.7200]
-    },
-    {
-      "id": "sp2",
-      "coordinates": [37.6800, 55.7800]
-    }
+    { "id": "sp1", "coordinates": [37.6200, 55.7200] },
+    { "id": "sp2", "coordinates": [37.6800, 55.7800] }
   ],
   "uav_types": [
     {
-      "id": "type_201",
+      "id": "geoscan_201",
       "name": "Геоскан 201",
-      "max_flight_time": 120,
-      "cruise_speed": 15,
-      "max_speed": 25,
-      "battery_capacity": 5000,
-      "supported_survey_types": ["RGB", "multispectral"]
+      "max_flight_distance": 210000,
+      "max_distance_from_home": 100000,
+      "cruise_speed": 25,
+      "min_speed": 17.8,
+      "max_speed": 36.1,
+      "min_alt": 100,
+      "max_alt": 4000,
+      "min_turn_radius": 50,
+      "min_voltage": 15,
+      "climb_speed": 5,
+      "descent_speed": 3,
+      "cameras": [
+        "riebo_r4",
+        "riebo_r6",
+        "sony_dsc_rx1rm3",
+        "sony_dsc_rx1rm2",
+        "sony_zv_e10",
+        "geoscan_pollux"
+      ]
     },
     {
-      "id": "type_801",
+      "id": "geoscan_801",
       "name": "Геоскан 801",
-      "max_flight_time": 180,
-      "cruise_speed": 18,
-      "max_speed": 30,
-      "battery_capacity": 8000,
-      "supported_survey_types": ["RGB", "LiDAR"]
+      "max_flight_distance": 20000,
+      "max_distance_from_home": 10000,
+      "cruise_speed": 15,
+      "min_speed": 0,
+      "max_speed": 15,
+      "min_alt": 50,
+      "max_alt": 4000,
+      "min_turn_radius": 0,
+      "min_voltage": 15,
+      "climb_speed": 5,
+      "descent_speed": 3,
+      "cameras": [
+        "geoscan_801_visible_wide",
+        "geoscan_801_visible_narrow",
+        "geoscan_801_thermal"
+      ]
+    },
+    {
+      "id": "geoscan_gemini",
+      "name": "Геоскан Gemini",
+      "max_flight_distance": 30000,
+      "max_distance_from_home": 5000,
+      "cruise_speed": 15,
+      "min_speed": 0,
+      "max_speed": 15,
+      "min_alt": 25,
+      "max_alt": 500,
+      "min_turn_radius": 0,
+      "min_voltage": 15,
+      "climb_speed": 5,
+      "descent_speed": 3,
+      "cameras": [
+        "geoscan_pf1b",
+        "geoscan_pollux",
+        "sony_umc_r10c"
+      ]
+    }
+  ],
+  "cameras": [
+    {
+      "id": "riebo_r4",
+      "name": "Riebo R4",
+      "type": "RGB",
+      "focalLength": 40,
+      "matrixX": 35.9,
+      "matrixY": 23.9,
+      "matrixPixX": 9504,
+      "matrixPixY": 6336
+    },
+    {
+      "id": "geoscan_pollux",
+      "name": "Geoscan Pollux",
+      "type": "Multispectral",
+      "focalLength": 8,
+      "matrixX": 5.04,
+      "matrixY": 3.78,
+      "matrixPixX": 1440,
+      "matrixPixY": 1080
+    },
+    {
+      "id": "geoscan_801_visible_wide",
+      "name": "Geoscan 801 Visible Wide",
+      "type": "RGB",
+      "focalLength": 4.35,
+      "matrixX": 6.17,
+      "matrixY": 4.55,
+      "matrixPixX": 4000,
+      "matrixPixY": 3000
     }
   ],
   "uavs": [
-    {
-      "id": "uav1",
-      "type_id": "type_201"
-    },
-    {
-      "id": "uav2",
-      "type_id": "type_201"
-    },
-    {
-      "id": "uav3",
-      "type_id": "type_801"
-    }
+    { "id": "uav1", "type_id": "geoscan_201", "camera_id": "riebo_r4" },
+    { "id": "uav2", "type_id": "geoscan_201", "camera_id": "geoscan_pollux" },
+    { "id": "uav3", "type_id": "geoscan_801", "camera_id": "geoscan_801_visible_wide" }
   ],
   "survey_type": "RGB",
   "optimization_criteria": "min_time",
@@ -178,7 +271,6 @@ docker compose down
   "operation_end_time": "2026-04-15T09:00:00Z"
 }
 ```
-
 
 # Формат выходных данных API планирования БВС
 
@@ -217,8 +309,9 @@ docker compose down
 
 | Поле | Тип | Описание |
 |------|-----|----------|
-| `uav_id` | String | Идентификатор БВС из входных данных. |
-| `type_id` | String | Идентификатор типа БВС. |
+| `uav_id` | String | Идентификатор экземпляра БВС из входных данных. |
+| `type_id` | String | Идентификатор типа БВС из `uav_types`. |
+| `camera_id` | String | Идентификатор камеры, установленной на этом БВС. |
 | `takeoff_time` | String (ISO 8601) | Время взлёта конкретного БВС. |
 | `landing_time` | String (ISO 8601) | Время посадки конкретного БВС. |
 | `start_point` | Object | Точка старта: `{ "id": "...", "coordinates": [lon, lat] }`. |
@@ -227,7 +320,7 @@ docker compose down
 | `waypoints` | Array | Детализированный список ключевых точек с параметрами. |
 | `estimated_time` | Number | Оценочное время выполнения задания (секунды). |
 | `estimated_distance` | Number | Оценочная длина маршрута (метры). |
-| `battery_usage` | Number | Оценочный расход заряда (проценты или мА·ч). |
+| `battery_usage` | Number | Оценочный расход заряда (проценты). |
 
 ### Ключевые точки (`waypoints[]`)
 
@@ -255,17 +348,12 @@ docker compose down
   "uav_assignments": [
     {
       "uav_id": "uav1",
-      "type_id": "type_201",
+      "type_id": "geoscan_201",
+      "camera_id": "riebo_r4",
       "takeoff_time": "2026-04-15T08:00:00Z",
       "landing_time": "2026-04-15T08:23:00Z",
-      "start_point": {
-        "id": "sp1",
-        "coordinates": [37.6200, 55.7200]
-      },
-      "landing_point": {
-        "id": "sp1",
-        "coordinates": [37.6200, 55.7200]
-      },
+      "start_point": { "id": "sp1", "coordinates": [37.6200, 55.7200] },
+      "landing_point": { "id": "sp1", "coordinates": [37.6200, 55.7200] },
       "route": {
         "type": "LineString",
         "coordinates": [
@@ -324,17 +412,12 @@ docker compose down
     },
     {
       "uav_id": "uav3",
-      "type_id": "type_801",
+      "type_id": "geoscan_801",
+      "camera_id": "geoscan_801_visible_wide",
       "takeoff_time": "2026-04-15T08:15:00Z",
       "landing_time": "2026-04-15T08:29:00Z",
-      "start_point": {
-        "id": "sp2",
-        "coordinates": [37.6800, 55.7800]
-      },
-      "landing_point": {
-        "id": "sp2",
-        "coordinates": [37.6800, 55.7800]
-      },
+      "start_point": { "id": "sp2", "coordinates": [37.6800, 55.7800] },
+      "landing_point": { "id": "sp2", "coordinates": [37.6800, 55.7800] },
       "route": {
         "type": "LineString",
         "coordinates": [
