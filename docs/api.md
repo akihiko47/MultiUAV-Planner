@@ -277,8 +277,30 @@ REST API для расчёта оптимальных полётных зада�
 | `coordinates` | Array | `[lon, lat]`. |
 | `altitude` | Number | Высота в метрах. |
 | `speed` | Number | Скорость в м/с. |
-| `action` | String | Действие: `"takeoff"`, `"transit"`, `"survey_start"`, `"survey_end"`, `"waypoint"`, `"landing"`. |
+| `action` | String | Действие: `"takeoff"`, `"transit"`, `"line_begin"`, `"line_end"`, `"waypoint"`, `"landing"`. |
+| `photo_distance` | Number (optional) | Расстояние между срабатываниями затвора (метры). Заполняется только для `line_begin`. |
 | `time` | String (ISO 8601) | Время прохождения ключевой точки. |
+
+**Семантика `action`:**
+
+- `takeoff` — взлёт в точке старта.
+- `transit` — перелёт без съёмки (между галсами, к точке старта галса и т.п.).
+- `line_begin` — начало съёмочного галса. Здесь включается съёмка с шагом `photo_distance`.
+- `line_end` — конец съёмочного галса. Съёмка выключается.
+- `waypoint` — промежуточная точка маршрута, не привязанная к съёмке.
+- `landing` — посадка.
+
+**Пример последовательности для миссии с двумя галсами:**
+
+1. `takeoff`
+2. `transit` (к началу первого галса)
+3. `line_begin` (`photo_distance: 43`)
+4. `line_end`
+5. `transit` (к началу второго галса)
+6. `line_begin` (`photo_distance: 43`)
+7. `line_end`
+8. `transit` (обратно к точке посадки)
+9. `landing`
 
 #### Пример ответа
 ```json
@@ -308,6 +330,9 @@ REST API для расчёта оптимальных полётных зада�
           [37.6210, 55.7210],
           [37.6300, 55.7300],
           [37.6400, 55.7400],
+          [37.6300, 55.7400],
+          [37.6200, 55.7300],
+          [37.6210, 55.7210],
           [37.6200, 55.7200]
         ]
       },
@@ -323,7 +348,7 @@ REST API для расчёта оптимальных полётных зада�
         {
           "sequence": 2,
           "coordinates": [37.6210, 55.7210],
-          "altitude": 100,
+          "altitude": 120,
           "speed": 15,
           "action": "transit",
           "time": "2026-04-15T08:01:00Z"
@@ -333,7 +358,8 @@ REST API для расчёта оптимальных полётных зада�
           "coordinates": [37.6300, 55.7300],
           "altitude": 120,
           "speed": 15,
-          "action": "survey_start",
+          "action": "line_begin",
+          "photo_distance": 43,
           "time": "2026-04-15T08:02:00Z"
         },
         {
@@ -341,11 +367,44 @@ REST API для расчёта оптимальных полётных зада�
           "coordinates": [37.6400, 55.7400],
           "altitude": 120,
           "speed": 15,
-          "action": "survey_end",
-          "time": "2026-04-15T08:20:00Z"
+          "action": "line_end",
+          "time": "2026-04-15T08:10:00Z"
         },
         {
           "sequence": 5,
+          "coordinates": [37.6300, 55.7400],
+          "altitude": 120,
+          "speed": 15,
+          "action": "transit",
+          "time": "2026-04-15T08:11:00Z"
+        },
+        {
+          "sequence": 6,
+          "coordinates": [37.6200, 55.7300],
+          "altitude": 120,
+          "speed": 15,
+          "action": "line_begin",
+          "photo_distance": 43,
+          "time": "2026-04-15T08:12:00Z"
+        },
+        {
+          "sequence": 7,
+          "coordinates": [37.6300, 55.7300],
+          "altitude": 120,
+          "speed": 15,
+          "action": "line_end",
+          "time": "2026-04-15T08:20:00Z"
+        },
+        {
+          "sequence": 8,
+          "coordinates": [37.6210, 55.7210],
+          "altitude": 120,
+          "speed": 15,
+          "action": "transit",
+          "time": "2026-04-15T08:21:00Z"
+        },
+        {
+          "sequence": 9,
           "coordinates": [37.6200, 55.7200],
           "altitude": 0,
           "speed": 0,
@@ -356,65 +415,8 @@ REST API для расчёта оптимальных полётных зада�
       "estimated_time": 1380,
       "estimated_distance": 17500,
       "battery_usage": 45
-    },
-    {
-      "uav_id": "uav3",
-      "type_id": "geoscan_801",
-      "camera_id": "geoscan_801_visible_wide",
-      "takeoff_time": "2026-04-15T08:15:00Z",
-      "landing_time": "2026-04-15T08:29:00Z",
-      "start_point": { "id": "sp2", "coordinates": [37.6800, 55.7800] },
-      "landing_point": { "id": "sp2", "coordinates": [37.6800, 55.7800] },
-      "route": {
-        "type": "LineString",
-        "coordinates": [
-          [37.6800, 55.7800],
-          [37.6700, 55.7700],
-          [37.6600, 55.7600],
-          [37.6800, 55.7800]
-        ]
-      },
-      "waypoints": [
-        {
-          "sequence": 1,
-          "coordinates": [37.6800, 55.7800],
-          "altitude": 0,
-          "speed": 0,
-          "action": "takeoff",
-          "time": "2026-04-15T08:15:00Z"
-        },
-        {
-          "sequence": 2,
-          "coordinates": [37.6700, 55.7700],
-          "altitude": 150,
-          "speed": 18,
-          "action": "survey_start",
-          "time": "2026-04-15T08:16:30Z"
-        },
-        {
-          "sequence": 3,
-          "coordinates": [37.6600, 55.7600],
-          "altitude": 150,
-          "speed": 18,
-          "action": "survey_end",
-          "time": "2026-04-15T08:26:30Z"
-        },
-        {
-          "sequence": 4,
-          "coordinates": [37.6800, 55.7800],
-          "altitude": 0,
-          "speed": 0,
-          "action": "landing",
-          "time": "2026-04-15T08:29:00Z"
-        }
-      ],
-      "estimated_time": 840,
-      "estimated_distance": 13300,
-      "battery_usage": 30
     }
   ],
-  "warnings": [
-    "БВС uav2 не задействован: недостаточно заряда для покрытия оставшейся области."
-  ]
+  "warnings": []
 }
 ```
