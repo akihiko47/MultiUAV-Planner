@@ -31,8 +31,6 @@ docker compose up -d
 docker compose down
 ```
 
-Подробнее о пересборке после изменений — в разделе «Разработка» ниже.
-
 ## Использование
 
 1. Откройте http://localhost:8080.
@@ -51,9 +49,9 @@ docker compose down
 
 Пример вызова:
 ```bash
-    curl -X POST http://localhost:8000/v1/plan \
-      -H "Content-Type: application/json" \
-      -d @request.json
+curl -X POST http://localhost:8000/v1/plan \
+  -H "Content-Type: application/json" \
+  -d @request.json
 ```
 
 ## Разработка
@@ -67,14 +65,10 @@ docker compose down
 
 ## Структура проекта
 ```
-    backend/      FastAPI-приложение и C++-обёртка
-    cpp-module/   Планировщик на C++
-    frontend/     React + Leaflet
-    docs/         Документация
+backend/      FastAPI-приложение и C++-обёртка
+cpp-module/   Планировщик на C++
+frontend/     React + Leaflet
+docs/         Документация
 ```
 
 **Стек:** FastAPI + C++ (планировщик) + React/Leaflet + Docker.
-
-## Требования
-
-- Docker Desktop (Windows/macOS) или docker + docker compose (Linux).
