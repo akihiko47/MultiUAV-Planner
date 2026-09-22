@@ -70,13 +70,26 @@ class PlanRequest(BaseModel):
     cameras: List[Camera]
     uavs: List[UAV]
     survey_type: SurveyType
+    gsd: float  # см/пиксель — требуемое пространственное разрешение
     optimization_criteria: OptimizationCriteria = "min_time"
     operation_start_time: Optional[datetime] = None
     operation_end_time: Optional[datetime] = None
 
     @model_validator(mode="after")
     def validate_references(self):
-        # 1. Ссылочная целостность
+        # 1. GSD должен быть положительным
+        if self.gsd <= 0:
+            raise ValueError(
+                f"gsd must be positive (cm/pixel), got {self.gsd}"
+            )
+        # Разумные границы: от 0.1 до 100 см/пиксель. При выходе за них
+        # высота полёта получается либо нефизичной, либо вне диапазона БВС.
+        if self.gsd < 0.1 or self.gsd > 100:
+            raise ValueError(
+                f"gsd must be within [0.1, 100] cm/pixel, got {self.gsd}"
+            )
+
+        # 2. Ссылочная целостность
         uav_types_by_id = {t.id: t for t in self.uav_types}
         cameras_by_id = {c.id: c for c in self.cameras}
 
@@ -98,7 +111,7 @@ class PlanRequest(BaseModel):
                     f"is not compatible with UAV type '{uav.type_id}'"
                 )
 
-        # 2. Тип съёмки должен поддерживаться хотя бы одной камерой
+        # 3. Тип съёмки должен поддерживаться хотя бы одной камерой
         if self.survey_type not in CAMERA_TYPE_TO_SURVEY.values():
             supported = ", ".join(sorted(set(CAMERA_TYPE_TO_SURVEY.values())))
             raise ValueError(
@@ -106,7 +119,7 @@ class PlanRequest(BaseModel):
                 f"camera type in the catalog. Supported types: {supported}"
             )
 
-        # 3. Хотя бы один БВС должен быть способен выполнить эту съёмку
+        # 4. Хотя бы один БВС должен быть способен выполнить эту съёмку
         capable_uavs = [
             uav for uav in self.uavs
             if CAMERA_TYPE_TO_SURVEY.get(cameras_by_id[uav.camera_id].type)

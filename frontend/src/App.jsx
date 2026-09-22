@@ -8,6 +8,7 @@ import * as ops from './utils/operations';
 
 const UAVS = uavsData.uavs;
 const DEFAULT_UAV = UAVS[0].id;
+const DEFAULT_GSD = '3';
 
 function App() {
   const mapRef = useRef(null);
@@ -15,6 +16,7 @@ function App() {
   const [selectedUavs, setSelectedUavs] = useState([DEFAULT_UAV]);
   const [uavCounts, setUavCounts] = useState({ [DEFAULT_UAV]: 2 });
   const [surveyType, setSurveyType] = useState('RGB');
+  const [gsd, setGsd] = useState(DEFAULT_GSD);
   const [optimization, setOptimization] = useState('min_time');
   const [startDate, setStartDate] = useState('');
   const [isSending, setIsSending] = useState(false);
@@ -24,10 +26,10 @@ function App() {
   const [isPanelOpen, setIsPanelOpen] = useState(false);
 
   const settings = {
-    selectedUavs, uavCounts, surveyType, optimization, startDate,
+    selectedUavs, uavCounts, surveyType, gsd, optimization, startDate,
   };
 
-  const onDownloadPayload  = () => ops.handleDownload(mapRef, settings);
+  const onDownloadPayload = () => ops.handleDownload(mapRef, settings);
   const onDownloadResult = () => ops.downloadPlanResult(planResult);
 
   const onSubmit = async () => {
@@ -49,6 +51,7 @@ function App() {
     if (updates.selectedUavs) setSelectedUavs(updates.selectedUavs);
     if (updates.uavCounts) setUavCounts(updates.uavCounts);
     if (updates.surveyType) setSurveyType(updates.surveyType);
+    if (updates.gsd !== undefined) setGsd(String(updates.gsd));
     if (updates.optimization) setOptimization(updates.optimization);
     if (updates.startDate) setStartDate(updates.startDate);
 
@@ -95,6 +98,8 @@ function App() {
         setUavCounts={setUavCounts}
         surveyType={surveyType}
         setSurveyType={setSurveyType}
+        gsd={gsd}
+        setGsd={setGsd}
         optimization={optimization}
         setOptimization={setOptimization}
         startDate={startDate}
@@ -106,7 +111,7 @@ function App() {
         isSending={isSending}
         assignments={planResult?.uav_assignments}
         hiddenRoutes={hiddenRoutes}
-        planResult={planResult}  
+        planResult={planResult}
         onToggleRoute={onToggleRoute}
         isOpen={isPanelOpen}
         onClose={() => setIsPanelOpen(false)}

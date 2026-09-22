@@ -92,12 +92,22 @@ export function buildPlan({
   selectedUavs,
   uavCounts,
   surveyType,
+  gsd,
   optimization,
   startDate,
 }) {
   const selectedModels = UAV_CATALOG.filter((u) => selectedUavs.includes(u.id));
   if (selectedModels.length === 0) {
     throw new Error('Не выбрано ни одного типа БВС.');
+  }
+
+  // GSD
+  const gsdNum = Number(gsd);
+  if (!Number.isFinite(gsdNum) || gsdNum <= 0) {
+    throw new Error('Укажите корректное разрешение (GSD) больше 0.');
+  }
+  if (gsdNum < 0.1 || gsdNum > 100) {
+    throw new Error('GSD должен быть в диапазоне 0.1–100 см/пиксель.');
   }
 
   const cameraType = SURVEY_TO_CAMERA_TYPE[surveyType];
@@ -107,7 +117,6 @@ export function buildPlan({
     );
   }
 
-  // Хотя бы одна модель должна быть способна на такую съёмку
   const modelSupports = (model) =>
     (model.cameras || []).some((cid) => {
       const cam = CAMERA_CATALOG.find((c) => c.id === cid);
@@ -120,7 +129,6 @@ export function buildPlan({
     );
   }
 
-  // 1. uav_types — ВСЕ выбранные модели
   const uavTypes = selectedModels.map((u) => ({
     id: u.id,
     name: u.name,
@@ -138,7 +146,6 @@ export function buildPlan({
     cameras: u.cameras,
   }));
 
-  // 2. Для каждой модели подбираем камеру
   const modelCameraMap = {};
   const usedCameraIds = new Set();
 
@@ -155,7 +162,6 @@ export function buildPlan({
     }
   });
 
-  // 3. cameras — только реально использованные
   const cameras = CAMERA_CATALOG
     .filter((c) => usedCameraIds.has(c.id))
     .map((c) => ({
@@ -169,7 +175,6 @@ export function buildPlan({
       matrixPixY: c.matrixPixY,
     }));
 
-  // 4. uavs — экземпляры ВСЕХ выбранных моделей
   const uavs = [];
   selectedModels.forEach((model) => {
     const cameraId = modelCameraMap[model.id];
@@ -193,10 +198,12 @@ export function buildPlan({
     cameras,
     uavs,
     survey_type: surveyType,
+    gsd: gsdNum,
     optimization_criteria: optimization,
     operation_start_time: start ? start.toISOString() : null,
   };
 }
+
 /* ---------- 5. Скачивание payload ---------- */
 export function downloadPlan(plan) {
   const json = JSON.stringify(plan, null, 2);

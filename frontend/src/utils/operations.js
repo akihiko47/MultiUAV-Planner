@@ -102,6 +102,7 @@ export function handleImport(mapRef, plan) {
     formUpdates.uavCounts = counts;
   }
   if (plan.survey_type) formUpdates.surveyType = plan.survey_type;
+  if (typeof plan.gsd === 'number') formUpdates.gsd = plan.gsd;
   if (plan.optimization_criteria)
     formUpdates.optimization = plan.optimization_criteria;
   if (plan.operation_start_time) {

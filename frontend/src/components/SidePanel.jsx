@@ -13,6 +13,8 @@ export default function SidePanel({
   setUavCounts,
   surveyType,
   setSurveyType,
+  gsd,
+  setGsd,
   optimization,
   setOptimization,
   startDate,
@@ -30,13 +32,6 @@ export default function SidePanel({
   onClose,
 }) {
   const fileInputRef = useRef(null);
-  console.log('=== planResult в SidePanel ===');
-  console.log(planResult);
-  if (planResult?.uav_assignments) {
-    planResult.uav_assignments.forEach((a) => {
-      console.log(a.uav_id, '→ route[0]:', a.route?.coordinates?.[0], '| waypoint[0]:', a.waypoints?.[0]?.coordinates);
-    });
-  }
 
   const handleFileChange = (e) => {
     const file = e.target.files?.[0];
@@ -62,7 +57,6 @@ export default function SidePanel({
         <ThemeToggle />
         <div className="panel-header-right">
           <GithubButton />
-          {/* крестик на мобильном */}
           <button
             className="panel-close-btn"
             onClick={onClose}
@@ -102,11 +96,24 @@ export default function SidePanel({
         <h3>Тип съёмки</h3>
         <select value={surveyType} onChange={(e) => setSurveyType(e.target.value)}>
           <option value="RGB">RGB</option>
-          <option value="LiDAR">Лидар</option>
           <option value="multispectral">Мультиспектральная</option>
-          <option value="IR">IR</option>
-          <option value="geophysical">Геофизическая</option>
+          <option value="Thermal">Тепловизионная (Thermal)</option>
         </select>
+      </div>
+
+      <div className="form-field">
+        <h3>Разрешение (GSD)</h3>
+        <input
+          type="number"
+          min="0.1"
+          max="100"
+          step="0.1"
+          value={gsd}
+          onChange={(e) => setGsd(e.target.value)}
+        />
+        <small className="form-hint">
+          Пространственное разрешение, см/пиксель. Диапазон: 0.1–100.
+        </small>
       </div>
 
       <div className="form-field">
@@ -124,9 +131,9 @@ export default function SidePanel({
       />
 
       <ExportPanel
-      planResult={planResult}
-      onDownloadResult={onDownloadResult}
-    />
+        planResult={planResult}
+        onDownloadResult={onDownloadResult}
+      />
 
       <div className="panel-actions">
         <div className="panel-actions-row">
