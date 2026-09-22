@@ -1,266 +1,377 @@
 {
-    "summary": {
-        "optimization_criteria": "min_time",
-        "total_time": 3600,
-        "total_distance": 45000,
-        "uavs_used": 2,
-        "uavs_total": 3,
-        "operation_start": "2026-04-15T08:00:00Z",
-        "operation_end": "2026-04-15T09:00:00Z"
-    },
-    "uav_assignments": [
+  "summary": {
+    "optimization_criteria": "min_flight_distance",
+    "total_time": 720,
+    "total_distance": 21750,
+    "uavs_used": 3,
+    "uavs_total": 3,
+    "operation_start": "2026-10-20T07:25:00.000Z",
+    "operation_end": "2026-10-20T07:37:00.000Z"
+  },
+  "uav_assignments": [
+    {
+      "uav_id": "uav1",
+      "type_id": "geoscan_201",
+      "camera_id": "riebo_r4",
+      "takeoff_time": "2026-10-20T07:25:00.000Z",
+      "landing_time": "2026-10-20T07:35:00.000Z",
+      "start_point": {
+        "id": "sp1",
+        "coordinates": [37.70799636840821, 56.02146546402811]
+      },
+      "landing_point": {
+        "id": "sp1",
+        "coordinates": [37.70799636840821, 56.02146546402811]
+      },
+      "route": {
+        "type": "LineString",
+        "coordinates": [
+          [37.70799636840821, 56.02146546402811],
+          [37.69900000000000, 56.02200000000000],
+          [37.68200000000000, 56.02300000000000],
+          [37.68200000000000, 56.02800000000000],
+          [37.68500000000000, 56.02800000000000],
+          [37.68500000000000, 56.02300000000000],
+          [37.68800000000000, 56.02300000000000],
+          [37.68800000000000, 56.02800000000000],
+          [37.69500000000000, 56.02500000000000],
+          [37.70799636840821, 56.02146546402811]
+        ]
+      },
+      "waypoints": [
         {
-            "uav_id": "uav1",
-            "type_id": "type_201",
-            "takeoff_time": "2026-04-15T08:00:00Z",
-            "landing_time": "2026-04-15T08:23:00Z",
-            "start_point": {
-                "id": "sp1",
-                "coordinates": [37.72, 55.93]
-            },
-            "landing_point": {
-                "id": "sp1",
-                "coordinates": [37.72, 55.93]
-            },
-            "route": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        37.712872423504585,
-                        55.94075054551418
-                    ],
-                    [
-                        37.71801920106812,
-                        55.95458795484356
-                    ],
-                    [
-                        37.72419533414436,
-                        55.96534696601318
-                    ],
-                    [
-                        37.732087059741765,
-                        55.98071179443612
-                    ]
-                ]
-            },
-            "waypoints": [
-                {
-                    "sequence": 1,
-                    "coordinates": [
-                        37.712872423504585,
-                        55.94075054551418
-                    ],
-                    "altitude": 0,
-                    "speed": 0,
-                    "action": "takeoff",
-                    "time": "2026-04-15T08:00:00Z"
-                },
-                {
-                    "sequence": 2,
-                    "coordinates": [
-                        37.71801920106812,
-                        55.95458795484356
-                    ],
-                    "altitude": 100,
-                    "speed": 15,
-                    "action": "transit",
-                    "time": "2026-04-15T08:01:00Z"
-                },
-                {
-                    "sequence": 3,
-                    "coordinates": [
-                        37.72419533414436,
-                        55.96534696601318
-                    ],
-                    "altitude": 120,
-                    "speed": 15,
-                    "action": "survey_end",
-                    "time": "2026-04-15T08:20:00Z"
-                },
-                {
-                    "sequence": 4,
-                    "coordinates": [
-                        37.732087059741765,
-                        55.98071179443612
-                    ],
-                    "altitude": 0,
-                    "speed": 0,
-                    "action": "landing",
-                    "time": "2026-04-15T08:23:00Z"
-                }
-            ],
-            "estimated_time": 1380,
-            "estimated_distance": 17500,
-            "battery_usage": 45
+          "sequence": 1,
+          "coordinates": [37.70799636840821, 56.02146546402811],
+          "altitude": 0,
+          "speed": 0,
+          "action": "takeoff",
+          "time": "2026-10-20T07:25:00.000Z"
         },
         {
-            "uav_id": "uav2",
-            "type_id": "type_801",
-            "takeoff_time": "2026-04-15T08:00:00Z",
-            "landing_time": "2026-04-15T08:23:00Z",
-            "start_point": {
-                "id": "sp1",
-                "coordinates": [37.72, 55.93]
-            },
-            "landing_point": {
-                "id": "sp1",
-                "coordinates": [37.72, 55.93]
-            },
-            "route": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        37.712872423504585,
-                        55.95075054551418
-                    ],
-                    [
-                        37.71801920106812,
-                        55.96458795484356
-                    ],
-                    [
-                        37.72419533414436,
-                        55.97534696601318
-                    ],
-                    [
-                        37.732087059741765,
-                        55.99071179443612
-                    ]
-                ]
-            },
-            "waypoints": [
-                {
-                    "sequence": 1,
-                    "coordinates": [
-                        37.712872423504585,
-                        55.95075054551418
-                    ],
-                    "altitude": 0,
-                    "speed": 0,
-                    "action": "takeoff",
-                    "time": "2026-04-15T08:00:00Z"
-                },
-                {
-                    "sequence": 2,
-                    "coordinates": [
-                        37.71801920106812,
-                        55.96458795484356
-                    ],
-                    "altitude": 100,
-                    "speed": 15,
-                    "action": "transit",
-                    "time": "2026-04-15T08:01:00Z"
-                },
-                {
-                    "sequence": 3,
-                    "coordinates": [
-                        37.72419533414436,
-                        55.97534696601318
-                    ],
-                    "altitude": 120,
-                    "speed": 15,
-                    "action": "survey_end",
-                    "time": "2026-04-15T08:20:00Z"
-                },
-                {
-                    "sequence": 4,
-                    "coordinates": [
-                        37.732087059741765,
-                        55.99071179443612
-                    ],
-                    "altitude": 0,
-                    "speed": 0,
-                    "action": "landing",
-                    "time": "2026-04-15T08:23:00Z"
-                }
-            ],
-            "estimated_time": 1380,
-            "estimated_distance": 17500,
-            "battery_usage": 45
+          "sequence": 2,
+          "coordinates": [37.69900000000000, 56.02200000000000],
+          "altitude": 120,
+          "speed": 25,
+          "action": "transit",
+          "time": "2026-10-20T07:26:00.000Z"
         },
         {
-            "uav_id": "uav3",
-            "type_id": "type_404",
-            "takeoff_time": "2026-04-15T08:00:00Z",
-            "landing_time": "2026-04-15T08:23:00Z",
-            "start_point": {
-                "id": "sp1",
-                "coordinates": [37.72, 55.93]
-            },
-            "landing_point": {
-                "id": "sp1",
-                "coordinates": [37.72, 55.93]
-            },
-            "route": {
-                "type": "LineString",
-                "coordinates": [
-                    [
-                        37.712872423504585,
-                        55.98075054551418
-                    ],
-                    [
-                        37.71801920106812,
-                        55.99458795484356
-                    ],
-                    [
-                        37.72419533414436,
-                        55.99534696601318
-                    ],
-                    [
-                        37.732087059741765,
-                        55.99971179443612
-                    ]
-                ]
-            },
-            "waypoints": [
-                {
-                    "sequence": 1,
-                    "coordinates": [
-                        37.712872423504585,
-                        55.98075054551418
-                    ],
-                    "altitude": 0,
-                    "speed": 0,
-                    "action": "takeoff",
-                    "time": "2026-04-15T08:00:00Z"
-                },
-                {
-                    "sequence": 2,
-                    "coordinates": [
-                        37.71801920106812,
-                        55.99458795484356
-                    ],
-                    "altitude": 100,
-                    "speed": 15,
-                    "action": "transit",
-                    "time": "2026-04-15T08:01:00Z"
-                },
-                {
-                    "sequence": 3,
-                    "coordinates": [
-                        37.72419533414436,
-                        55.99534696601318
-                    ],
-                    "altitude": 120,
-                    "speed": 15,
-                    "action": "survey_end",
-                    "time": "2026-04-15T08:20:00Z"
-                },
-                {
-                    "sequence": 4,
-                    "coordinates": [
-                        37.732087059741765,
-                        55.99971179443612
-                    ],
-                    "altitude": 0,
-                    "speed": 0,
-                    "action": "landing",
-                    "time": "2026-04-15T08:23:00Z"
-                }
-            ],
-            "estimated_time": 1380,
-            "estimated_distance": 17500,
-            "battery_usage": 45
+          "sequence": 3,
+          "coordinates": [37.68200000000000, 56.02300000000000],
+          "altitude": 120,
+          "speed": 25,
+          "action": "line_begin",
+          "photo_distance": 43,
+          "time": "2026-10-20T07:26:30.000Z"
+        },
+        {
+          "sequence": 4,
+          "coordinates": [37.68200000000000, 56.02800000000000],
+          "altitude": 120,
+          "speed": 25,
+          "action": "line_end",
+          "time": "2026-10-20T07:28:00.000Z"
+        },
+        {
+          "sequence": 5,
+          "coordinates": [37.68500000000000, 56.02800000000000],
+          "altitude": 120,
+          "speed": 25,
+          "action": "transit",
+          "time": "2026-10-20T07:28:30.000Z"
+        },
+        {
+          "sequence": 6,
+          "coordinates": [37.68500000000000, 56.02800000000000],
+          "altitude": 120,
+          "speed": 25,
+          "action": "line_begin",
+          "photo_distance": 43,
+          "time": "2026-10-20T07:28:30.000Z"
+        },
+        {
+          "sequence": 7,
+          "coordinates": [37.68500000000000, 56.02300000000000],
+          "altitude": 120,
+          "speed": 25,
+          "action": "line_end",
+          "time": "2026-10-20T07:30:00.000Z"
+        },
+        {
+          "sequence": 8,
+          "coordinates": [37.68800000000000, 56.02300000000000],
+          "altitude": 120,
+          "speed": 25,
+          "action": "transit",
+          "time": "2026-10-20T07:30:30.000Z"
+        },
+        {
+          "sequence": 9,
+          "coordinates": [37.68800000000000, 56.02300000000000],
+          "altitude": 120,
+          "speed": 25,
+          "action": "line_begin",
+          "photo_distance": 43,
+          "time": "2026-10-20T07:30:30.000Z"
+        },
+        {
+          "sequence": 10,
+          "coordinates": [37.68800000000000, 56.02800000000000],
+          "altitude": 120,
+          "speed": 25,
+          "action": "line_end",
+          "time": "2026-10-20T07:32:00.000Z"
+        },
+        {
+          "sequence": 11,
+          "coordinates": [37.69500000000000, 56.02500000000000],
+          "altitude": 120,
+          "speed": 25,
+          "action": "transit",
+          "time": "2026-10-20T07:33:00.000Z"
+        },
+        {
+          "sequence": 12,
+          "coordinates": [37.70799636840821, 56.02146546402811],
+          "altitude": 0,
+          "speed": 0,
+          "action": "landing",
+          "time": "2026-10-20T07:35:00.000Z"
         }
-    ],
-    "warnings": []
+      ],
+      "estimated_time": 600,
+      "estimated_distance": 8900,
+      "battery_usage": 38
+    },
+    {
+      "uav_id": "uav2",
+      "type_id": "geoscan_201",
+      "camera_id": "riebo_r4",
+      "takeoff_time": "2026-10-20T07:25:00.000Z",
+      "landing_time": "2026-10-20T07:35:00.000Z",
+      "start_point": {
+        "id": "sp4",
+        "coordinates": [37.686163187026985, 56.02204927167073]
+      },
+      "landing_point": {
+        "id": "sp4",
+        "coordinates": [37.686163187026985, 56.02204927167073]
+      },
+      "route": {
+        "type": "LineString",
+        "coordinates": [
+          [37.686163187026985, 56.02204927167073],
+          [37.67500000000000, 56.02300000000000],
+          [37.67500000000000, 56.02700000000000],
+          [37.67800000000000, 56.02700000000000],
+          [37.67800000000000, 56.02300000000000],
+          [37.686163187026985, 56.02204927167073]
+        ]
+      },
+      "waypoints": [
+        {
+          "sequence": 1,
+          "coordinates": [37.686163187026985, 56.02204927167073],
+          "altitude": 0,
+          "speed": 0,
+          "action": "takeoff",
+          "time": "2026-10-20T07:25:00.000Z"
+        },
+        {
+          "sequence": 2,
+          "coordinates": [37.67500000000000, 56.02300000000000],
+          "altitude": 120,
+          "speed": 25,
+          "action": "transit",
+          "time": "2026-10-20T07:26:00.000Z"
+        },
+        {
+          "sequence": 3,
+          "coordinates": [37.67500000000000, 56.02300000000000],
+          "altitude": 120,
+          "speed": 25,
+          "action": "line_begin",
+          "photo_distance": 43,
+          "time": "2026-10-20T07:26:30.000Z"
+        },
+        {
+          "sequence": 4,
+          "coordinates": [37.67500000000000, 56.02700000000000],
+          "altitude": 120,
+          "speed": 25,
+          "action": "line_end",
+          "time": "2026-10-20T07:28:00.000Z"
+        },
+        {
+          "sequence": 5,
+          "coordinates": [37.67800000000000, 56.02700000000000],
+          "altitude": 120,
+          "speed": 25,
+          "action": "transit",
+          "time": "2026-10-20T07:28:30.000Z"
+        },
+        {
+          "sequence": 6,
+          "coordinates": [37.67800000000000, 56.02700000000000],
+          "altitude": 120,
+          "speed": 25,
+          "action": "line_begin",
+          "photo_distance": 43,
+          "time": "2026-10-20T07:28:30.000Z"
+        },
+        {
+          "sequence": 7,
+          "coordinates": [37.67800000000000, 56.02300000000000],
+          "altitude": 120,
+          "speed": 25,
+          "action": "line_end",
+          "time": "2026-10-20T07:30:00.000Z"
+        },
+        {
+          "sequence": 8,
+          "coordinates": [37.68200000000000, 56.02500000000000],
+          "altitude": 120,
+          "speed": 25,
+          "action": "transit",
+          "time": "2026-10-20T07:31:00.000Z"
+        },
+        {
+          "sequence": 9,
+          "coordinates": [37.686163187026985, 56.02204927167073],
+          "altitude": 0,
+          "speed": 0,
+          "action": "landing",
+          "time": "2026-10-20T07:35:00.000Z"
+        }
+      ],
+      "estimated_time": 600,
+      "estimated_distance": 6400,
+      "battery_usage": 28
+    },
+    {
+      "uav_id": "uav3",
+      "type_id": "geoscan_gemini",
+      "camera_id": "geoscan_pf1b",
+      "takeoff_time": "2026-10-20T07:25:00.000Z",
+      "landing_time": "2026-10-20T07:37:00.000Z",
+      "start_point": {
+        "id": "sp3",
+        "coordinates": [37.67453312873841, 56.02555038106746]
+      },
+      "landing_point": {
+        "id": "sp3",
+        "coordinates": [37.67453312873841, 56.02555038106746]
+      },
+      "route": {
+        "type": "LineString",
+        "coordinates": [
+          [37.67453312873841, 56.02555038106746],
+          [37.67400000000000, 56.02300000000000],
+          [37.67400000000000, 56.02600000000000],
+          [37.67700000000000, 56.02600000000000],
+          [37.67700000000000, 56.02300000000000],
+          [37.68000000000000, 56.02300000000000],
+          [37.68000000000000, 56.02600000000000],
+          [37.67453312873841, 56.02555038106746]
+        ]
+      },
+      "waypoints": [
+        {
+          "sequence": 1,
+          "coordinates": [37.67453312873841, 56.02555038106746],
+          "altitude": 0,
+          "speed": 0,
+          "action": "takeoff",
+          "time": "2026-10-20T07:25:00.000Z"
+        },
+        {
+          "sequence": 2,
+          "coordinates": [37.67400000000000, 56.02300000000000],
+          "altitude": 100,
+          "speed": 15,
+          "action": "transit",
+          "time": "2026-10-20T07:26:30.000Z"
+        },
+        {
+          "sequence": 3,
+          "coordinates": [37.67400000000000, 56.02300000000000],
+          "altitude": 100,
+          "speed": 15,
+          "action": "line_begin",
+          "photo_distance": 35,
+          "time": "2026-10-20T07:27:00.000Z"
+        },
+        {
+          "sequence": 4,
+          "coordinates": [37.67400000000000, 56.02600000000000],
+          "altitude": 100,
+          "speed": 15,
+          "action": "line_end",
+          "time": "2026-10-20T07:28:30.000Z"
+        },
+        {
+          "sequence": 5,
+          "coordinates": [37.67700000000000, 56.02600000000000],
+          "altitude": 100,
+          "speed": 15,
+          "action": "transit",
+          "time": "2026-10-20T07:29:00.000Z"
+        },
+        {
+          "sequence": 6,
+          "coordinates": [37.67700000000000, 56.02600000000000],
+          "altitude": 100,
+          "speed": 15,
+          "action": "line_begin",
+          "photo_distance": 35,
+          "time": "2026-10-20T07:29:00.000Z"
+        },
+        {
+          "sequence": 7,
+          "coordinates": [37.67700000000000, 56.02300000000000],
+          "altitude": 100,
+          "speed": 15,
+          "action": "line_end",
+          "time": "2026-10-20T07:30:30.000Z"
+        },
+        {
+          "sequence": 8,
+          "coordinates": [37.68000000000000, 56.02300000000000],
+          "altitude": 100,
+          "speed": 15,
+          "action": "transit",
+          "time": "2026-10-20T07:31:00.000Z"
+        },
+        {
+          "sequence": 9,
+          "coordinates": [37.68000000000000, 56.02300000000000],
+          "altitude": 100,
+          "speed": 15,
+          "action": "line_begin",
+          "photo_distance": 35,
+          "time": "2026-10-20T07:31:00.000Z"
+        },
+        {
+          "sequence": 10,
+          "coordinates": [37.68000000000000, 56.02600000000000],
+          "altitude": 100,
+          "speed": 15,
+          "action": "line_end",
+          "time": "2026-10-20T07:32:30.000Z"
+        },
+        {
+          "sequence": 11,
+          "coordinates": [37.67453312873841, 56.02555038106746],
+          "altitude": 0,
+          "speed": 0,
+          "action": "landing",
+          "time": "2026-10-20T07:37:00.000Z"
+        }
+      ],
+      "estimated_time": 720,
+      "estimated_distance": 6450,
+      "battery_usage": 32
+    }
+  ],
+  "warnings": []
 }

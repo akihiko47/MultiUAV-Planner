@@ -277,26 +277,31 @@ export async function downloadWaypointsZip(planResult) {
   const fmt = (n) => Number(n).toFixed(6);
   const line = (seq, cur, frame, cmd, p1, p2, p3, p4, lat, lon, alt, autocon) =>
     [
-      seq,
-      cur,
-      frame,
-      cmd,
-      fmt(p1),
-      fmt(p2),
-      fmt(p3),
-      fmt(p4),
-      fmt(lat),
-      fmt(lon),
-      fmt(alt),
-      autocon,
+      seq, cur, frame, cmd,
+      fmt(p1), fmt(p2), fmt(p3), fmt(p4),
+      fmt(lat), fmt(lon), fmt(alt), autocon,
     ].join('\t');
 
+  const CMD_NAV_WAYPOINT          = 16;
+  const CMD_NAV_LAND              = 21;
+  const CMD_NAV_TAKEOFF           = 22;
+  const CMD_DO_SET_HOME           = 177;
+  const CMD_IMAGE_START_CAPTURE   = 2000;
+  const CMD_IMAGE_STOP_CAPTURE    = 2001;
+
   const ACTION_TO_CMD = {
-    takeoff: 22,
-    transit: 16,
-    survey_end: 16,
-    landing: 21,
+    takeoff:    CMD_NAV_TAKEOFF,
+    transit:    CMD_NAV_WAYPOINT,
+    line_begin: CMD_NAV_WAYPOINT,
+    line_end:   CMD_NAV_WAYPOINT,
+    waypoint:   CMD_NAV_WAYPOINT,
+    landing:    CMD_NAV_LAND,
   };
+
+  const sameCoords = (a, b) =>
+    a && b &&
+    Math.abs(a[0] - b[0]) < 1e-7 &&
+    Math.abs(a[1] - b[1]) < 1e-7;
 
   const zip = new JSZip();
 
@@ -308,14 +313,56 @@ export async function downloadWaypointsZip(planResult) {
     let seq = 0;
 
     const [homeLon, homeLat] = a.start_point.coordinates;
-    lines.push(line(seq++, 1, 0, 177, 0, 0, 0, 0, homeLat, homeLon, 0, 1));
+    lines.push(line(seq++, 1, 0, CMD_DO_SET_HOME, 0, 0, 0, 0, homeLat, homeLon, 0, 1));
 
-    wps.forEach((wp) => {
+    wps.forEach((wp, i) => {
       const [lon, lat] = wp.coordinates;
-      const cmd = ACTION_TO_CMD[wp.action] ?? 16;
+
+      // Пропускаем транзит, если следующий waypoint — line_begin/line_end
+      // в тех же координатах
+      if (wp.action === 'transit') {
+        const next = wps[i + 1];
+        if (
+          next &&
+          (next.action === 'line_begin' || next.action === 'line_end') &&
+          sameCoords(wp.coordinates, next.coordinates)
+        ) {
+          return;
+        }
+      }
+
+      // 1. Сам waypoint
+      const cmd = ACTION_TO_CMD[wp.action] ?? CMD_NAV_WAYPOINT;
       const alt =
         wp.action === 'takeoff' && wp.altitude === 0 ? 100 : wp.altitude;
       lines.push(line(seq++, 0, 3, cmd, 0, 0, 0, 0, lat, lon, alt, 1));
+
+      // 2. СРАЗУ после waypoint line_begin — запускаем триггер камеры.
+      //    Значение photo_distance кладём в p2 (MP покажет в «Интервал»).
+      if (wp.action === 'line_begin') {
+        if (typeof wp.photo_distance === 'number' && wp.photo_distance > 0) {
+          lines.push(line(
+            seq++, 0, 3,
+            CMD_IMAGE_START_CAPTURE,
+            0, wp.photo_distance, 0, 0,
+            0, 0, 0, 1
+          ));
+        } else {
+          console.warn(
+            `[${a.uav_id}] line_begin без photo_distance — триггер не выставлен`
+          );
+        }
+      }
+
+      // 3. СРАЗУ после waypoint line_end — останавливаем триггер камеры.
+      if (wp.action === 'line_end') {
+        lines.push(line(
+          seq++, 0, 3,
+          CMD_IMAGE_STOP_CAPTURE,
+          0, 0, 0, 0,
+          0, 0, 0, 1
+        ));
+      }
     });
 
     zip.file(`${a.uav_id}.waypoints`, lines.join('\n'));

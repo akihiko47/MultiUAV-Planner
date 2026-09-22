@@ -140,12 +140,32 @@ class Waypoint(BaseModel):
     action: Literal[
         "takeoff",
         "transit",
-        "survey_start",
-        "survey_end",
+        "line_begin",
+        "line_end",
         "waypoint",
         "landing",
     ]
+    photo_distance: Optional[float] = None
     time: datetime
+
+    @model_validator(mode="after")
+    def validate_photo_distance(self):
+        if self.action == "line_begin":
+            if self.photo_distance is None:
+                raise ValueError(
+                    "photo_distance is required when action='line_begin'"
+                )
+            if self.photo_distance <= 0:
+                raise ValueError(
+                    f"photo_distance must be positive, got {self.photo_distance}"
+                )
+        else:
+            if self.photo_distance is not None:
+                raise ValueError(
+                    f"photo_distance is only allowed for action='line_begin', "
+                    f"got action='{self.action}'"
+                )
+        return self
 
 
 class Route(BaseModel):
