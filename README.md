@@ -136,24 +136,28 @@ docker compose down
     "type": "Polygon",
     "coordinates": [
       [
-        [37.6000, 55.7000],
-        [37.7000, 55.7000],
-        [37.7000, 55.8000],
-        [37.6000, 55.8000],
-        [37.6000, 55.7000]
+        [37.674608, 56.027098],
+        [37.678685, 56.024988],
+        [37.688599, 56.022399],
+        [37.692504, 56.026307],
+        [37.686367, 56.028393],
+        [37.678556, 56.028536],
+        [37.674608, 56.027098]
       ],
       [
-        [37.6300, 55.7300],
-        [37.6500, 55.7300],
-        [37.6500, 55.7500],
-        [37.6300, 55.7500],
-        [37.6300, 55.7300]
+        [37.685702, 56.024496],
+        [37.687740, 56.026618],
+        [37.689586, 56.026234],
+        [37.687526, 56.023981],
+        [37.685702, 56.024496]
       ]
     ]
   },
   "start_points": [
-    { "id": "sp1", "coordinates": [37.6200, 55.7200] },
-    { "id": "sp2", "coordinates": [37.6800, 55.7800] }
+    { "id": "sp1", "coordinates": [37.70799636840821, 56.02146546402811] },
+    { "id": "sp2", "coordinates": [37.690626382827766, 56.02743267537338] },
+    { "id": "sp3", "coordinates": [37.67453312873841, 56.02555038106746] },
+    { "id": "sp4", "coordinates": [37.686163187026985, 56.02204927167073] }
   ],
   "uav_types": [
     {
@@ -180,26 +184,6 @@ docker compose down
       ]
     },
     {
-      "id": "geoscan_801",
-      "name": "Геоскан 801",
-      "max_flight_distance": 20000,
-      "max_distance_from_home": 10000,
-      "cruise_speed": 15,
-      "min_speed": 0,
-      "max_speed": 15,
-      "min_alt": 50,
-      "max_alt": 4000,
-      "min_turn_radius": 0,
-      "min_voltage": 15,
-      "climb_speed": 5,
-      "descent_speed": 3,
-      "cameras": [
-        "geoscan_801_visible_wide",
-        "geoscan_801_visible_narrow",
-        "geoscan_801_thermal"
-      ]
-    },
-    {
       "id": "geoscan_gemini",
       "name": "Геоскан Gemini",
       "max_flight_distance": 30000,
@@ -222,6 +206,16 @@ docker compose down
   ],
   "cameras": [
     {
+      "id": "geoscan_pf1b",
+      "name": "Geoscan PF1B",
+      "type": "RGB",
+      "focalLength": 20,
+      "matrixX": 23.5,
+      "matrixY": 15.6,
+      "matrixPixX": 6000,
+      "matrixPixY": 4000
+    },
+    {
       "id": "riebo_r4",
       "name": "Riebo R4",
       "type": "RGB",
@@ -230,37 +224,17 @@ docker compose down
       "matrixY": 23.9,
       "matrixPixX": 9504,
       "matrixPixY": 6336
-    },
-    {
-      "id": "geoscan_pollux",
-      "name": "Geoscan Pollux",
-      "type": "Multispectral",
-      "focalLength": 8,
-      "matrixX": 5.04,
-      "matrixY": 3.78,
-      "matrixPixX": 1440,
-      "matrixPixY": 1080
-    },
-    {
-      "id": "geoscan_801_visible_wide",
-      "name": "Geoscan 801 Visible Wide",
-      "type": "RGB",
-      "focalLength": 4.35,
-      "matrixX": 6.17,
-      "matrixY": 4.55,
-      "matrixPixX": 4000,
-      "matrixPixY": 3000
     }
   ],
   "uavs": [
-    { "id": "uav1", "type_id": "geoscan_201", "camera_id": "riebo_r4" },
-    { "id": "uav2", "type_id": "geoscan_201", "camera_id": "geoscan_pollux" },
-    { "id": "uav3", "type_id": "geoscan_801", "camera_id": "geoscan_801_visible_wide" }
+    { "id": "uav1", "type_id": "geoscan_201",    "camera_id": "riebo_r4" },
+    { "id": "uav2", "type_id": "geoscan_201",    "camera_id": "riebo_r4" },
+    { "id": "uav3", "type_id": "geoscan_gemini", "camera_id": "geoscan_pf1b" }
   ],
   "survey_type": "RGB",
-  "optimization_criteria": "min_time",
-  "operation_start_time": "2026-04-15T08:00:00Z",
-  "operation_end_time": "2026-04-15T09:00:00Z"
+  "optimization_criteria": "min_flight_distance",
+  "operation_start_time": "2026-10-20T07:25:00.000Z",
+  "operation_end_time": "2026-10-20T08:25:00.000Z"
 }
 ```
 
