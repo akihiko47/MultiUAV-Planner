@@ -6,6 +6,13 @@
 оптимальные полётные задания для группы БВС с учётом их характеристик,
 установленных камер и ограничений воздушного пространства.
 
+## Демо
+
+Рабочая версия доступна по адресу: **https://multiuavplanner.ru**
+
+- Frontend: https://multiuavplanner.ru
+- Swagger UI: https://multiuavplanner.ru/docs
+- OpenAPI-схема: https://multiuavplanner.ru/openapi.json
 
 ## Быстрый старт
 
