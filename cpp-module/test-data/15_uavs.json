@@ -1,0 +1,287 @@
+{
+  "survey_area": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          37.706709,
+          56.405831
+        ],
+        [
+          37.711859,
+          56.408584
+        ],
+        [
+          37.718639,
+          56.405831
+        ],
+        [
+          37.720098,
+          56.401748
+        ],
+        [
+          37.730055,
+          56.398424
+        ],
+        [
+          37.723961,
+          56.39396
+        ],
+        [
+          37.709799,
+          56.396429
+        ],
+        [
+          37.704477,
+          56.400513
+        ],
+        [
+          37.706709,
+          56.405831
+        ]
+      ]
+    ]
+  },
+  "start_points": [
+    {
+      "id": "sp1",
+      "coordinates": [
+        37.71391868591309,
+        56.40972362932058
+      ]
+    },
+    {
+      "id": "sp2",
+      "coordinates": [
+        37.7212142944336,
+        56.40711259657556
+      ]
+    },
+    {
+      "id": "sp3",
+      "coordinates": [
+        37.724132537841804,
+        56.40288709135308
+      ]
+    },
+    {
+      "id": "sp4",
+      "coordinates": [
+        37.73228645324708,
+        56.399373392733686
+      ]
+    },
+    {
+      "id": "sp5",
+      "coordinates": [
+        37.73211479187012,
+        56.39424470992567
+      ]
+    },
+    {
+      "id": "sp6",
+      "coordinates": [
+        37.72078514099121,
+        56.39153762656205
+      ]
+    },
+    {
+      "id": "sp7",
+      "coordinates": [
+        37.70773887634278,
+        56.394054745442304
+      ]
+    },
+    {
+      "id": "sp8",
+      "coordinates": [
+        37.700614929199226,
+        56.39975326768041
+      ]
+    },
+    {
+      "id": "sp9",
+      "coordinates": [
+        37.70370483398438,
+        56.406827745801955
+      ]
+    }
+  ],
+  "uav_types": [
+    {
+      "id": "geoscan_201",
+      "name": "Геоскан 201",
+      "max_flight_distance": 210000,
+      "max_distance_from_home": 100000,
+      "cruise_speed": 25,
+      "min_speed": 17.8,
+      "max_speed": 36.1,
+      "min_alt": 100,
+      "max_alt": 4000,
+      "min_turn_radius": 50,
+      "min_voltage": 15,
+      "climb_speed": 5,
+      "descent_speed": 3,
+      "cameras": [
+        "riebo_r4",
+        "riebo_r6",
+        "sony_dsc_rx1rm3",
+        "sony_dsc_rx1rm2",
+        "sony_zv_e10",
+        "geoscan_pollux"
+      ]
+    },
+    {
+      "id": "geoscan_801",
+      "name": "Геоскан 801",
+      "max_flight_distance": 20000,
+      "max_distance_from_home": 10000,
+      "cruise_speed": 15,
+      "min_speed": 0,
+      "max_speed": 15,
+      "min_alt": 50,
+      "max_alt": 4000,
+      "min_turn_radius": 0,
+      "min_voltage": 15,
+      "climb_speed": 5,
+      "descent_speed": 3,
+      "cameras": [
+        "geoscan_801_visible_wide",
+        "geoscan_801_visible_narrow",
+        "geoscan_801_thermal"
+      ]
+    },
+    {
+      "id": "geoscan_gemini",
+      "name": "Геоскан Gemini",
+      "max_flight_distance": 30000,
+      "max_distance_from_home": 5000,
+      "cruise_speed": 15,
+      "min_speed": 0,
+      "max_speed": 15,
+      "min_alt": 25,
+      "max_alt": 500,
+      "min_turn_radius": 0,
+      "min_voltage": 15,
+      "climb_speed": 5,
+      "descent_speed": 3,
+      "cameras": [
+        "geoscan_pf1b",
+        "geoscan_pollux",
+        "sony_umc_r10c"
+      ]
+    }
+  ],
+  "cameras": [
+    {
+      "id": "geoscan_pf1b",
+      "name": "Geoscan PF1B",
+      "type": "RGB",
+      "focalLength": 20,
+      "matrixX": 23.5,
+      "matrixY": 15.6,
+      "matrixPixX": 6000,
+      "matrixPixY": 4000
+    },
+    {
+      "id": "riebo_r4",
+      "name": "Riebo R4",
+      "type": "RGB",
+      "focalLength": 40,
+      "matrixX": 35.9,
+      "matrixY": 23.9,
+      "matrixPixX": 9504,
+      "matrixPixY": 6336
+    },
+    {
+      "id": "geoscan_801_visible_wide",
+      "name": "Geoscan 801 Visible Wide",
+      "type": "RGB",
+      "focalLength": 4.35,
+      "matrixX": 6.17,
+      "matrixY": 4.55,
+      "matrixPixX": 4000,
+      "matrixPixY": 3000
+    }
+  ],
+  "uavs": [
+    {
+      "id": "uav1",
+      "type_id": "geoscan_201",
+      "camera_id": "riebo_r4"
+    },
+    {
+      "id": "uav2",
+      "type_id": "geoscan_201",
+      "camera_id": "riebo_r4"
+    },
+    {
+      "id": "uav3",
+      "type_id": "geoscan_201",
+      "camera_id": "riebo_r4"
+    },
+    {
+      "id": "uav4",
+      "type_id": "geoscan_201",
+      "camera_id": "riebo_r4"
+    },
+    {
+      "id": "uav5",
+      "type_id": "geoscan_201",
+      "camera_id": "riebo_r4"
+    },
+    {
+      "id": "uav6",
+      "type_id": "geoscan_801",
+      "camera_id": "geoscan_801_visible_wide"
+    },
+    {
+      "id": "uav7",
+      "type_id": "geoscan_801",
+      "camera_id": "geoscan_801_visible_wide"
+    },
+    {
+      "id": "uav8",
+      "type_id": "geoscan_801",
+      "camera_id": "geoscan_801_visible_wide"
+    },
+    {
+      "id": "uav9",
+      "type_id": "geoscan_801",
+      "camera_id": "geoscan_801_visible_wide"
+    },
+    {
+      "id": "uav10",
+      "type_id": "geoscan_801",
+      "camera_id": "geoscan_801_visible_wide"
+    },
+    {
+      "id": "uav11",
+      "type_id": "geoscan_gemini",
+      "camera_id": "geoscan_pf1b"
+    },
+    {
+      "id": "uav12",
+      "type_id": "geoscan_gemini",
+      "camera_id": "geoscan_pf1b"
+    },
+    {
+      "id": "uav13",
+      "type_id": "geoscan_gemini",
+      "camera_id": "geoscan_pf1b"
+    },
+    {
+      "id": "uav14",
+      "type_id": "geoscan_gemini",
+      "camera_id": "geoscan_pf1b"
+    },
+    {
+      "id": "uav15",
+      "type_id": "geoscan_gemini",
+      "camera_id": "geoscan_pf1b"
+    }
+  ],
+  "survey_type": "RGB",
+  "optimization_criteria": "min_time",
+  "operation_start_time": "2026-12-08T23:14:00.000Z"
+}

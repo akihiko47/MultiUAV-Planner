@@ -131,13 +131,13 @@ export default function SidePanel({
       <div className="panel-actions">
         <div className="panel-actions-row">
           <button className="download-btn" onClick={onDownloadPayload}>
-            Экспорт настроек
+            Экспорт запроса
           </button>
           <button
             className="download-btn"
             onClick={() => fileInputRef.current?.click()}
           >
-            Импорт настроек
+            Импорт запроса
           </button>
         </div>
 
