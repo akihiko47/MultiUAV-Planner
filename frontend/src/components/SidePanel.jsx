@@ -131,13 +131,13 @@ export default function SidePanel({
       <div className="panel-actions">
         <div className="panel-actions-row">
           <button className="download-btn" onClick={onDownloadPayload}>
-            Скачать JSON с карты
+            Экспорт настроек
           </button>
           <button
             className="download-btn"
             onClick={() => fileInputRef.current?.click()}
           >
-            Импорт JSON
+            Импорт настроек
           </button>
         </div>
 

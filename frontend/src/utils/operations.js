@@ -10,7 +10,9 @@ import {
 export function isoToLocalInput(isoString) {
   const d = new Date(isoString);
   const pad = (n) => String(n).padStart(2, '0');
-  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(
+    d.getHours()
+  )}:${pad(d.getMinutes())}`;
 }
 
 export function validatePlan(plan) {
@@ -22,26 +24,31 @@ export function validatePlan(plan) {
   return null;
 }
 
-// Собираем payload
 export function makePayload(mapRef, settings) {
   if (!mapRef.current) return null;
   const mapData = collectMapData(mapRef.current);
   return buildPlan({ mapData, ...settings });
 }
 
-// Скачивание
 export function handleDownload(mapRef, settings) {
-  const plan = makePayload(mapRef, settings);
+  let plan;
+  try {
+    plan = makePayload(mapRef, settings);
+  } catch (e) {
+    alert(e.message);
+    return;
+  }
+
   const error = validatePlan(plan);
   if (error) {
     alert(error);
     return;
   }
+
   downloadPlan(plan);
   console.log('Сохранено:', plan);
 }
 
-// Скачивание результата расчёта (ответа сервера)
 export function downloadPlanResult(planResult) {
   if (!planResult) {
     alert('Сначала выполните расчёт');
@@ -50,9 +57,15 @@ export function downloadPlanResult(planResult) {
   downloadPlan(planResult);
 }
 
-// Отправка
 export async function handleSubmit(mapRef, settings) {
-  const plan = makePayload(mapRef, settings);
+  let plan;
+  try {
+    plan = makePayload(mapRef, settings);
+  } catch (e) {
+    alert(e.message);
+    return;
+  }
+
   const error = validatePlan(plan);
   if (error) {
     alert(error);
@@ -70,7 +83,6 @@ export async function handleSubmit(mapRef, settings) {
   }
 }
 
-// Импорт: возвращает объект для обновления формы.
 export function handleImport(mapRef, plan) {
   if (mapRef.current) {
     applyPlanToMap(mapRef.current, plan, { markerIcon: airportIcon });
@@ -78,7 +90,6 @@ export function handleImport(mapRef, plan) {
     console.warn('Карта ещё не готова');
   }
 
-  // Готовим данные для setState в App
   const formUpdates = {};
   if (Array.isArray(plan.uav_types)) {
     formUpdates.selectedUavs = plan.uav_types.map((t) => t.id);
@@ -91,7 +102,8 @@ export function handleImport(mapRef, plan) {
     formUpdates.uavCounts = counts;
   }
   if (plan.survey_type) formUpdates.surveyType = plan.survey_type;
-  if (plan.optimization_criteria) formUpdates.optimization = plan.optimization_criteria;
+  if (plan.optimization_criteria)
+    formUpdates.optimization = plan.optimization_criteria;
   if (plan.operation_start_time) {
     formUpdates.startDate = isoToLocalInput(plan.operation_start_time);
   }

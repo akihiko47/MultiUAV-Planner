@@ -9,7 +9,7 @@ export default function ExportPanel({ planResult, onDownloadResult }) {
 
       {!hasResult && (
         <p className="routes-empty">
-          Здесь появятся экспорты после расчёта
+          Запустите расчёт — здесь появятся варианты экспорта
         </p>
       )}
 

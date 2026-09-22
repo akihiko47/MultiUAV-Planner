@@ -3,7 +3,6 @@ import json
 import os
 from pathlib import Path
 
-# Путь к библиотеке можно переопределить через переменную окружения.
 LIB_PATH = os.getenv(
     "PLANNER_LIB",
     str(Path(__file__).parent.parent / "build" / "libplanner.so")
