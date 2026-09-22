@@ -105,18 +105,10 @@ docker compose down
 | `uavs[].id` | String | Да | Уникальный идентификатор экземпляра БВС. |
 | `uavs[].type_id` | String | Да | Ссылка на `id` из `uav_types`. |
 | `uavs[].camera_id` | String | Да | Ссылка на `id` из `cameras` (камера, установленная на этом БВС). |
-| `survey_type` | String | Да | Тип съёмки. Допустимые значения: `"RGB"`, `"multispectral"`, `"IR"`, `"LiDAR"`, `"geophysical"`. |
+| `survey_type` | String | Да | Тип съёмки. Допустимые значения: `"RGB"`, `"multispectral"`, `"Thermal"`, `"LiDAR"`, `"geophysical"`. |
 | `optimization_criteria` | String | Нет | Критерий оптимизации: `"min_time"` (минимизация времени выполнения работ) или `"min_flight_distance"` (минимизация суммарного налёта). По умолчанию `"min_time"`. |
 | `operation_start_time` | String (ISO 8601) | Нет | Планируемое время начала операции (время первого взлёта). Если не указано, используется текущее время или значение по умолчанию. |
 | `operation_end_time` | String (ISO 8601) | Нет | Планируемое время окончания операции (время последней посадки). |
-
-### Соответствие типов камер и типов съёмки
-
-| `cameras[].type` | Соответствующий `survey_type` |
-|------------------|-------------------------------|
-| `"RGB"` | `"RGB"` |
-| `"Multispectral"` | `"multispectral"` |
-| `"Thermal"` | `"IR"` |
 
 ## Формат зоны съёмки (`survey_area`)
 
