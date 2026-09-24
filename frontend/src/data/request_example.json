@@ -95,15 +95,8 @@
     {
       "id": "sp2",
       "coordinates": [
-        37.62182850641278,
-        57.36855168961167
-      ]
-    },
-    {
-      "id": "sp3",
-      "coordinates": [
-        37.61382172009482,
-        57.36714935356615
+        37.61330673596396,
+        57.36712620233841
       ]
     }
   ],
@@ -185,6 +178,6 @@
   ],
   "survey_type": "RGB",
   "gsd": 3,
-  "optimization_criteria": "min_flight_distance",
+  "optimization_criteria": "min_time",
   "operation_start_time": "2026-11-18T05:36:00.000Z"
 }

@@ -310,11 +310,27 @@ export async function downloadWaypointsZip(planResult) {
     Math.abs(a[0] - b[0]) < 1e-7 &&
     Math.abs(a[1] - b[1]) < 1e-7;
 
+  // Считаем, сколько вылетов у каждого борта. Если больше одного —
+  // к имени файла добавим суффикс _sortieN, чтобы не перезаписать друг друга.
+  const totalSorties = {};
+  assignments.forEach((a) => {
+    totalSorties[a.uav_id] = (totalSorties[a.uav_id] || 0) + 1;
+  });
+  const sortieIndex = {};
+
   const zip = new JSZip();
 
   assignments.forEach((a) => {
     const wps = a?.waypoints;
     if (!wps || wps.length === 0) return;
+
+    // Номер вылета для этого борта (1-based)
+    sortieIndex[a.uav_id] = (sortieIndex[a.uav_id] || 0) + 1;
+    const sortieNum = sortieIndex[a.uav_id];
+    const needsSuffix = totalSorties[a.uav_id] > 1;
+    const fileName = needsSuffix
+      ? `${a.uav_id}_sortie${sortieNum}.waypoints`
+      : `${a.uav_id}.waypoints`;
 
     const lines = ['QGC WPL 110'];
     let seq = 0;
@@ -345,7 +361,6 @@ export async function downloadWaypointsZip(planResult) {
       lines.push(line(seq++, 0, 3, cmd, 0, 0, 0, 0, lat, lon, alt, 1));
 
       // 2. СРАЗУ после waypoint line_begin — запускаем триггер камеры.
-      //    Значение photo_distance кладём в p2 (MP покажет в «Интервал»).
       if (wp.action === 'line_begin') {
         if (typeof wp.photo_distance === 'number' && wp.photo_distance > 0) {
           lines.push(line(
@@ -372,7 +387,7 @@ export async function downloadWaypointsZip(planResult) {
       }
     });
 
-    zip.file(`${a.uav_id}.waypoints`, lines.join('\n'));
+    zip.file(fileName, lines.join('\n'));
   });
 
   const blob = await zip.generateAsync({ type: 'blob' });

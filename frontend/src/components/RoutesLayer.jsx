@@ -5,7 +5,7 @@ import 'leaflet-polylinedecorator';
 
 import { getRouteColor } from '../utils/routeColors';
 
-function DirectionArrows({ assignments, hiddenRoutes }) {
+function DirectionArrows({ assignments, hiddenRoutes, uavIds }) {
   const map = useMap();
 
   useEffect(() => {
@@ -15,13 +15,12 @@ function DirectionArrows({ assignments, hiddenRoutes }) {
 
     const draw = () => {
       const layers = [];
-
       if (map.getZoom() < MIN_ZOOM) return layers;
 
       assignments.forEach((a, i) => {
         if (hiddenRoutes[a.uav_id]) return;
 
-        const color = getRouteColor(i, assignments.length);
+        const color = getRouteColor(uavIds.indexOf(a.uav_id), uavIds.length);
         const latlngs = a.route.coordinates.map(([lon, lat]) => [lat, lon]);
 
         const decorator = L.polylineDecorator(L.polyline(latlngs), {
@@ -76,26 +75,27 @@ function DirectionArrows({ assignments, hiddenRoutes }) {
       map.off('pm:globaldragmodetoggled', onEditModeToggled);
       current.forEach((l) => map.removeLayer(l));
     };
-  }, [map, assignments, hiddenRoutes]);
+  }, [map, assignments, hiddenRoutes, uavIds]);
 
   return null;
 }
 
-
 export default function RoutesLayer({ assignments, hiddenRoutes }) {
   if (!assignments || assignments.length === 0) return null;
 
+  // Уникальные uav_id в порядке появления — для стабильных цветов
+  const uavIds = Array.from(new Set(assignments.map((a) => a.uav_id)));
+
   return (
     <>
-      {/* Чёрная обводка */}
-      {assignments.map((a) => {
+      {assignments.map((a, i) => {
         if (hiddenRoutes[a.uav_id]) return null;
 
         const positions = a.route.coordinates.map(([lon, lat]) => [lat, lon]);
 
         return (
           <Polyline
-            key={a.uav_id}
+            key={`${a.uav_id}_${i}_under`}
             positions={positions}
             pathOptions={{
               color: '#000',
@@ -109,16 +109,18 @@ export default function RoutesLayer({ assignments, hiddenRoutes }) {
         );
       })}
 
-      {/* Яркая линия поверх */}
       {assignments.map((a, i) => {
         if (hiddenRoutes[a.uav_id]) return null;
 
-        const color = getRouteColor(i, assignments.length);
+        const color = getRouteColor(
+          uavIds.indexOf(a.uav_id),
+          uavIds.length
+        );
         const positions = a.route.coordinates.map(([lon, lat]) => [lat, lon]);
 
         return (
           <Polyline
-            key={a.uav_id + '_top'}
+            key={`${a.uav_id}_${i}_top`}
             positions={positions}
             pathOptions={{
               color,
@@ -126,7 +128,7 @@ export default function RoutesLayer({ assignments, hiddenRoutes }) {
               opacity: 1,
               lineCap: 'round',
               lineJoin: 'round',
-              pmIgnore: true, 
+              pmIgnore: true,
             }}
           />
         );
@@ -135,6 +137,7 @@ export default function RoutesLayer({ assignments, hiddenRoutes }) {
       <DirectionArrows
         assignments={assignments}
         hiddenRoutes={hiddenRoutes}
+        uavIds={uavIds}
       />
     </>
   );
