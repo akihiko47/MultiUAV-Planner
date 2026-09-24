@@ -4,6 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import MapView from './components/MapView';
 import SidePanel from './components/SidePanel';
 import uavsData from './data/uavs.json';
+import requestExample from './data/request_example.json';
 import * as ops from './utils/operations';
 
 const UAVS = uavsData.uavs;
@@ -59,6 +60,12 @@ function App() {
     setHiddenRoutes({});
   };
 
+  const onLoadExample = () => {
+    // Пример лежит в src/data/request_example.json и импортируется статически.
+    // Используем тот же путь, что и импорт из файла.
+    onImport(requestExample);
+  };
+
   const onToggleRoute = (uavId) => {
     setHiddenRoutes((prev) => ({ ...prev, [uavId]: !prev[uavId] }));
   };
@@ -71,6 +78,21 @@ function App() {
           assignments={planResult?.uav_assignments}
           hiddenRoutes={hiddenRoutes}
         />
+
+        <button
+          className="map-example-btn"
+          onClick={onLoadExample}
+          aria-label="Загрузить пример"
+          title="Загрузить пример запроса на карту"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+               strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
+          </svg>
+          <span>Загрузить пример</span>
+        </button>
 
         <button
           className="panel-toggle-btn"
