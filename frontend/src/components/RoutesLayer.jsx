@@ -5,26 +5,18 @@ import 'leaflet-polylinedecorator';
 
 import { getRouteColor } from '../utils/routeColors';
 
-/**
- * Рисует стрелки направления вдоль маршрута.
- * Работает через императивный API, потому что react-leaflet
- * не даёт готовой обёртки для polylineDecorator.
- */
 function DirectionArrows({ assignments, hiddenRoutes }) {
   const map = useMap();
 
   useEffect(() => {
     if (!assignments || assignments.length === 0) return;
 
-    // Порог: ниже этого зума стрелки не рисуем
     const MIN_ZOOM = 13;
 
     const draw = () => {
       const layers = [];
 
-      if (map.getZoom() < MIN_ZOOM) {
-        return layers; // слишком далеко — не рисуем
-      }
+      if (map.getZoom() < MIN_ZOOM) return layers;
 
       assignments.forEach((a, i) => {
         if (hiddenRoutes[a.uav_id]) return;
@@ -51,6 +43,11 @@ function DirectionArrows({ assignments, hiddenRoutes }) {
           ],
         }).addTo(map);
 
+        decorator.options.pmIgnore = true;
+        decorator.eachLayer((child) => {
+          child.options.pmIgnore = true;
+        });
+
         layers.push(decorator);
       });
 
@@ -64,10 +61,19 @@ function DirectionArrows({ assignments, hiddenRoutes }) {
       current = draw();
     };
 
+    const onEditModeToggled = () => {
+      current.forEach((l) => map.removeLayer(l));
+      current = draw();
+    };
+
     map.on('zoomend', onZoomEnd);
+    map.on('pm:globaleditmodetoggled', onEditModeToggled);
+    map.on('pm:globaldragmodetoggled', onEditModeToggled);
 
     return () => {
       map.off('zoomend', onZoomEnd);
+      map.off('pm:globaleditmodetoggled', onEditModeToggled);
+      map.off('pm:globaldragmodetoggled', onEditModeToggled);
       current.forEach((l) => map.removeLayer(l));
     };
   }, [map, assignments, hiddenRoutes]);
@@ -75,13 +81,14 @@ function DirectionArrows({ assignments, hiddenRoutes }) {
   return null;
 }
 
+
 export default function RoutesLayer({ assignments, hiddenRoutes }) {
   if (!assignments || assignments.length === 0) return null;
 
   return (
     <>
       {/* Чёрная обводка */}
-      {assignments.map((a, i) => {
+      {assignments.map((a) => {
         if (hiddenRoutes[a.uav_id]) return null;
 
         const positions = a.route.coordinates.map(([lon, lat]) => [lat, lon]);
@@ -96,6 +103,7 @@ export default function RoutesLayer({ assignments, hiddenRoutes }) {
               opacity: 0.35,
               lineCap: 'round',
               lineJoin: 'round',
+              pmIgnore: true,
             }}
           />
         );
@@ -118,12 +126,12 @@ export default function RoutesLayer({ assignments, hiddenRoutes }) {
               opacity: 1,
               lineCap: 'round',
               lineJoin: 'round',
+              pmIgnore: true, 
             }}
           />
         );
       })}
 
-      {/* Стрелки направления */}
       <DirectionArrows
         assignments={assignments}
         hiddenRoutes={hiddenRoutes}
