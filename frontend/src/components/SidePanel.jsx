@@ -4,6 +4,7 @@ import GithubButton from './GithubButton';
 import UavSelector from './UavSelector';
 import RoutesPanel from './RoutesPanel';
 import ExportPanel from './ExportPanel';
+import InformationPanel from './InformationPanel'; 
 
 export default function SidePanel({
   uavs,
@@ -129,6 +130,8 @@ export default function SidePanel({
         hiddenRoutes={hiddenRoutes}
         onToggle={onToggleRoute}
       />
+
+      <InformationPanel planResult={planResult} />
 
       <ExportPanel
         planResult={planResult}
