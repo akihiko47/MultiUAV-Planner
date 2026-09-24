@@ -43,8 +43,8 @@ function DirectionArrows({ assignments, hiddenRoutes }) {
                 pathOptions: {
                   fillColor: color,
                   fillOpacity: 1,
-                  color: '#000',
-                  weight: 1.2,
+                  color: '#00000044',
+                  weight: 1.1,
                 },
               }),
             },
