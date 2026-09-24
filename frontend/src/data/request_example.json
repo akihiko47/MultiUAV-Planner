@@ -151,14 +151,14 @@
   ],
   "cameras": [
     {
-      "id": "geoscan_pollux",
-      "name": "Geoscan Pollux",
-      "type": "Multispectral",
-      "focalLength": 8,
-      "matrixX": 5.04,
-      "matrixY": 3.78,
-      "matrixPixX": 1440,
-      "matrixPixY": 1080
+      "id": "geoscan_pf1b",
+      "name": "Geoscan PF1B",
+      "type": "RGB",
+      "focalLength": 20,
+      "matrixX": 23.5,
+      "matrixY": 15.6,
+      "matrixPixX": 6000,
+      "matrixPixY": 4000
     },
     {
       "id": "geoscan_801_visible_wide",
@@ -179,21 +179,12 @@
     },
     {
       "id": "uav2",
-      "type_id": "geoscan_801",
-      "camera_id": "geoscan_801_visible_wide"
-    },
-    {
-      "id": "uav3",
       "type_id": "geoscan_gemini",
-      "camera_id": "geoscan_pollux"
-    },
-    {
-      "id": "uav4",
-      "type_id": "geoscan_gemini",
-      "camera_id": "geoscan_pollux"
+      "camera_id": "geoscan_pf1b"
     }
   ],
-  "survey_type": "multispectral",
+  "survey_type": "RGB",
+  "gsd": 3,
   "optimization_criteria": "min_flight_distance",
-  "operation_start_time": "2026-09-22T19:36:10.378Z"
+  "operation_start_time": "2026-11-18T05:36:00.000Z"
 }

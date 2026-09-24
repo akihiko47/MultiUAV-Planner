@@ -835,3 +835,44 @@ body.dark .leaflet-control-layers-toggle {
   .map-example-btn span { display: none; }
   .map-example-btn { padding: 0 8px; }
 }
+
+/* =========================================
+   FLIGHT SUMMARY (сводка по расчёту)
+   ========================================= */
+.flight-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.flight-summary p {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+
+  margin: 0;
+  padding: 6px 0;
+
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 1.3;
+  color: var(--text-h);
+
+  border-bottom: 1px dashed var(--border);
+}
+
+.flight-summary p:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* Метка (левая часть) — приглушённая */
+.flight-summary p::before {
+  content: attr(data-label);
+  color: var(--text);
+  font-weight: 500;
+  opacity: 0.75;
+  letter-spacing: 0.02em;
+}
