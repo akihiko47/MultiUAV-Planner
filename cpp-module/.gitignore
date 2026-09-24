@@ -1,0 +1,7 @@
+/build*/
+/.tools/
+/.delivery_helpers/
+/delivery/
+__pycache__/
+*.pyc
+smoke-result.json

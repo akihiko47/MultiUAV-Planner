@@ -1,0 +1,48 @@
+/workspace/scratch/6e9c9c06dbde/MultiUAV-Planner-main/cpp-module/.tools/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+  from starlette.testclient import TestClient as TestClient  # noqa
+Planner call failed
+Traceback (most recent call last):
+  File "/workspace/scratch/6e9c9c06dbde/MultiUAV-Planner-main/backend/app/main.py", line 33, in plan
+    result_dict = await run_in_threadpool(call_planner, request_json)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/6e9c9c06dbde/MultiUAV-Planner-main/cpp-module/.tools/starlette/concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/6e9c9c06dbde/MultiUAV-Planner-main/cpp-module/.tools/anyio/to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/6e9c9c06dbde/MultiUAV-Planner-main/cpp-module/.tools/anyio/_backends/_asyncio.py", line 2706, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "/workspace/scratch/6e9c9c06dbde/MultiUAV-Planner-main/cpp-module/.tools/anyio/_backends/_asyncio.py", line 1100, in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/6e9c9c06dbde/MultiUAV-Planner-main/backend/app/planner_client.py", line 35, in call_planner
+    raise RuntimeError(result["error"])
+RuntimeError: INFEASIBLE: cannot safely assign survey segment 1 (range/home/turn geometry/base/operation window); heuristic may reject a feasible alternative
+[
+  {
+    "test": "unchanged_backend_success",
+    "status": 200
+  },
+  {
+    "test": "unchanged_backend_missing_gsd",
+    "status": 422
+  },
+  {
+    "test": "unchanged_backend_infeasible",
+    "status": 500
+  },
+  {
+    "test": "unchanged_backend_lidar_contract",
+    "status": 422
+  },
+  {
+    "test": "unchanged_backend_multipolygon_contract",
+    "status": 422
+  },
+  {
+    "test": "library_only_embedded_zones",
+    "status": "PASS"
+  }
+]

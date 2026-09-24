@@ -1,61 +1,68 @@
 #pragma once
-
-#pragma once
-
+#include <limits>
 #include <string>
 #include <vector>
-
-namespace planner
-{
-
-    struct GeoPoint
-    {
-        double longitude = 0.0;
-        double latitude = 0.0;
-    };
-
-    struct StartPoint
-    {
-        std::string id;
-        GeoPoint position;
-    };
-
-    struct Uav
-    {
-        std::string id;
-        std::string typeId;
-    };
-
-    struct PlanRequest
-    {
-        std::string surveyType;
-        std::string optimizationCriteria;
-
-        std::vector<StartPoint> startPoints;
-        std::vector<Uav> uavs;
-
-        std::string operationStart;  // ISO 8601
-        std::string operationEnd;    // ISO 8601
-    };
-
-    struct PlanSummary
-    {
-        std::string optimizationCriteria;
-
-        double totalTime = 0.0;
-        double totalDistance = 0.0;
-
-        std::size_t uavsUsed = 0;
-        std::size_t uavsTotal = 0;
-
-        std::string operationStart;  // ISO 8601
-        std::string operationEnd;    // ISO 8601
-    };
-
-    struct PlanResult
-    {
-        PlanSummary summary;
-        std::vector<std::string> warnings;
-    };
-
-}
+namespace planner {
+struct Point {
+  double x = 0, y = 0;
+};
+using Ring = std::vector<Point>;
+using Polygon = std::vector<Ring>;
+struct StartPoint {
+  std::string id;
+  Point position;
+};
+struct Camera {
+  std::string id, type;
+  double focal, mx, my;
+  int px, py;
+};
+struct UavType {
+  std::string id;
+  double range, homeRange, speed, minSpeed, maxSpeed, minAlt, maxAlt, radius,
+      climb, descent;
+  std::vector<std::string> cameras;
+};
+struct Uav {
+  std::string id, typeId, cameraId;
+  std::size_t type = 0, camera = 0;
+};
+struct Zone {
+  Ring ring;
+  Point center;
+  double radius = 0;
+};
+struct Config {
+  double clearance = 20, separation = 30, turnaround = 300, maxFlightTime = 0;
+  std::size_t maxTracks = 12000, maxWaypoints = 500000;
+  double calculationSeconds = 120;
+};
+struct PlanRequest {
+  std::vector<Polygon> area;
+  std::vector<StartPoint> starts;
+  std::vector<Camera> cameras;
+  std::vector<UavType> types;
+  std::vector<Uav> uavs;
+  std::vector<Zone> zones;
+  std::string surveyType, criterion;
+  double gsd = 0, start = 0, end = std::numeric_limits<double>::infinity();
+  Config config;
+  std::vector<std::string> warnings;
+};
+struct Waypoint {
+  Point position;
+  double altitude = 0, speed = 0, time = 0, photoDistance = 0;
+  std::string action;
+};
+struct Assignment {
+  std::size_t uav = 0, startPoint = 0;
+  std::vector<Waypoint> waypoints;
+  double distance = 0, duration = 0, takeoff = 0, landing = 0, battery = 0;
+};
+struct PlanResult {
+  std::vector<Assignment> assignments;
+  std::vector<std::string> warnings;
+  double start = 0, end = 0, distance = 0;
+  std::size_t used = 0;
+};
+} // namespace planner

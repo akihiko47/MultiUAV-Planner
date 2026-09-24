@@ -1,73 +1,38 @@
 cmake_minimum_required(VERSION 3.15)
-
-project(planner LANGUAGES CXX)
-
+project(planner LANGUAGES C CXX)
+if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+ set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type" FORCE)
+endif()
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-
-
-# -------------------------------
-# Dependencies
-# -------------------------------
-
-include(FetchContent)
-
-FetchContent_Declare(
-    nlohmann_json
-    URL https://github.com/nlohmann/json/releases/download/v3.11.3/json.tar.xz
-)
-
-FetchContent_MakeAvailable(nlohmann_json)
-
-
-# -------------------------------
-# Planner shared library
-# -------------------------------
-
-add_library(
-    planner
-    SHARED
-    planner.cpp
- "Planner/Planner.hpp" "Planner/Planner.cpp" "Planner/RequestParser.cpp")
-
-target_include_directories(
-    planner
-    PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}
-)
-
-target_link_libraries(
-    planner
-    PRIVATE
-    nlohmann_json::nlohmann_json
-)
-
-
-# -------------------------------
-# Local test runner
-# -------------------------------
-
-add_executable(
-    planner_test
-    planner_test.cpp
-    planner.cpp
- "Planner/Planner.hpp" "Planner/Planner.cpp" "Planner/RequestParser.cpp")
-
-target_include_directories(
-    planner_test
-    PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}
-)
-
-target_link_libraries(
-    planner_test
-    PRIVATE
-    nlohmann_json::nlohmann_json
-)
-
-target_compile_definitions(
-    planner_test
-    PRIVATE
-    TEST_DATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/test-data"
-)
+option(PLANNER_SANITIZERS "Build with address and undefined behaviour sanitizers" OFF)
+file(READ "${CMAKE_CURRENT_SOURCE_DIR}/no-fly-zons/no_fly_zones.json" ZONES_JSON)
+file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/generated")
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/Planner/EmbeddedZones.hpp.in" "${CMAKE_CURRENT_BINARY_DIR}/generated/EmbeddedZones.hpp" @ONLY)
+add_library(planner SHARED planner.cpp Planner/RequestParser.cpp Planner/Geometry.cpp Planner/Planner.cpp third_party/dubins/dubins.c)
+set_target_properties(planner PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
+target_include_directories(planner PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/third_party" "${CMAKE_CURRENT_SOURCE_DIR}/third_party/dubins" "${CMAKE_CURRENT_BINARY_DIR}/generated")
+target_compile_definitions(planner PRIVATE PLANNER_ZONE_SOURCE="${CMAKE_CURRENT_SOURCE_DIR}/no-fly-zons/no_fly_zones.json")
+if(MSVC)
+ target_compile_options(planner PRIVATE /W4)
+else()
+ target_compile_options(planner PRIVATE -Wall -Wextra -Wpedantic)
+endif()
+if(PLANNER_SANITIZERS AND NOT MSVC)
+ target_compile_options(planner PRIVATE -fsanitize=address,undefined -fno-omit-frame-pointer)
+ target_link_options(planner PRIVATE -fsanitize=address,undefined)
+endif()
+add_executable(planner_test planner_test.cpp)
+target_link_libraries(planner_test PRIVATE planner)
+if(PLANNER_SANITIZERS AND NOT MSVC)
+ target_compile_options(planner_test PRIVATE -fsanitize=address,undefined -fno-omit-frame-pointer)
+ target_link_options(planner_test PRIVATE -fsanitize=address,undefined)
+endif()
+enable_testing()
+add_test(NAME smoke COMMAND planner_test "${CMAKE_CURRENT_SOURCE_DIR}/tests/smoke_request.json")
+find_package(Python3 COMPONENTS Interpreter QUIET)
+if(Python3_Interpreter_FOUND)
+ add_test(NAME regression COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tests/validate.py" --library "$<TARGET_FILE:planner>")
+ set_tests_properties(regression PROPERTIES ENVIRONMENT "PYTHONDONTWRITEBYTECODE=1")
+endif()

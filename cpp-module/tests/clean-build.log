@@ -1,0 +1,25 @@
+-- The C compiler identification is GNU 13.3.0
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done (0.6s)
+-- Generating done (0.0s)
+-- Build files have been written to: /workspace/scratch/6e9c9c06dbde/MultiUAV-Planner-main/cpp-module/build-clean
+[ 12%] Building CXX object CMakeFiles/planner.dir/Planner/RequestParser.cpp.o
+[ 25%] Building CXX object CMakeFiles/planner.dir/planner.cpp.o
+[ 37%] Building CXX object CMakeFiles/planner.dir/Planner/Geometry.cpp.o
+[ 50%] Building CXX object CMakeFiles/planner.dir/Planner/Planner.cpp.o
+[ 62%] Building C object CMakeFiles/planner.dir/third_party/dubins/dubins.c.o
+[ 75%] Linking CXX shared library libplanner.so
+[ 75%] Built target planner
+[ 87%] Building CXX object CMakeFiles/planner_test.dir/planner_test.cpp.o
+[100%] Linking CXX executable planner_test
+[100%] Built target planner_test

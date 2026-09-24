@@ -385,3 +385,77 @@ export async function downloadWaypointsZip(planResult) {
   document.body.removeChild(link);
   URL.revokeObjectURL(url);
 }
+
+/* ---------- 9. Экспорт в KML для Geoscan Planner ---------- */
+export function downloadKml(planResult) {
+  const assignments = planResult?.uav_assignments;
+  if (!assignments || assignments.length === 0) {
+    alert('Нет маршрутов — сначала запусти расчёт');
+    return;
+  }
+
+  const surveyArea = planResult.survey_area;
+  const outerRing = surveyArea?.coordinates?.[0] || [];
+
+  const ringCoords = outerRing
+    .map(([lon, lat]) => `${lon},${lat},0`)
+    .join(' ');
+
+  const placemarks = assignments.map((a) => {
+    const alt = a.waypoints?.[0]?.altitude ?? 100;
+
+    const coords = (a.route?.coordinates || [])
+      .map(([lon, lat]) => `${lon},${lat},${alt}`)
+      .join(' ');
+
+    return `
+    <Placemark>
+      <name>${a.uav_id}</name>
+      <styleUrl>#style1</styleUrl>
+      <LineString>
+        <tessellate>true</tessellate>
+        <altitudeMode>absolute</altitudeMode>
+        <coordinates>${coords}</coordinates>
+      </LineString>
+    </Placemark>`;
+  }).join('');
+
+  const kml = `<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <Style id="style1">
+      <LabelStyle/>
+      <LineStyle>
+        <color>FFFFFFFF</color>
+        <width>2.0</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>0EFFFFFF</color>
+        <fill>true</fill>
+      </PolyStyle>
+    </Style>
+
+    <Placemark>
+      <styleUrl>#style1</styleUrl>
+      <LinearRing>
+        <extrude>true</extrude>
+        <tessellate>true</tessellate>
+        <altitudeMode>absolute</altitudeMode>
+        <coordinates>${ringCoords}</coordinates>
+      </LinearRing>
+    </Placemark>
+
+    ${placemarks}
+  </Document>
+</kml>`;
+
+  const blob = new Blob([kml], { type: 'application/vnd.google-earth.kml+xml' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'plan.kml';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}

@@ -1,0 +1,6 @@
+pydantic>=2,<3
+numpy>=1.24,<3
+shapely>=2,<3
+pyproj>=3.6,<4
+fastapi>=0.110,<1
+httpx>=0.27,<1

@@ -1,0 +1,242 @@
+[
+  {
+    "case": "100km2_ten_uavs_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.714
+  },
+  {
+    "case": "clockwise_polygon_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.176
+  },
+  {
+    "case": "concave_polygon_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.139
+  },
+  {
+    "case": "duplicate_uav_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.021
+  },
+  {
+    "case": "fixed_wing_turn_radius_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.34
+  },
+  {
+    "case": "flight_time_limit_rejection_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.148
+  },
+  {
+    "case": "flight_time_limit_success_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.146
+  },
+  {
+    "case": "four_uavs_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.152
+  },
+  {
+    "case": "gsd3_15_uavs_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 1.372
+  },
+  {
+    "case": "gsd3_area_too_large_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.162
+  },
+  {
+    "case": "gsd3_base_request_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.193
+  },
+  {
+    "case": "gsd3_lots_of_holes_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.217
+  },
+  {
+    "case": "gsd3_one_of_starts_from_no_fly_zone_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.33
+  },
+  {
+    "case": "gsd3_regular_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.239
+  },
+  {
+    "case": "gsd3_start_from_no_fly_zone_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.155
+  },
+  {
+    "case": "gsd3_start_too_far_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.135
+  },
+  {
+    "case": "gsd3_unreachable_area_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.136
+  },
+  {
+    "case": "gsd3_with_no_fly_zone_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.183
+  },
+  {
+    "case": "gsd_altitude_infeasible_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.126
+  },
+  {
+    "case": "hole_outside_shell_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.148
+  },
+  {
+    "case": "holes_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.267
+  },
+  {
+    "case": "home_radius_infeasible_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.154
+  },
+  {
+    "case": "invalid_date_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.03
+  },
+  {
+    "case": "invalid_reference_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.015
+  },
+  {
+    "case": "lidar_api_unsupported_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.014
+  },
+  {
+    "case": "missing_explicit_zone_file_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.246
+  },
+  {
+    "case": "missing_gsd_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.016
+  },
+  {
+    "case": "multiple_sorties_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.137
+  },
+  {
+    "case": "multipolygon_c_abi_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.175
+  },
+  {
+    "case": "operation_window_infeasible_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.169
+  },
+  {
+    "case": "original_15_uavs_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.021
+  },
+  {
+    "case": "original_area_too_large_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.017
+  },
+  {
+    "case": "original_base_request_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.014
+  },
+  {
+    "case": "original_lots_of_holes_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.015
+  },
+  {
+    "case": "original_one_of_starts_from_no_fly_zone_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.016
+  },
+  {
+    "case": "original_regular_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.021
+  },
+  {
+    "case": "original_start_from_no_fly_zone_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.018
+  },
+  {
+    "case": "original_start_too_far_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.015
+  },
+  {
+    "case": "original_unreachable_area_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.014
+  },
+  {
+    "case": "original_with_no_fly_zone_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.012
+  },
+  {
+    "case": "overlapping_nfz_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.154
+  },
+  {
+    "case": "polygon_and_circle_nfz_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.151
+  },
+  {
+    "case": "range_infeasible_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.13
+  },
+  {
+    "case": "self_intersection_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.139
+  },
+  {
+    "case": "simple_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.158
+  },
+  {
+    "case": "start_inside_nfz_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.168
+  },
+  {
+    "case": "timezone_offset_request.json",
+    "status": "PASS",
+    "elapsed_seconds": 0.151
+  },
+  {
+    "case": "malformed_and_extreme_numeric_inputs",
+    "status": "PASS",
+    "inputs": 10
+  }
+]

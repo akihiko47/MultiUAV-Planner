@@ -1,142 +1,85 @@
 #include "planner.hpp"
-
-//planner
 #include "Planner/Planner.hpp"
 #include "Planner/RequestParser.hpp"
-
-//std
 #include <cstdlib>
 #include <cstring>
 #include <new>
-#include <string>
-
-//json
 #include <nlohmann/json.hpp>
-
-namespace{
-
-    using Json = nlohmann::json;
-
-    char* allocateCString(const std::string& value) {
-
-        char* buffer = static_cast<char*>(std::malloc(value.size() + 1));
-
-        if (buffer == nullptr){
-            throw std::bad_alloc();
-        }
-
-        std::memcpy(buffer, value.c_str(), value.size() + 1);
-
-        return buffer;
-    }
-
-    Json serializeResult(const planner::PlanResult& result) {
-        return Json({
-                    {
-                        "summary",
-                        {
-                            {
-                                "optimization_criteria",
-                                result.summary.optimizationCriteria
-                            },
-                            {
-                                "total_time",
-                                result.summary.totalTime
-                            },
-                            {
-                                "total_distance",
-                                result.summary.totalDistance
-                            },
-                            {
-                                "uavs_used",
-                                result.summary.uavsUsed
-                            },
-                            {
-                                "uavs_total",
-                                result.summary.uavsTotal
-                            },
-                            {
-                                "operation_start",
-                                result.summary.operationStart
-                            },
-                            {
-                                "operation_end",
-                                result.summary.operationEnd
-                            }
-                        }
-                    },
-                    {
-                        "uav_assignments",
-                        Json::array()
-                    },
-                    {
-                        "warnings",
-                        result.warnings
-                    }
-                });
-    }
-
-    std::string makeErrorResponse(const std::string& message){
-        const Json response = {
-            {"error", message}
-        };
-
-        return response.dump();
-    }
+#include <string>
+namespace {
+using J = nlohmann::json;
+char *allocate(const std::string &s) {
+  char *p = static_cast<char *>(std::malloc(s.size() + 1));
+  if (!p)
+    throw std::bad_alloc();
+  std::memcpy(p, s.c_str(), s.size() + 1);
+  return p;
 }
-
-
-std::string compute_plan(const std::string& requestJson){
-    
-    const Json jsonRequest = Json::parse(requestJson);
-
-    const planner::RequestParser parser;
-
-    const planner::PlanRequest request = parser.parse(jsonRequest);
-
-    const planner::Planner planner;
-
-    const planner::PlanResult result = planner.plan(request);
-
-    return serializeResult(result).dump();
+J xy(planner::Point p) { return J::array({p.x, p.y}); }
+J serialize(const planner::PlanRequest &req, const planner::PlanResult &plan) {
+  J assignments = J::array();
+  for (auto &a : plan.assignments) {
+    auto &u = req.uavs[a.uav];
+    auto &s = req.starts[a.startPoint];
+    J waypoints = J::array(), route = J::array();
+    int seq = 0;
+    for (auto &w : a.waypoints) {
+      J j = {{"sequence", seq++},      {"coordinates", xy(w.position)},
+             {"altitude", w.altitude}, {"speed", w.speed},
+             {"action", w.action},     {"time", planner::timestamp(w.time)}};
+      if (w.action == "line_begin")
+        j["photo_distance"] = w.photoDistance;
+      waypoints.push_back(j);
+      route.push_back(xy(w.position));
+    }
+    J base = {{"id", s.id}, {"coordinates", xy(s.position)}};
+    assignments.push_back(
+        {{"uav_id", u.id},
+         {"type_id", u.typeId},
+         {"camera_id", u.cameraId},
+         {"takeoff_time", planner::timestamp(a.takeoff)},
+         {"landing_time", planner::timestamp(a.landing)},
+         {"start_point", base},
+         {"landing_point", base},
+         {"route", {{"type", "LineString"}, {"coordinates", route}}},
+         {"waypoints", waypoints},
+         {"estimated_time", a.duration},
+         {"estimated_distance", a.distance},
+         {"battery_usage", a.battery}});
+  }
+  return {{"summary",
+           {{"optimization_criteria", req.criterion},
+            {"total_time", plan.end - plan.start},
+            {"total_distance", plan.distance},
+            {"uavs_used", plan.used},
+            {"uavs_total", req.uavs.size()},
+            {"operation_start", planner::timestamp(plan.start)},
+            {"operation_end", planner::timestamp(plan.end)}}},
+          {"uav_assignments", assignments},
+          {"warnings", plan.warnings}};
 }
-
-
-extern "C"{
-
-    char* plan_json(const char* requestJson){
-
-        try{
-            if (requestJson == nullptr){
-                throw std::invalid_argument(
-                    "request_json must not be null, dude");
-            }
-
-            const std::string result = compute_plan(requestJson);
-
-            return allocateCString(result);
-        }
-        catch (const std::exception& exception){
-            try{
-                return allocateCString(makeErrorResponse(exception.what()));
-            }
-            catch (...){
-                return nullptr;
-            }
-        }
-        catch (...){
-            try{
-                return allocateCString(makeErrorResponse("Unknown planner error, dude"));
-            }
-            catch (...){
-                return nullptr;
-            }
-        }
+} // namespace
+extern "C" char *plan_json(const char *request) {
+  try {
+    if (!request)
+      throw std::invalid_argument("INVALID_REQUEST: null input");
+    if (std::strlen(request) > 8 * 1024 * 1024)
+      throw std::invalid_argument("RESOURCE_LIMIT: request exceeds 8 MiB");
+    auto r = planner::RequestParser{}.parse(J::parse(request));
+    auto result = planner::Planner{}.plan(r);
+    return allocate(serialize(r, result).dump());
+  } catch (const std::exception &e) {
+    try {
+      return allocate(J({{"error", e.what()}}).dump());
+    } catch (...) {
+      return nullptr;
     }
-
-
-    void free_string(char* pointer){
-        std::free(pointer);
+  } catch (...) {
+    try {
+      return allocate("{\"error\":\"INTERNAL_ERROR: unknown exception\"}");
+    } catch (...) {
+      return nullptr;
     }
-
-} // extern "C"
+  }
+}
+extern "C" void free_string(char *p) { std::free(p); }

@@ -1,60 +1,30 @@
 #include "planner.hpp"
-
 #include <fstream>
 #include <iostream>
 #include <sstream>
-#include <stdexcept>
 #include <string>
-
-#ifndef TEST_DATA_DIR
-#define TEST_DATA_DIR "."
-#endif
-
-int main()
-{
-    try
-    {
-        const std::string requestPath =
-            std::string(TEST_DATA_DIR) + "/base_request.json";
-
-        std::ifstream input(requestPath);
-
-        if (!input.is_open())
-        {
-            throw std::runtime_error(
-                "Cannot open test request: " + requestPath);
-        }
-
-        std::stringstream buffer;
-        buffer << input.rdbuf();
-
-        const std::string requestJson = buffer.str();
-
-        char* response = plan_json(requestJson.c_str());
-
-        if (response == nullptr)
-        {
-            throw std::runtime_error(
-                "plan_json returned nullptr");
-        }
-
-        std::cout << "===== REQUEST =====\n";
-        std::cout << requestJson << "\n\n";
-
-        std::cout << "===== RESPONSE =====\n";
-        std::cout << response << '\n';
-
-        free_string(response);
-
-        return 0;
+int main(int argc, char **argv) {
+  std::ostringstream in;
+  if (argc == 2) {
+    std::ifstream file(argv[1]);
+    if (!file) {
+      std::cerr << "Cannot read request\n";
+      return 2;
     }
-    catch (const std::exception& exception)
-    {
-        std::cerr
-            << "TEST FAILED: "
-            << exception.what()
-            << '\n';
-
-        return 1;
-    }
+    in << file.rdbuf();
+  } else if (argc == 1)
+    in << std::cin.rdbuf();
+  else {
+    std::cerr << "Usage: planner_test [request.json]\n";
+    return 2;
+  }
+  char *result = plan_json(in.str().c_str());
+  if (!result) {
+    std::cerr << "Allocation failure\n";
+    return 3;
+  }
+  std::string out(result);
+  free_string(result);
+  std::cout << out << '\n';
+  return out.find("\"error\":") != std::string::npos ? 1 : 0;
 }

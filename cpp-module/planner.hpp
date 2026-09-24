@@ -6,9 +6,9 @@ extern "C" {
 
 // Возвращает указатель на строку, выделенную malloc.
 // Память освобождается через free_string.
-char* plan_json(const char* request_json);
+char *plan_json(const char *request_json);
 
-void free_string(char* p);
+void free_string(char *p);
 
 #ifdef __cplusplus
 }

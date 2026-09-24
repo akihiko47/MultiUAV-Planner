@@ -1,0 +1,9 @@
+Test project /workspace/scratch/6e9c9c06dbde/MultiUAV-Planner-main/cpp-module/build-clean
+    Start 1: smoke
+1/2 Test #1: smoke ............................   Passed    0.01 sec
+    Start 2: regression
+2/2 Test #2: regression .......................   Passed    6.45 sec
+
+100% tests passed out of 2
+
+Total Test time (real) =   6.46 sec

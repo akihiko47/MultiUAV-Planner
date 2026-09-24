@@ -1,0 +1,26 @@
+[
+  {
+    "test": "unchanged_backend_success",
+    "status": 200
+  },
+  {
+    "test": "unchanged_backend_missing_gsd",
+    "status": 422
+  },
+  {
+    "test": "unchanged_backend_infeasible",
+    "status": 500
+  },
+  {
+    "test": "unchanged_backend_lidar_contract",
+    "status": 422
+  },
+  {
+    "test": "unchanged_backend_multipolygon_contract",
+    "status": 422
+  },
+  {
+    "test": "library_only_embedded_zones",
+    "status": "PASS"
+  }
+]

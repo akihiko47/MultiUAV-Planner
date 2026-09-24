@@ -1,4 +1,4 @@
-import { downloadWaypointsZip } from '../utils/plan';
+import { downloadWaypointsZip, downloadKml } from '../utils/plan';
 
 export default function ExportPanel({ planResult, onDownloadResult }) {
   const hasResult = planResult?.uav_assignments?.length > 0;
@@ -20,9 +20,14 @@ export default function ExportPanel({ planResult, onDownloadResult }) {
           </button>
           <button
             className="download-btn"
-            onClick={() => downloadWaypointsZip(planResult)}
-          >
+            onClick={() => downloadWaypointsZip(planResult)}>
             Экспорт в Mission Planner
+          </button>
+
+          <button
+            className="download-btn"
+            onClick={() => downloadKml(planResult)}>
+            Экспорт в Geoscan Planner (KML)
           </button>
         </div>
       )}
