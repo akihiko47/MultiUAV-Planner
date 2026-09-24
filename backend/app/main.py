@@ -31,14 +31,15 @@ async def plan(request: PlanRequest):
 
     try:
         result_dict = await run_in_threadpool(call_planner, request_json)
-    except Exception:
+    except Exception as e:
         logger.exception("Planner call failed")
-        raise HTTPException(status_code=500, detail="Planner call failed")
+        raise HTTPException(status_code=500, detail=str(e))
 
     try:
         return PlanResponse.model_validate(result_dict)
-    except ValidationError:
+    except ValidationError as e:
         logger.exception("Planner returned invalid response")
         raise HTTPException(
-            status_code=502, detail="Planner returned invalid response"
+            status_code=502,
+            detail=f"Planner returned invalid response: {e}",
         )
