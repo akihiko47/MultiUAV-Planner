@@ -5,31 +5,22 @@ import 'leaflet-polylinedecorator';
 
 import { getRouteColor } from '../utils/routeColors';
 
-/**
- * Рисует стрелки направления вдоль маршрута.
- * Работает через императивный API, потому что react-leaflet
- * не даёт готовой обёртки для polylineDecorator.
- */
-function DirectionArrows({ assignments, hiddenRoutes }) {
+function DirectionArrows({ assignments, hiddenRoutes, uavIds }) {
   const map = useMap();
 
   useEffect(() => {
     if (!assignments || assignments.length === 0) return;
 
-    // Порог: ниже этого зума стрелки не рисуем
     const MIN_ZOOM = 13;
 
     const draw = () => {
       const layers = [];
-
-      if (map.getZoom() < MIN_ZOOM) {
-        return layers; // слишком далеко — не рисуем
-      }
+      if (map.getZoom() < MIN_ZOOM) return layers;
 
       assignments.forEach((a, i) => {
         if (hiddenRoutes[a.uav_id]) return;
 
-        const color = getRouteColor(i, assignments.length);
+        const color = getRouteColor(uavIds.indexOf(a.uav_id), uavIds.length);
         const latlngs = a.route.coordinates.map(([lon, lat]) => [lat, lon]);
 
         const decorator = L.polylineDecorator(L.polyline(latlngs), {
@@ -43,13 +34,18 @@ function DirectionArrows({ assignments, hiddenRoutes }) {
                 pathOptions: {
                   fillColor: color,
                   fillOpacity: 1,
-                  color: '#000',
-                  weight: 1.2,
+                  color: '#00000044',
+                  weight: 1.1,
                 },
               }),
             },
           ],
         }).addTo(map);
+
+        decorator.options.pmIgnore = true;
+        decorator.eachLayer((child) => {
+          child.options.pmIgnore = true;
+        });
 
         layers.push(decorator);
       });
@@ -64,13 +60,22 @@ function DirectionArrows({ assignments, hiddenRoutes }) {
       current = draw();
     };
 
+    const onEditModeToggled = () => {
+      current.forEach((l) => map.removeLayer(l));
+      current = draw();
+    };
+
     map.on('zoomend', onZoomEnd);
+    map.on('pm:globaleditmodetoggled', onEditModeToggled);
+    map.on('pm:globaldragmodetoggled', onEditModeToggled);
 
     return () => {
       map.off('zoomend', onZoomEnd);
+      map.off('pm:globaleditmodetoggled', onEditModeToggled);
+      map.off('pm:globaldragmodetoggled', onEditModeToggled);
       current.forEach((l) => map.removeLayer(l));
     };
-  }, [map, assignments, hiddenRoutes]);
+  }, [map, assignments, hiddenRoutes, uavIds]);
 
   return null;
 }
@@ -78,9 +83,11 @@ function DirectionArrows({ assignments, hiddenRoutes }) {
 export default function RoutesLayer({ assignments, hiddenRoutes }) {
   if (!assignments || assignments.length === 0) return null;
 
+  // Уникальные uav_id в порядке появления — для стабильных цветов
+  const uavIds = Array.from(new Set(assignments.map((a) => a.uav_id)));
+
   return (
     <>
-      {/* Чёрная обводка */}
       {assignments.map((a, i) => {
         if (hiddenRoutes[a.uav_id]) return null;
 
@@ -88,7 +95,7 @@ export default function RoutesLayer({ assignments, hiddenRoutes }) {
 
         return (
           <Polyline
-            key={a.uav_id}
+            key={`${a.uav_id}_${i}_under`}
             positions={positions}
             pathOptions={{
               color: '#000',
@@ -96,21 +103,24 @@ export default function RoutesLayer({ assignments, hiddenRoutes }) {
               opacity: 0.35,
               lineCap: 'round',
               lineJoin: 'round',
+              pmIgnore: true,
             }}
           />
         );
       })}
 
-      {/* Яркая линия поверх */}
       {assignments.map((a, i) => {
         if (hiddenRoutes[a.uav_id]) return null;
 
-        const color = getRouteColor(i, assignments.length);
+        const color = getRouteColor(
+          uavIds.indexOf(a.uav_id),
+          uavIds.length
+        );
         const positions = a.route.coordinates.map(([lon, lat]) => [lat, lon]);
 
         return (
           <Polyline
-            key={a.uav_id + '_top'}
+            key={`${a.uav_id}_${i}_top`}
             positions={positions}
             pathOptions={{
               color,
@@ -118,15 +128,16 @@ export default function RoutesLayer({ assignments, hiddenRoutes }) {
               opacity: 1,
               lineCap: 'round',
               lineJoin: 'round',
+              pmIgnore: true,
             }}
           />
         );
       })}
 
-      {/* Стрелки направления */}
       <DirectionArrows
         assignments={assignments}
         hiddenRoutes={hiddenRoutes}
+        uavIds={uavIds}
       />
     </>
   );
