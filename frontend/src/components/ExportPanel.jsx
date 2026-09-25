@@ -1,7 +1,23 @@
-import { downloadWaypointsZip, downloadKml } from '../utils/plan';
+import { downloadMissionPlannerZip, downloadGeoscanKml } from '../utils/exportApi';
 
 export default function ExportPanel({ planResult, onDownloadResult }) {
   const hasResult = planResult?.uav_assignments?.length > 0;
+
+  const handleMissionPlanner = async () => {
+    try {
+      await downloadMissionPlannerZip(planResult);
+    } catch (e) {
+      alert('Ошибка экспорта в Mission Planner: ' + e.message);
+    }
+  };
+
+  const handleGeoscan = async () => {
+    try {
+      await downloadGeoscanKml(planResult);
+    } catch (e) {
+      alert('Ошибка экспорта в Geoscan Planner: ' + e.message);
+    }
+  };
 
   return (
     <div className="routes-panel">
@@ -18,15 +34,10 @@ export default function ExportPanel({ planResult, onDownloadResult }) {
           <button className="download-btn" onClick={onDownloadResult}>
             Экспорт JSON
           </button>
-          <button
-            className="download-btn"
-            onClick={() => downloadWaypointsZip(planResult)}>
+          <button className="download-btn" onClick={handleMissionPlanner}>
             Экспорт в Mission Planner
           </button>
-
-          <button
-            className="download-btn"
-            onClick={() => downloadKml(planResult)}>
+          <button className="download-btn" onClick={handleGeoscan}>
             Экспорт в Geoscan Planner (KML)
           </button>
         </div>
