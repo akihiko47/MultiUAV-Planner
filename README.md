@@ -23,8 +23,8 @@ docker compose up -d
 ```
 
 Сервисы:
-- **Frontend**: http://localhost:8080
-- **Backend API**: http://localhost:8080/docs
+- Frontend: http://localhost:8080
+- Backend API: http://localhost:8080/docs
 
 Остановка:
 ```bash
@@ -53,6 +53,10 @@ curl -X POST http://localhost:8080/v1/plan \
   -H "Content-Type: application/json" \
   -d @request.json
 ```
+
+## Ограничения воздушного пространства
+
+Информация о запретных зонах и зонах ограничения полётов, их источниках и обработке описана в отдельном документе: [docs/zones.md](docs/zones.md).
 
 ## Разработка
 
