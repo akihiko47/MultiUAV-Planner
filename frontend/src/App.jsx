@@ -6,6 +6,7 @@ import SidePanel from './components/SidePanel';
 import uavsData from './data/uavs.json';
 import requestExample from './data/request_example.json';
 import * as ops from './utils/operations';
+import DisclaimerModal from './components/DisclaimerModal';
 
 const UAVS = uavsData.uavs;
 const DEFAULT_UAV = UAVS[0].id;
@@ -111,6 +112,7 @@ function App() {
         className={`panel-overlay ${isPanelOpen ? 'open' : ''}`}
         onClick={() => setIsPanelOpen(false)}
       />
+      <DisclaimerModal />
 
       <SidePanel
         uavs={UAVS}

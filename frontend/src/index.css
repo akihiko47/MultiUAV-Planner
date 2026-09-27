@@ -463,6 +463,7 @@ body.dark .form-field select {
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.02em;
+  min-width: 70px;
   cursor: pointer;
   box-shadow: 0 4px 14px 0 rgba(14, 165, 233, 0.35);
   transition: all 0.2s ease;
@@ -875,4 +876,118 @@ body.dark .leaflet-control-layers-toggle {
   font-weight: 500;
   opacity: 0.75;
   letter-spacing: 0.02em;
+}
+
+/* =========================================
+   MODAL: Дисклеймер
+   ========================================= */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5000;
+  padding: 16px;
+  animation: modal-fade 0.2s ease;
+}
+
+@keyframes modal-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.modal {
+  background: var(--panel-bg);
+  color: var(--text-h);
+  padding: 24px 26px 22px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  max-width: 460px;
+  width: 100%;
+  font-family: var(--sans);
+  box-shadow: var(--shadow-lg);
+  animation: modal-pop 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes modal-pop {
+  from { opacity: 0; transform: translateY(8px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)   scale(1); }
+}
+
+.modal h3 {
+  margin: 0 0 12px;
+  font-family: var(--heading);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-h);
+  letter-spacing: -0.01em;
+}
+
+.modal-text {
+  margin: 0 0 16px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text);
+}
+
+.modal-note {
+  margin: 0 0 14px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text);
+  opacity: 0.85;
+}
+
+.modal-note strong {
+  color: var(--text-h);
+  font-weight: 600;
+}
+
+.modal-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0 0 20px;
+}
+
+.modal-link {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 14px;
+
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+
+  color: var(--text-h);
+  text-decoration: none;
+  transition: border-color 0.2s, background 0.2s, transform 0.15s;
+}
+
+.modal-link:hover {
+  border-color: var(--accent);
+  background: var(--code-bg);
+  transform: translateY(-1px);
+}
+
+.modal-link-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-h);
+  line-height: 1.3;
+}
+
+.modal-link-sub {
+  font-size: 11px;
+  color: var(--text);
+  opacity: 0.75;
+  line-height: 1.3;
+}
+
+.modal .submit-btn {
+  width: 100%;
 }
