@@ -3,7 +3,10 @@ export default function RestrictionWarningModal({ ids, onClose }) {
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal" onClick={(e) => e.stopPropagation()}>
+      <div
+        className="modal modal--warning"
+        onClick={(e) => e.stopPropagation()}
+      >
         <h3>Требуется дополнительная проверка</h3>
 
         <p className="modal-text">
@@ -11,23 +14,26 @@ export default function RestrictionWarningModal({ ids, onClose }) {
           обязательно сверьтесь с БДВП и действующими приказами.
         </p>
 
-        <ul className="modal-list">
-          {ids.map((id) => (
-            <li key={id}>{id}</li>
-          ))}
-        </ul>
-
-        <p className="modal-note">
-          Сверяйтесь с
-          <strong> Бюллетенем доступности воздушного пространства (БДВП)</strong>
-        </p>
+        {ids.length > 0 && (
+          <>
+            <p className="modal-zones-label">
+              Затронутые зоны&nbsp;·&nbsp;{ids.length}
+            </p>
+            <div className="modal-zones">
+              {ids.map((id) => (
+                <span key={id} className="modal-zone">{id}</span>
+              ))}
+            </div>
+          </>
+        )}
 
         <div className="modal-links">
           <a
             href="https://app.matfmc.ru/AgreedRoutesView/ru?tab=cdr"
             target="_blank"
             rel="noopener noreferrer"
-            className="modal-link">
+            className="modal-link"
+          >
             <span className="modal-link-title">БДВП</span>
             <span className="modal-link-sub">Проверить актуальные ограничения</span>
           </a>

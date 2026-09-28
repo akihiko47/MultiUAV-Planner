@@ -3,9 +3,7 @@ import { useState } from 'react';
 export default function DisclaimerModal() {
   const [isOpen, setIsOpen] = useState(true);
 
-  const handleClose = () => {
-    setIsOpen(false);
-  };
+  const handleClose = () => setIsOpen(false);
 
   if (!isOpen) return null;
 
@@ -21,7 +19,7 @@ export default function DisclaimerModal() {
 
         <p className="modal-note">
           Сверяйтесь с{' '}
-          <strong>Бюллетенем доступности воздушного пространства (БДВП)</strong>
+          <strong>Бюллетенем доступности воздушного пространства</strong>
         </p>
 
         <div className="modal-links">

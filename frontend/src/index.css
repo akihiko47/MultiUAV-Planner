@@ -879,13 +879,14 @@ body.dark .leaflet-control-layers-toggle {
 }
 
 /* =========================================
-   MODAL: Дисклеймер
+   MODAL: Универсальное окно
    ========================================= */
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(15, 23, 42, 0.6);
+  background: rgba(15, 23, 42, 0.55);
   backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -902,14 +903,16 @@ body.dark .leaflet-control-layers-toggle {
 .modal {
   background: var(--panel-bg);
   color: var(--text-h);
-  padding: 24px 26px 22px;
+  padding: 22px 24px 20px;
   border-radius: var(--radius);
   border: 1px solid var(--border);
-  max-width: 460px;
+  max-width: 440px;
   width: 100%;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
   font-family: var(--sans);
   box-shadow: var(--shadow-lg);
-  animation: modal-pop 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: modal-pop 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 @keyframes modal-pop {
@@ -917,24 +920,43 @@ body.dark .leaflet-control-layers-toggle {
   to   { opacity: 1; transform: translateY(0)   scale(1); }
 }
 
+/* --- Заголовок с цветным акцентом слева --- */
 .modal h3 {
+  position: relative;
   margin: 0 0 12px;
+  padding-left: 12px;
   font-family: var(--heading);
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 700;
   color: var(--text-h);
   letter-spacing: -0.01em;
 }
 
+.modal h3::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 3px;
+  bottom: 3px;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--accent);   /* по умолчанию — accent */
+}
+
+/* Модификаторы статуса */
+.modal--warning h3::before { background: #f59e0b; }
+body.dark .modal--warning h3::before { background: #fbbf24; }
+
+/* --- Тексты --- */
 .modal-text {
-  margin: 0 0 16px;
+  margin: 0 0 14px;
   font-size: 14px;
   line-height: 1.55;
   color: var(--text);
 }
 
 .modal-note {
-  margin: 0 0 14px;
+  margin: 0 0 16px;
   font-size: 13px;
   line-height: 1.5;
   color: var(--text);
@@ -946,11 +968,42 @@ body.dark .leaflet-control-layers-toggle {
   font-weight: 600;
 }
 
+/* --- Список зон (чипы) --- */
+.modal-zones-label {
+  margin: 0 0 8px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text);
+  opacity: 0.7;
+}
+
+.modal-zones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 16px;
+}
+
+.modal-zone {
+  display: inline-block;
+  padding: 5px 11px;
+  background: var(--code-bg);
+  border-radius: 6px;
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--text-h);
+  /* без курсора, без ховера, без рамки — однозначно не кнопка */
+}
+
+/* --- Ссылки --- */
 .modal-links {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin: 0 0 20px;
+  margin: 0 0 18px;
 }
 
 .modal-link {
@@ -958,11 +1011,9 @@ body.dark .leaflet-control-layers-toggle {
   flex-direction: column;
   gap: 2px;
   padding: 10px 14px;
-
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-
   color: var(--text-h);
   text-decoration: none;
   transition: border-color 0.2s, background 0.2s, transform 0.15s;
@@ -990,4 +1041,12 @@ body.dark .leaflet-control-layers-toggle {
 
 .modal .submit-btn {
   width: 100%;
+}
+
+/* --- Мобильные --- */
+@media (max-width: 480px) {
+  .modal-overlay { padding: 12px; }
+  .modal { padding: 18px 18px 16px; }
+  .modal h3 { font-size: 16px; }
+  .modal-zone { font-size: 10px; padding: 3px 8px; }
 }

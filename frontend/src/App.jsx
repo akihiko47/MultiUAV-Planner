@@ -10,7 +10,7 @@ import DisclaimerModal from './components/DisclaimerModal';
 import RestrictionWarningModal from './components/RestrictionWarningModal';
 
 const UAVS = uavsData.uavs;
-const DEFAULT_UAV = UAVS[0].id;
+const DEFAULT_UAV = UAVS[1].id;
 const DEFAULT_GSD = '3';
 
 function App() {
