@@ -12,6 +12,29 @@ struct StartPoint {
   std::string id;
   Point position;
 };
+
+
+//-----------------------------------------------------новое
+struct RestrictionZone {
+  std::string id;
+  std::string description;
+  std::string reference;
+  std::string exceptions;
+  Ring ring;            
+  Point center;         
+  double radius = 0;   
+  double semiMajor = 0; 
+  double semiMinor = 0; 
+  double azimuthDeg = 0;
+  double minAlt = 0;
+  double maxAlt = 0;
+};
+
+
+
+
+
+
 struct Camera {
   std::string id, type;
   double focal, mx, my;
@@ -44,6 +67,8 @@ struct PlanRequest {
   std::vector<UavType> types;
   std::vector<Uav> uavs;
   std::vector<Zone> zones;
+  //new
+  std::vector<RestrictionZone> restrictions;
   std::string surveyType, criterion;
   double gsd = 0, start = 0, end = std::numeric_limits<double>::infinity();
   Config config;
@@ -62,6 +87,8 @@ struct Assignment {
 struct PlanResult {
   std::vector<Assignment> assignments;
   std::vector<std::string> warnings;
+  //new
+  std::vector<std::string> restrictionWarnings;
   double start = 0, end = 0, distance = 0;
   std::size_t used = 0;
 };

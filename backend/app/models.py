@@ -205,3 +205,4 @@ class PlanResponse(BaseModel):
     summary: Summary
     uav_assignments: List[UAVAssignment]
     warnings: List[str] = Field(default_factory=list)
+    restriction_warnings: list[str] = []

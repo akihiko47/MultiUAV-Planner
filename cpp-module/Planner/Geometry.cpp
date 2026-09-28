@@ -461,4 +461,77 @@ std::vector<Track> Geometry::tracks(double spacing, std::size_t limit) const {
         "INFEASIBLE: no surveyable area remains outside exclusions");
   return result;
 }
+
+
+
+
+//-------------------------------------------------------------новое
+bool Geometry::intersectsRestriction(
+    const RestrictionZone &z, const std::vector<Point> &route) const {
+  if (route.size() < 2)
+    return false;
+
+  deadline.check();
+
+  double rxmin = route[0].x, rxmax = route[0].x;
+  double rymin = route[0].y, rymax = route[0].y;
+  for (auto &p : route) {
+    rxmin = std::min(rxmin, p.x);
+    rxmax = std::max(rxmax, p.x);
+    rymin = std::min(rymin, p.y);
+    rymax = std::max(rymax, p.y);
+  }
+
+  Ring zoneRing;
+  double zxmin = 1e100, zxmax = -1e100, zymin = 1e100, zymax = -1e100;
+  auto push = [&](Point p) {
+    zoneRing.push_back(p);
+    zxmin = std::min(zxmin, p.x);
+    zxmax = std::max(zxmax, p.x);
+    zymin = std::min(zymin, p.y);
+    zymax = std::max(zymax, p.y);
+  };
+
+  if (z.radius > 0) {
+    Point c = projection.forward(z.center);
+    double r = z.radius;
+    for (int i = 0; i < 64; ++i)
+      push(c + Point{std::cos(2 * pi * i / 64),
+                     std::sin(2 * pi * i / 64)} * r);
+  } else if (z.semiMajor > 0 && z.semiMinor > 0) {
+    Point c = projection.forward(z.center);
+    double a = z.semiMajor, b = z.semiMinor;
+    double az = z.azimuthDeg * pi / 180.0;
+    double ca = std::cos(az), sa = std::sin(az);
+    for (int i = 0; i < 128; ++i) {
+      double t = 2 * pi * i / 128;
+      double x = a * std::cos(t), y = b * std::sin(t);
+      push(c + Point{x * ca - y * sa, x * sa + y * ca});
+    }
+  } else {
+    for (auto &p : z.ring)
+      push(projection.forward(p));
+  }
+  if (zoneRing.size() < 3)
+    return false;
+
+  if (zxmax < rxmin || zxmin > rxmax || zymax < rymin || zymin > rymax)
+    return false;
+
+  // 4) Полная проверка: рёбра зоны × сегменты маршрута.
+  for (std::size_t i = 0; i < zoneRing.size(); ++i) {
+    Point a = zoneRing[i];
+    Point b = zoneRing[(i + 1) % zoneRing.size()];
+    for (std::size_t j = 1; j < route.size(); ++j) {
+      deadline.check();   // ← периодически проверяем
+      if (intersect(a, b, route[j - 1], route[j]))
+        return true;
+    }
+  }
+  for (auto &p : route)
+    if (inRing(p, zoneRing))
+      return true;
+
+  return false;
+}
 } // namespace planner

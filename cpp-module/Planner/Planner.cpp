@@ -485,6 +485,29 @@ PlanResult Planner::plan(const PlanRequest &r) const {
     used.insert(a.uav);
   }
   out.used = used.size();
+
+
+
+
+//----------------------------------------------------------------------новое
+  std::set<std::string> touched;
+  for (auto &a : out.assignments) {
+    g.deadline.check();
+    std::vector<Point> route;
+    route.reserve(a.waypoints.size());
+    for (auto &w : a.waypoints)
+      route.push_back(w.position);
+    for (auto &rz : r.restrictions) {
+      if (touched.count(rz.id))
+        continue;
+      if (g.intersectsRestriction(rz, route))
+        touched.insert(rz.id);
+    }
+  }
+  out.restrictionWarnings.assign(touched.begin(), touched.end());
+
+
+
   for (auto &a : out.assignments)
     for (auto &w : a.waypoints) {
       w.position = g.projection.inverse(w.position);

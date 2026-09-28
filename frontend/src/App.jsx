@@ -7,6 +7,7 @@ import uavsData from './data/uavs.json';
 import requestExample from './data/request_example.json';
 import * as ops from './utils/operations';
 import DisclaimerModal from './components/DisclaimerModal';
+import RestrictionWarningModal from './components/RestrictionWarningModal';
 
 const UAVS = uavsData.uavs;
 const DEFAULT_UAV = UAVS[0].id;
@@ -24,6 +25,7 @@ function App() {
   const [isSending, setIsSending] = useState(false);
   const [planResult, setPlanResult] = useState(null);
   const [hiddenRoutes, setHiddenRoutes] = useState({});
+  const [restrictionIds, setRestrictionIds] = useState([]);
 
   const [isPanelOpen, setIsPanelOpen] = useState(false);
 
@@ -41,6 +43,7 @@ function App() {
       if (result) {
         setPlanResult(result);
         setHiddenRoutes({});
+        setRestrictionIds(result.restriction_warnings ?? []);
       }
     } finally {
       setIsSending(false);
@@ -113,6 +116,13 @@ function App() {
         onClick={() => setIsPanelOpen(false)}
       />
       <DisclaimerModal />
+
+      {restrictionIds.length > 0 && (
+      <RestrictionWarningModal
+        ids={restrictionIds}
+        onClose={() => setRestrictionIds([])}
+      />
+      )}
 
       <SidePanel
         uavs={UAVS}

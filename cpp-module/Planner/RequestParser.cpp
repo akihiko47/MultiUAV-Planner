@@ -1,5 +1,6 @@
 #include "RequestParser.hpp"
 #include "EmbeddedZones.hpp"
+#include "EmbeddedRestrictions.hpp"
 #include <algorithm>
 #include <chrono>
 #include <cmath>
@@ -123,6 +124,35 @@ J zoneData(std::vector<std::string> &warnings) {
                      "time. Rebuild or set PLANNER_NO_FLY_ZONES to update.");
   return J::parse(embeddedZones);
 }
+
+
+
+//---------------------------------------------------------------------------новое
+J restrictionData(std::vector<std::string> &warnings) {
+  const char *overridePath = std::getenv("PLANNER_RESTRICTION_ZONES");
+  if (overridePath) {
+    std::ifstream f(overridePath);
+    if (!f)
+      throw std::runtime_error(
+          "ZONE_DATA: cannot open PLANNER_RESTRICTION_ZONES");
+    return J::parse(f);
+  }
+  for (const auto &path :
+       {std::string("cpp-module/no-fly-zons/restriction_zones.json"),
+        std::string("no-fly-zons/restriction_zones.json")}) {
+    std::ifstream f(path);
+    if (f)
+      return J::parse(f);
+  }
+  warnings.push_back("No external restriction_zones.json found; using the "
+                    "exact snapshot embedded at build time. Rebuild or set "
+                    "PLANNER_RESTRICTION_ZONES to update.");
+  return J::parse(embeddedRestrictions);
+}
+
+
+
+
 } // namespace
 std::string timestamp(double t) {
   if (!std::isfinite(t) || t < 0 || t > 253402300799.0)
@@ -285,7 +315,54 @@ PlanRequest RequestParser::parse(const J &j) const {
       throw std::runtime_error("ZONE_DATA: unknown zone type");
     r.zones.push_back(zone);
   }
-  require(!r.zones.empty(), "zone database must not be empty");
+    require(!r.zones.empty(), "zone database must not be empty");
+
+  //------------------------------------------------------------новое
+  auto restrictions = restrictionData(r.warnings);
+  require(restrictions.contains("zones") && restrictions.at("zones").is_array(),
+          "invalid restriction zone database");
+  for (auto &z : restrictions.at("zones")) {
+    RestrictionZone rz;
+    rz.id = z.at("id").get<std::string>();
+
+    if (z.contains("schedule") && z.at("schedule").is_object())
+      rz.description = z.at("schedule").value("description", std::string(""));
+    if (z.contains("exceptions"))
+      rz.exceptions = z.at("exceptions").get<std::string>();
+
+    if (z.contains("altitude") && z.at("altitude").is_object()) {
+    auto &alt = z.at("altitude");
+    auto numOr = [](const J &j, const char *k, double fallback) -> double {
+      if (!j.contains(k)) return fallback;
+      const auto &v = j.at(k);
+      if (v.is_null() || !v.is_number()) return fallback;
+      return v.get<double>();
+    };
+    rz.minAlt = numOr(alt, "min_m", 0.0);
+    rz.maxAlt = numOr(alt, "max_m", 0.0);
+    rz.reference = alt.value("reference", std::string(""));
+}
+
+    std::string type = z.at("type").get<std::string>();
+    if (type == "polygon") {
+      rz.ring = ring(z.at("coordinates"), true);
+    } else if (type == "circle") {
+      rz.center = point(z.at("center"), true);
+      rz.radius = number(z, "radius_km") * 1000;
+    } else if (type == "ellipse") {
+      rz.center = point(z.at("center"), true);
+      auto axes = z.at("semi_axes_km");
+      require(axes.is_array() && axes.size() == 2, "ellipse axes");
+      rz.semiMajor = axes.at(0).get<double>() * 1000;
+      rz.semiMinor = axes.at(1).get<double>() * 1000;
+      rz.azimuthDeg = z.value("azimuth_deg", 0.0);
+    } else {
+      throw std::runtime_error(
+          "ZONE_DATA: unknown restriction zone type: " + type);
+    }
+    r.restrictions.push_back(std::move(rz));
+  }
+
   return r;
 }
 } // namespace planner

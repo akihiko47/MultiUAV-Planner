@@ -30,6 +30,7 @@ struct Obstacle {
 struct Track {
   Point a, b;
 };
+
 class Geometry {
 public:
   Projection projection;
@@ -41,6 +42,10 @@ public:
   bool free(Point p) const;
   std::vector<Point> route(Point a, Point b, double extra = 0) const;
   std::vector<Track> tracks(double spacing, std::size_t limit) const;
+
+  //-------------------------------------------------новое
+  bool intersectsRestriction(const RestrictionZone &z,
+                            const std::vector<Point> &route) const;
 
 private:
   double minx_ = 0, miny_ = 0, maxx_ = 0, maxy_ = 0;

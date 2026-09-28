@@ -56,6 +56,7 @@ J serialize(const planner::PlanRequest &req, const planner::PlanResult &plan) {
             {"operation_start", planner::timestamp(plan.start)},
             {"operation_end", planner::timestamp(plan.end)}}},
           {"uav_assignments", assignments},
+          {"restriction_warnings", plan.restrictionWarnings}, 
           {"warnings", plan.warnings}};
 }
 } // namespace

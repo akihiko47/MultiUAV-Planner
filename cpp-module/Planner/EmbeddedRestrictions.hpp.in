@@ -1,0 +1,2 @@
+#pragma once
+namespace planner { inline constexpr const char embeddedRestrictions[] = R"ZONE_SNAPSHOT(@RESTRICTIONS_JSON@)ZONE_SNAPSHOT"; }
