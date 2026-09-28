@@ -8,7 +8,6 @@ import { airportIcon } from "../utils/icons";
 import ZonesLayer from "./ZonesLayer";
 import RoutesLayer from "./RoutesLayer";
 import GeomanTooltips from "./GeomanTooltips";
-import MouseCoordinates from "./MouseCoordinages";
 
 import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css';
 
@@ -67,7 +66,6 @@ export default function MapView({ mapRef, assignments, hiddenRoutes }) {
 
       <SinglePolygonControl />
       <GeomanTooltips />
-      <MouseCoordinates/>
 
       <ZonesLayer />
       <RoutesLayer assignments={assignments} hiddenRoutes={hiddenRoutes} />
