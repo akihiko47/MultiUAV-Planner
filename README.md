@@ -46,9 +46,9 @@ docker compose down
 
 ## API
 
-- **Интерактивная документация (Swagger UI)**: http://localhost:8080/docs
-- **OpenAPI-схема**: http://localhost:8080/openapi.json
-- **Описание контракта**: [docs/api.md](docs/api.md)
+- Интерактивная документация (Swagger UI): http://localhost:8080/docs
+- OpenAPI-схема: http://localhost:8080/openapi.json
+- Описание контракта: [docs/api.md](docs/api.md)
 
 Пример вызова:
 ```bash
@@ -77,5 +77,3 @@ cpp-module/   Планировщик на C++
 frontend/     React + Leaflet
 docs/         Документация
 ```
-
-**Стек:** FastAPI + C++ (планировщик) + React/Leaflet + Docker.
