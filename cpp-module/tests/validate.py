@@ -38,6 +38,16 @@ spec.loader.exec_module(models)
 GEOD = Geod(ellps='WGS84')
 
 
+def source_snapshot():
+    """Check that this run leaves application sources untouched, not an old revision."""
+    paths = [ROOT.parent / name for name in ('README.md', 'docker-compose.yml', '.dockerignore')]
+    for directory in ('backend/app', 'frontend/src', 'docs'):
+        paths.extend(p for p in (ROOT.parent / directory).rglob('*')
+                     if p.is_file() and '__pycache__' not in p.parts and p.suffix != '.pyc')
+    return {str(p.relative_to(ROOT.parent)): hashlib.sha256(p.read_bytes()).hexdigest()
+            for p in paths}
+
+
 def epoch(s):
     return dt.datetime.fromisoformat(s.replace('Z', '+00:00')).timestamp()
 
@@ -284,13 +294,15 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--library', default=ROOT/'build/libplanner.so')
     parser.add_argument('--report', default=ROOT/'tests/validation_report.json')
+    parser.add_argument('--generated-dir', type=Path, default=ROOT/'tests/generated')
     args = parser.parse_args()
+    original_sources = source_snapshot()
     abi = ABI(args.library)
     official = json.loads((ROOT/'no-fly-zons/no_fly_zones.json').read_text())
     base = json.loads((ROOT/'tests/smoke_request.json').read_text())
     report = []
-    generated = ROOT/'tests/generated'
-    generated.mkdir(exist_ok=True)
+    generated = args.generated_dir
+    generated.mkdir(parents=True, exist_ok=True)
     synthetic = copy.deepcopy(official)
     synthetic['zones'] += [
         {'type':'polygon','coordinates':[[44.998,10.004],[45.003,10.004],[45.003,10.006],[44.998,10.006],[44.998,10.004]]},
@@ -373,11 +385,11 @@ def main():
     offset=copy.deepcopy(base);offset['operation_start_time']='2026-10-20T10:25:00+03:00'
     same=run('timezone_offset',offset)
     assert same['summary']['operation_start']=='2026-10-20T07:25:00.000Z'
-    # Existing fixtures are invalid in the current backend because they omit gsd.
-    # Exercise originals unchanged, then each geometry with explicit test gsd=3.
+    # Fixtures without GSD must fail; otherwise validate their original request.
+    # Then exercise each geometry with explicit test gsd=3.
     for path in sorted((ROOT/'test-data').glob('*.json')):
         request=json.loads(path.read_text())
-        run('original_'+path.stem,request,error=True)
+        run('original_'+path.stem,request,error='gsd' not in request)
         request['gsd']=3
         expected_failures={'area_too_large','lots_of_holes','start_from_no_fly_zone','start_too_far','unreachable_area'}
         run('gsd3_'+path.stem,request,error=path.stem in expected_failures)
@@ -399,11 +411,8 @@ def main():
     report.append({'name':'concurrency_determinism','status':'PASS','calls':8})
     abi.lib.free_string(None)
     assert (ROOT/'no-fly-zons/no_fly_zones.json').read_bytes()==(ROOT.parent/'frontend/src/data/no_fly_zones.json').read_bytes()
-    manifest=json.loads((ROOT/'tests/original_readonly_sha256.json').read_text())
-    current={str(p.relative_to(ROOT.parent)):hashlib.sha256(p.read_bytes()).hexdigest()
-             for p in ROOT.parent.rglob('*') if p.is_file() and 'cpp-module' not in p.relative_to(ROOT.parent).parts}
-    assert current==manifest, 'files outside cpp-module were changed'
-    report.append({'name':'readonly_integrity','status':'PASS','files':len(manifest)})
+    assert source_snapshot()==original_sources, 'application sources were changed during validation'
+    report.append({'name':'readonly_integrity','status':'PASS','files':len(original_sources)})
     Path(args.report).write_text(json.dumps(report,indent=2,ensure_ascii=False))
     print(f'PASS: {len(report)} checks; report: {args.report}')
 

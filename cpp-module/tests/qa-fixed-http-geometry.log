@@ -1,0 +1,98 @@
+[
+  {
+    "name": "smoke",
+    "status": "PASS",
+    "embedded_zones": true,
+    "sorties": 1,
+    "uavs_used": 1,
+    "waypoints": 37,
+    "distance_m": 13096.99,
+    "mission_seconds": 934.41,
+    "requested_area_km2": 0.8412,
+    "footprint_coverage_fraction": 1.0
+  },
+  {
+    "name": "frontend_example",
+    "status": "PASS",
+    "embedded_zones": true,
+    "sorties": 2,
+    "uavs_used": 2,
+    "waypoints": 87,
+    "distance_m": 19410.09,
+    "mission_seconds": 742.7,
+    "requested_area_km2": 0.7351,
+    "footprint_coverage_fraction": 1.0
+  },
+  {
+    "name": "holes",
+    "status": "PASS",
+    "embedded_zones": true,
+    "sorties": 1,
+    "uavs_used": 1,
+    "waypoints": 63,
+    "distance_m": 14014.87,
+    "mission_seconds": 995.6,
+    "requested_area_km2": 0.7623,
+    "footprint_coverage_fraction": 0.99771
+  },
+  {
+    "name": "concave_polygon",
+    "status": "PASS",
+    "embedded_zones": true,
+    "sorties": 1,
+    "uavs_used": 1,
+    "waypoints": 37,
+    "distance_m": 8314.95,
+    "mission_seconds": 615.61,
+    "requested_area_km2": 0.4907,
+    "footprint_coverage_fraction": 1.0
+  },
+  {
+    "name": "clockwise_polygon",
+    "status": "PASS",
+    "embedded_zones": true,
+    "sorties": 1,
+    "uavs_used": 1,
+    "waypoints": 37,
+    "distance_m": 13096.99,
+    "mission_seconds": 934.41,
+    "requested_area_km2": 0.8412,
+    "footprint_coverage_fraction": 1.0
+  },
+  {
+    "name": "fixed_wing_turn_radius",
+    "status": "PASS",
+    "embedded_zones": true,
+    "sorties": 1,
+    "uavs_used": 1,
+    "waypoints": 921,
+    "distance_m": 13881.42,
+    "mission_seconds": 553.26,
+    "requested_area_km2": 0.8412,
+    "footprint_coverage_fraction": 1.0
+  },
+  {
+    "name": "multiple_sorties",
+    "status": "PASS",
+    "embedded_zones": true,
+    "sorties": 6,
+    "uavs_used": 1,
+    "waypoints": 57,
+    "distance_m": 25642.62,
+    "mission_seconds": 3577.17,
+    "requested_area_km2": 0.8412,
+    "footprint_coverage_fraction": 1.0
+  },
+  {
+    "name": "100km2_ten_uavs",
+    "status": "PASS",
+    "embedded_zones": true,
+    "sorties": 18,
+    "uavs_used": 10,
+    "waypoints": 1675,
+    "distance_m": 969028.58,
+    "mission_seconds": 8135.7,
+    "requested_area_km2": 100.02,
+    "footprint_coverage_fraction": 1.0
+  }
+]

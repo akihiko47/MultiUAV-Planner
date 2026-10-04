@@ -35,8 +35,8 @@ with TestClient(app) as client:
     assert client.post('/v1/plan',json=invalid).status_code == 422
     report.append({'test':'unchanged_backend_missing_gsd','status':422})
     impossible = dict(request,operation_end_time='2026-10-20T07:25:01Z')
-    assert client.post('/v1/plan',json=impossible).status_code == 500
-    report.append({'test':'unchanged_backend_infeasible','status':500})
+    assert client.post('/v1/plan',json=impossible).status_code == 422
+    report.append({'test':'unchanged_backend_infeasible','status':422})
     assert client.post('/v1/plan',json=dict(request,survey_type='LiDAR')).status_code==422
     report.append({'test':'unchanged_backend_lidar_contract','status':422})
     mp=dict(request,survey_area={'type':'MultiPolygon','coordinates':[request['survey_area']['coordinates']]})

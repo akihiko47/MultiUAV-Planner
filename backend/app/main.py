@@ -8,7 +8,7 @@ from fastapi.responses import StreamingResponse
 from pydantic import ValidationError
 
 from app.models import PlanRequest, PlanResponse
-from app.planner_client import call_planner
+from app.planner_client import PlannerError, call_planner
 from app.exporters import build_mission_planner_zip, build_geoscan_kml_bytes
 
 logger = logging.getLogger("uvicorn.error")
@@ -34,6 +34,15 @@ async def plan(request: PlanRequest):
 
     try:
         result_dict = await run_in_threadpool(call_planner, request_json)
+    except PlannerError as e:
+        client_errors = {
+            "INVALID_REQUEST", "INVALID_GEOMETRY", "UNSUPPORTED_GEOGRAPHY",
+            "INFEASIBLE", "RESOURCE_LIMIT",
+        }
+        if e.code in client_errors:
+            raise HTTPException(status_code=422, detail=str(e)) from e
+        logger.exception("Planner failed")
+        raise HTTPException(status_code=500, detail=str(e)) from e
     except Exception as e:
         logger.exception("Planner call failed")
         raise HTTPException(status_code=500, detail=str(e))

@@ -1,0 +1,1106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document>
+    <name>UAV Mission Plan</name>
+    
+    <Style id="route_0">
+        <LineStyle>
+            <color>ff0000ff</color>
+            <width>3</width>
+        </LineStyle>
+        <IconStyle>
+            <color>ff0000ff</color>
+        </IconStyle>
+    </Style>
+    <Style id="route_1">
+        <LineStyle>
+            <color>ff00ff00</color>
+            <width>3</width>
+        </LineStyle>
+        <IconStyle>
+            <color>ff00ff00</color>
+        </IconStyle>
+    </Style>
+    
+    <Folder>
+        <name>uav3 (geoscan_gemini)</name>
+        <description><![CDATA[
+            camera: geoscan_pf1b<br/>
+            takeoff: 2026-10-20T07:25:00+00:00<br/>
+            landing: 2026-10-20T07:40:34.409000+00:00<br/>
+            estimated_time: 934.41 s<br/>
+            estimated_distance: 13096.99 m<br/>
+            battery_usage: 43.66 %
+        ]]></description>
+
+        <Placemark>
+            <name>Маршрут uav3</name>
+            <styleUrl>#route_0</styleUrl>
+            <LineString>
+                <tessellate>1</tessellate>
+                <altitudeMode>absolute</altitudeMode>
+                <coordinates>9.999,44.999,0 9.999,44.999,0 10.000000253656346,45.00036363636364,0 10.000000253656346,45.00036363636364,0 10.011999746343655,45.00036363636364,0 10.011999746343655,45.00109090909091,0 10.011999746343655,45.00109090909091,0 10.000000253656346,45.00109090909091,0 10.000000253656346,45.00181818181818,0 10.000000253656346,45.00181818181818,0 10.011999746343655,45.00181818181818,0 10.011999746343655,45.002545454545455,0 10.011999746343655,45.002545454545455,0 10.000000253656346,45.002545454545455,0 10.000000253656346,45.00327272727273,0 10.000000253656346,45.00327272727273,0 10.011999746343655,45.00327272727273,0 10.011999746343655,45.004,0 10.011999746343655,45.004,0 10.000000253656346,45.004,0 10.000000253656346,45.00472727272727,0 10.000000253656346,45.00472727272727,0 10.011999746343655,45.00472727272727,0 10.011999746343655,45.00545454545455,0 10.011999746343655,45.00545454545455,0 10.000000253656346,45.00545454545455,0 10.000000253656346,45.00618181818182,0 10.000000253656346,45.00618181818182,0 10.011999746343655,45.00618181818182,0 10.011999746343655,45.00690909090909,0 10.011999746343655,45.00690909090909,0 10.000000253656346,45.00690909090909,0 10.000000253656346,45.007636363636365,0 10.000000253656346,45.007636363636365,0 10.011999746343655,45.007636363636365,0 9.999,44.999,0 9.999,44.999,0</coordinates>
+            </LineString>
+        </Placemark>
+
+        
+        <Placemark>
+            <name>0: takeoff</name>
+            <description><![CDATA[
+                action: takeoff<br/>
+                altitude: 0.00 m<br/>
+                speed: 0.00 m/s<br/>
+                time: 2026-10-20T07:25:00+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>9.999,44.999,0.00</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>1: transit</name>
+            <description><![CDATA[
+                action: transit<br/>
+                altitude: 153.19 m<br/>
+                speed: 0.00 m/s<br/>
+                time: 2026-10-20T07:25:30.638000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>9.999,44.999,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>2: transit</name>
+            <description><![CDATA[
+                action: transit<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:25:42.027000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.000000253656346,45.00036363636364,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>3: line_begin</name>
+            <description><![CDATA[
+                action: line_begin<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:25:42.027000+00:00<br/>
+                photo_distance: 59.74468085106383
+            ]]></description>
+            <Point>
+                <coordinates>10.000000253656346,45.00036363636364,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>4: line_end</name>
+            <description><![CDATA[
+                action: line_end<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:26:45.102000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.011999746343655,45.00036363636364,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>5: transit</name>
+            <description><![CDATA[
+                action: transit<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:26:50.490000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.011999746343655,45.00109090909091,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>6: line_begin</name>
+            <description><![CDATA[
+                action: line_begin<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:26:50.490000+00:00<br/>
+                photo_distance: 59.74468085106383
+            ]]></description>
+            <Point>
+                <coordinates>10.011999746343655,45.00109090909091,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>7: line_end</name>
+            <description><![CDATA[
+                action: line_end<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:27:53.565000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.000000253656346,45.00109090909091,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>8: transit</name>
+            <description><![CDATA[
+                action: transit<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:27:58.953000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.000000253656346,45.00181818181818,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>9: line_begin</name>
+            <description><![CDATA[
+                action: line_begin<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:27:58.953000+00:00<br/>
+                photo_distance: 59.74468085106383
+            ]]></description>
+            <Point>
+                <coordinates>10.000000253656346,45.00181818181818,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>10: line_end</name>
+            <description><![CDATA[
+                action: line_end<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:29:02.028000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.011999746343655,45.00181818181818,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>11: transit</name>
+            <description><![CDATA[
+                action: transit<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:29:07.416000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.011999746343655,45.002545454545455,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>12: line_begin</name>
+            <description><![CDATA[
+                action: line_begin<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:29:07.416000+00:00<br/>
+                photo_distance: 59.74468085106383
+            ]]></description>
+            <Point>
+                <coordinates>10.011999746343655,45.002545454545455,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>13: line_end</name>
+            <description><![CDATA[
+                action: line_end<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:30:10.491000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.000000253656346,45.002545454545455,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>14: transit</name>
+            <description><![CDATA[
+                action: transit<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:30:15.879000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.000000253656346,45.00327272727273,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>15: line_begin</name>
+            <description><![CDATA[
+                action: line_begin<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:30:15.879000+00:00<br/>
+                photo_distance: 59.74468085106383
+            ]]></description>
+            <Point>
+                <coordinates>10.000000253656346,45.00327272727273,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>16: line_end</name>
+            <description><![CDATA[
+                action: line_end<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:31:18.954000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.011999746343655,45.00327272727273,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>17: transit</name>
+            <description><![CDATA[
+                action: transit<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:31:24.342000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.011999746343655,45.004,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>18: line_begin</name>
+            <description><![CDATA[
+                action: line_begin<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:31:24.342000+00:00<br/>
+                photo_distance: 59.74468085106383
+            ]]></description>
+            <Point>
+                <coordinates>10.011999746343655,45.004,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>19: line_end</name>
+            <description><![CDATA[
+                action: line_end<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:32:27.417000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.000000253656346,45.004,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>20: transit</name>
+            <description><![CDATA[
+                action: transit<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:32:32.805000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.000000253656346,45.00472727272727,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>21: line_begin</name>
+            <description><![CDATA[
+                action: line_begin<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:32:32.805000+00:00<br/>
+                photo_distance: 59.74468085106383
+            ]]></description>
+            <Point>
+                <coordinates>10.000000253656346,45.00472727272727,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>22: line_end</name>
+            <description><![CDATA[
+                action: line_end<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:33:35.880000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.011999746343655,45.00472727272727,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>23: transit</name>
+            <description><![CDATA[
+                action: transit<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:33:41.269000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.011999746343655,45.00545454545455,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>24: line_begin</name>
+            <description><![CDATA[
+                action: line_begin<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:33:41.269000+00:00<br/>
+                photo_distance: 59.74468085106383
+            ]]></description>
+            <Point>
+                <coordinates>10.011999746343655,45.00545454545455,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>25: line_end</name>
+            <description><![CDATA[
+                action: line_end<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:34:44.343000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.000000253656346,45.00545454545455,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>26: transit</name>
+            <description><![CDATA[
+                action: transit<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:34:49.732000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.000000253656346,45.00618181818182,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>27: line_begin</name>
+            <description><![CDATA[
+                action: line_begin<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:34:49.732000+00:00<br/>
+                photo_distance: 59.74468085106383
+            ]]></description>
+            <Point>
+                <coordinates>10.000000253656346,45.00618181818182,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>28: line_end</name>
+            <description><![CDATA[
+                action: line_end<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:35:52.806000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.011999746343655,45.00618181818182,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>29: transit</name>
+            <description><![CDATA[
+                action: transit<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:35:58.195000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.011999746343655,45.00690909090909,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>30: line_begin</name>
+            <description><![CDATA[
+                action: line_begin<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:35:58.195000+00:00<br/>
+                photo_distance: 59.74468085106383
+            ]]></description>
+            <Point>
+                <coordinates>10.011999746343655,45.00690909090909,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>31: line_end</name>
+            <description><![CDATA[
+                action: line_end<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:37:01.269000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.000000253656346,45.00690909090909,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>32: transit</name>
+            <description><![CDATA[
+                action: transit<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:37:06.658000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.000000253656346,45.007636363636365,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>33: line_begin</name>
+            <description><![CDATA[
+                action: line_begin<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:37:06.658000+00:00<br/>
+                photo_distance: 59.74468085106383
+            ]]></description>
+            <Point>
+                <coordinates>10.000000253656346,45.007636363636365,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>34: line_end</name>
+            <description><![CDATA[
+                action: line_end<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:38:09.732000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.011999746343655,45.007636363636365,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>35: transit</name>
+            <description><![CDATA[
+                action: transit<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:39:43.345000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>9.999,44.999,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>36: landing</name>
+            <description><![CDATA[
+                action: landing<br/>
+                altitude: 0.00 m<br/>
+                speed: 0.00 m/s<br/>
+                time: 2026-10-20T07:40:34.409000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>9.999,44.999,0.00</coordinates>
+            </Point>
+        </Placemark>
+    </Folder>
+    <Folder>
+        <name>uav3 (geoscan_gemini)</name>
+        <description><![CDATA[
+            camera: geoscan_pf1b<br/>
+            takeoff: 2026-10-20T07:25:00+00:00<br/>
+            landing: 2026-10-20T07:40:34.409000+00:00<br/>
+            estimated_time: 934.41 s<br/>
+            estimated_distance: 13096.99 m<br/>
+            battery_usage: 43.66 %
+        ]]></description>
+
+        <Placemark>
+            <name>Маршрут uav3</name>
+            <styleUrl>#route_1</styleUrl>
+            <LineString>
+                <tessellate>1</tessellate>
+                <altitudeMode>absolute</altitudeMode>
+                <coordinates>9.999,44.999,0 9.999,44.999,0 10.000000253656346,45.00036363636364,0 10.000000253656346,45.00036363636364,0 10.011999746343655,45.00036363636364,0 10.011999746343655,45.00109090909091,0 10.011999746343655,45.00109090909091,0 10.000000253656346,45.00109090909091,0 10.000000253656346,45.00181818181818,0 10.000000253656346,45.00181818181818,0 10.011999746343655,45.00181818181818,0 10.011999746343655,45.002545454545455,0 10.011999746343655,45.002545454545455,0 10.000000253656346,45.002545454545455,0 10.000000253656346,45.00327272727273,0 10.000000253656346,45.00327272727273,0 10.011999746343655,45.00327272727273,0 10.011999746343655,45.004,0 10.011999746343655,45.004,0 10.000000253656346,45.004,0 10.000000253656346,45.00472727272727,0 10.000000253656346,45.00472727272727,0 10.011999746343655,45.00472727272727,0 10.011999746343655,45.00545454545455,0 10.011999746343655,45.00545454545455,0 10.000000253656346,45.00545454545455,0 10.000000253656346,45.00618181818182,0 10.000000253656346,45.00618181818182,0 10.011999746343655,45.00618181818182,0 10.011999746343655,45.00690909090909,0 10.011999746343655,45.00690909090909,0 10.000000253656346,45.00690909090909,0 10.000000253656346,45.007636363636365,0 10.000000253656346,45.007636363636365,0 10.011999746343655,45.007636363636365,0 9.999,44.999,0 9.999,44.999,0</coordinates>
+            </LineString>
+        </Placemark>
+
+        
+        <Placemark>
+            <name>0: takeoff</name>
+            <description><![CDATA[
+                action: takeoff<br/>
+                altitude: 0.00 m<br/>
+                speed: 0.00 m/s<br/>
+                time: 2026-10-20T07:25:00+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>9.999,44.999,0.00</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>1: transit</name>
+            <description><![CDATA[
+                action: transit<br/>
+                altitude: 153.19 m<br/>
+                speed: 0.00 m/s<br/>
+                time: 2026-10-20T07:25:30.638000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>9.999,44.999,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>2: transit</name>
+            <description><![CDATA[
+                action: transit<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:25:42.027000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.000000253656346,45.00036363636364,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>3: line_begin</name>
+            <description><![CDATA[
+                action: line_begin<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:25:42.027000+00:00<br/>
+                photo_distance: 59.74468085106383
+            ]]></description>
+            <Point>
+                <coordinates>10.000000253656346,45.00036363636364,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>4: line_end</name>
+            <description><![CDATA[
+                action: line_end<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:26:45.102000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.011999746343655,45.00036363636364,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>5: transit</name>
+            <description><![CDATA[
+                action: transit<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:26:50.490000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.011999746343655,45.00109090909091,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>6: line_begin</name>
+            <description><![CDATA[
+                action: line_begin<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:26:50.490000+00:00<br/>
+                photo_distance: 59.74468085106383
+            ]]></description>
+            <Point>
+                <coordinates>10.011999746343655,45.00109090909091,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>7: line_end</name>
+            <description><![CDATA[
+                action: line_end<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:27:53.565000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.000000253656346,45.00109090909091,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>8: transit</name>
+            <description><![CDATA[
+                action: transit<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:27:58.953000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.000000253656346,45.00181818181818,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>9: line_begin</name>
+            <description><![CDATA[
+                action: line_begin<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:27:58.953000+00:00<br/>
+                photo_distance: 59.74468085106383
+            ]]></description>
+            <Point>
+                <coordinates>10.000000253656346,45.00181818181818,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>10: line_end</name>
+            <description><![CDATA[
+                action: line_end<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:29:02.028000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.011999746343655,45.00181818181818,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>11: transit</name>
+            <description><![CDATA[
+                action: transit<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:29:07.416000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.011999746343655,45.002545454545455,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>12: line_begin</name>
+            <description><![CDATA[
+                action: line_begin<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:29:07.416000+00:00<br/>
+                photo_distance: 59.74468085106383
+            ]]></description>
+            <Point>
+                <coordinates>10.011999746343655,45.002545454545455,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>13: line_end</name>
+            <description><![CDATA[
+                action: line_end<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:30:10.491000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.000000253656346,45.002545454545455,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>14: transit</name>
+            <description><![CDATA[
+                action: transit<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:30:15.879000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.000000253656346,45.00327272727273,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>15: line_begin</name>
+            <description><![CDATA[
+                action: line_begin<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:30:15.879000+00:00<br/>
+                photo_distance: 59.74468085106383
+            ]]></description>
+            <Point>
+                <coordinates>10.000000253656346,45.00327272727273,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>16: line_end</name>
+            <description><![CDATA[
+                action: line_end<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:31:18.954000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.011999746343655,45.00327272727273,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>17: transit</name>
+            <description><![CDATA[
+                action: transit<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:31:24.342000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.011999746343655,45.004,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>18: line_begin</name>
+            <description><![CDATA[
+                action: line_begin<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:31:24.342000+00:00<br/>
+                photo_distance: 59.74468085106383
+            ]]></description>
+            <Point>
+                <coordinates>10.011999746343655,45.004,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>19: line_end</name>
+            <description><![CDATA[
+                action: line_end<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:32:27.417000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.000000253656346,45.004,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>20: transit</name>
+            <description><![CDATA[
+                action: transit<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:32:32.805000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.000000253656346,45.00472727272727,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>21: line_begin</name>
+            <description><![CDATA[
+                action: line_begin<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:32:32.805000+00:00<br/>
+                photo_distance: 59.74468085106383
+            ]]></description>
+            <Point>
+                <coordinates>10.000000253656346,45.00472727272727,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>22: line_end</name>
+            <description><![CDATA[
+                action: line_end<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:33:35.880000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.011999746343655,45.00472727272727,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>23: transit</name>
+            <description><![CDATA[
+                action: transit<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:33:41.269000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.011999746343655,45.00545454545455,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>24: line_begin</name>
+            <description><![CDATA[
+                action: line_begin<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:33:41.269000+00:00<br/>
+                photo_distance: 59.74468085106383
+            ]]></description>
+            <Point>
+                <coordinates>10.011999746343655,45.00545454545455,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>25: line_end</name>
+            <description><![CDATA[
+                action: line_end<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:34:44.343000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.000000253656346,45.00545454545455,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>26: transit</name>
+            <description><![CDATA[
+                action: transit<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:34:49.732000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.000000253656346,45.00618181818182,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>27: line_begin</name>
+            <description><![CDATA[
+                action: line_begin<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:34:49.732000+00:00<br/>
+                photo_distance: 59.74468085106383
+            ]]></description>
+            <Point>
+                <coordinates>10.000000253656346,45.00618181818182,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>28: line_end</name>
+            <description><![CDATA[
+                action: line_end<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:35:52.806000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.011999746343655,45.00618181818182,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>29: transit</name>
+            <description><![CDATA[
+                action: transit<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:35:58.195000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.011999746343655,45.00690909090909,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>30: line_begin</name>
+            <description><![CDATA[
+                action: line_begin<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:35:58.195000+00:00<br/>
+                photo_distance: 59.74468085106383
+            ]]></description>
+            <Point>
+                <coordinates>10.011999746343655,45.00690909090909,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>31: line_end</name>
+            <description><![CDATA[
+                action: line_end<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:37:01.269000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.000000253656346,45.00690909090909,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>32: transit</name>
+            <description><![CDATA[
+                action: transit<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:37:06.658000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.000000253656346,45.007636363636365,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>33: line_begin</name>
+            <description><![CDATA[
+                action: line_begin<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:37:06.658000+00:00<br/>
+                photo_distance: 59.74468085106383
+            ]]></description>
+            <Point>
+                <coordinates>10.000000253656346,45.007636363636365,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>34: line_end</name>
+            <description><![CDATA[
+                action: line_end<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:38:09.732000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>10.011999746343655,45.007636363636365,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>35: transit</name>
+            <description><![CDATA[
+                action: transit<br/>
+                altitude: 153.19 m<br/>
+                speed: 15.00 m/s<br/>
+                time: 2026-10-20T07:39:43.345000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>9.999,44.999,153.19</coordinates>
+            </Point>
+        </Placemark>
+
+        <Placemark>
+            <name>36: landing</name>
+            <description><![CDATA[
+                action: landing<br/>
+                altitude: 0.00 m<br/>
+                speed: 0.00 m/s<br/>
+                time: 2026-10-20T07:40:34.409000+00:00<br/>
+                photo_distance: None
+            ]]></description>
+            <Point>
+                <coordinates>9.999,44.999,0.00</coordinates>
+            </Point>
+        </Placemark>
+    </Folder>
+</Document>
+</kml>

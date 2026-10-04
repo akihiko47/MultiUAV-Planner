@@ -1,0 +1,25 @@
+{"name": "GET /", "status": "PASS", "http": 200, "elapsed_seconds": 21.11}
+{"name": "GET /docs", "status": "PASS", "http": 200, "elapsed_seconds": 21.047}
+{"name": "GET /openapi.json", "status": "PASS", "http": 200, "elapsed_seconds": 21.093}
+{"name": "GET /redoc", "status": "PASS", "http": 200, "elapsed_seconds": 21.078}
+{"name": "GET /api/health", "status": "PASS", "http": 200, "elapsed_seconds": 21.063}
+{"name": "documented README plan URL", "status": "PASS", "http": 405, "elapsed_seconds": 21.062}
+{"name": "smoke real planner", "status": "PASS", "sorties": 1, "elapsed_seconds": 0.0}
+{"name": "plan frontend_example", "status": "PASS", "sorties": 2, "elapsed_seconds": 21.078}
+{"name": "plan min_flight_distance", "status": "PASS", "sorties": 1, "elapsed_seconds": 21.062}
+{"name": "plan timezone_offset", "status": "PASS", "sorties": 1, "elapsed_seconds": 21.078}
+{"name": "validation missing_gsd", "status": "PASS", "http": 422, "elapsed_seconds": 21.094}
+{"name": "validation zero_gsd", "status": "PASS", "http": 422, "elapsed_seconds": 21.078}
+{"name": "validation negative_gsd", "status": "PASS", "http": 422, "elapsed_seconds": 21.063}
+{"name": "validation too_large_gsd", "status": "PASS", "http": 422, "elapsed_seconds": 21.047}
+{"name": "validation lidar", "status": "PASS", "http": 422, "elapsed_seconds": 21.062}
+{"name": "validation geophysical", "status": "PASS", "http": 422, "elapsed_seconds": 21.047}
+{"name": "validation unknown_type", "status": "PASS", "http": 422, "elapsed_seconds": 21.047}
+{"name": "validation unknown_camera", "status": "PASS", "http": 422, "elapsed_seconds": 21.062}
+{"name": "validation invalid_date", "status": "PASS", "http": 422, "elapsed_seconds": 21.047}
+{"name": "validation no_uavs", "status": "PASS", "http": 422, "elapsed_seconds": 21.047}
+{"name": "validation wrong_geometry_type", "status": "PASS", "http": 422, "elapsed_seconds": 21.063}
+{"name": "client error semantics empty_polygon", "status": "FAIL", "error": "expected 422, got 500: b'{\"detail\":\"INVALID_REQUEST: empty polygon\"}'", "elapsed_seconds": 21.046}
+{"name": "client error semantics no_starts", "status": "FAIL", "error": "expected 422, got 500: b'{\"detail\":\"INVALID_REQUEST: need 1..100 start points\"}'", "elapsed_seconds": 21.063}
+{"name": "client error semantics bad_coordinate_dimension", "status": "FAIL", "error": "expected 422, got 500: b'{\"detail\":\"INVALID_REQUEST: coordinates must contain exactly two numbers\"}'", "elapsed_seconds": 21.047}
+{"name": "client error semantics invalid_latitude", "status": "FAIL", "error": "expected 422, got 500: b'{\"detail\":\"INVALID_REQUEST: invalid WGS84 coordinate\"}'", "elapsed_seconds": 21.047}

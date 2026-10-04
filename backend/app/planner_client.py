@@ -17,6 +17,14 @@ _lib.free_string.argtypes = [ctypes.c_void_p]
 _lib.free_string.restype = None
 
 
+class PlannerError(RuntimeError):
+    """A diagnostic returned by the native planner, distinct from a call failure."""
+
+    def __init__(self, message: str):
+        super().__init__(message)
+        self.code = message.partition(":")[0]
+
+
 def call_planner(request_json: str) -> dict:
     req = request_json.encode("utf-8")
     ptr = _lib.plan_json(req)
@@ -32,6 +40,6 @@ def call_planner(request_json: str) -> dict:
     result = json.loads(raw)
 
     if isinstance(result, dict) and "error" in result:
-        raise RuntimeError(result["error"])
+        raise PlannerError(str(result["error"]))
 
     return result

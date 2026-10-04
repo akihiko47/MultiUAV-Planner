@@ -56,7 +56,9 @@ export default function SidePanel({
     const panel = panelRef.current;
     panel.querySelector('.panel-close-btn')?.focus();
     const handleKey = (event) => {
-      if (event.key === 'Escape') onClose();
+      // Let the route-name input cancel editing before closing the drawer.
+      // This native listener runs before React's delegated key handler.
+      if (event.key === 'Escape' && !event.target.matches('.route-name')) onClose();
       if (event.key !== 'Tab') return;
       const elements = [...panel.querySelectorAll('button:not(:disabled), a, input:not([type="file"]), select')]
         .filter((element) => element.tabIndex >= 0 && element.getClientRects().length);

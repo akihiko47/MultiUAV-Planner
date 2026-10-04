@@ -1,0 +1,535 @@
+geoscan-frontend  | /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+geoscan-frontend  | /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+geoscan-backend   | INFO:     172.18.0.3:42530 - "GET /health HTTP/1.1" 200 OK
+geoscan-backend   | ERROR:    Planner call failed
+geoscan-frontend  | /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+geoscan-frontend  | 10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf
+geoscan-backend   | Traceback (most recent call last):
+geoscan-backend   |   File "/app/app/main.py", line 36, in plan
+geoscan-frontend  | 10-listen-on-ipv6-by-default.sh: info: /etc/nginx/conf.d/default.conf differs from the packaged version
+geoscan-backend   |     result_dict = await run_in_threadpool(call_planner, request_json)
+geoscan-frontend  | /docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
+geoscan-backend   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-frontend  | /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
+geoscan-frontend  | /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+geoscan-frontend  | /docker-entrypoint.sh: Configuration complete; ready for start up
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/starlette/concurrency.py", line 34, in run_in_threadpool
+geoscan-backend   |     return await anyio.to_thread.run_sync(func)
+geoscan-backend   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-frontend  | 2026/10/04 13:44:37 [notice] 1#1: using the "epoll" event method
+geoscan-frontend  | 2026/10/04 13:44:37 [notice] 1#1: nginx/1.31.6
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/anyio/to_thread.py", line 65, in run_sync
+geoscan-frontend  | 2026/10/04 13:44:37 [notice] 1#1: built by gcc 15.2.0 (Alpine 15.2.0) 
+geoscan-backend   | INFO:     172.18.0.3:42538 - "POST /v1/plan HTTP/1.1" 500 Internal Server Error
+geoscan-backend   |     return await get_async_backend().run_sync_in_worker_thread(
+geoscan-backend   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 2706, in run_sync_in_worker_thread
+geoscan-frontend  | 2026/10/04 13:44:37 [notice] 1#1: OS: Linux 6.18.33.2-microsoft-standard-WSL2
+geoscan-frontend  | 2026/10/04 13:44:37 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+geoscan-frontend  | 2026/10/04 13:44:37 [notice] 1#1: start worker processes
+geoscan-backend   |     return await future
+geoscan-backend   |            ^^^^^^^^^^^^
+geoscan-frontend  | 2026/10/04 13:44:37 [notice] 1#1: start worker process 29
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 1100, in run
+geoscan-frontend  | 2026/10/04 13:44:37 [notice] 1#1: start worker process 30
+geoscan-backend   |     result = context.run(func, *args)
+geoscan-backend   |              ^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-frontend  | 2026/10/04 13:44:37 [notice] 1#1: start worker process 31
+geoscan-backend   |   File "/app/app/planner_client.py", line 35, in call_planner
+geoscan-backend   |     raise RuntimeError(result["error"])
+geoscan-frontend  | 2026/10/04 13:44:37 [notice] 1#1: start worker process 32
+geoscan-frontend  | 2026/10/04 13:44:37 [notice] 1#1: start worker process 33
+geoscan-frontend  | 2026/10/04 13:44:37 [notice] 1#1: start worker process 34
+geoscan-backend   | RuntimeError: RESOURCE_LIMIT: visibility graph exceeds 3000 vertices
+geoscan-backend   | INFO:     172.18.0.3:42544 - "POST /v1/plan HTTP/1.1" 200 OK
+geoscan-backend   | INFO:     172.18.0.3:42550 - "POST /v1/plan HTTP/1.1" 200 OK
+geoscan-backend   | INFO:     172.18.0.3:42554 - "POST /v1/plan HTTP/1.1" 200 OK
+geoscan-frontend  | 2026/10/04 13:44:37 [notice] 1#1: start worker process 35
+geoscan-frontend  | 2026/10/04 13:44:37 [notice] 1#1: start worker process 36
+geoscan-frontend  | 2026/10/04 13:44:37 [notice] 1#1: start worker process 37
+geoscan-frontend  | 2026/10/04 13:44:37 [notice] 1#1: start worker process 38
+geoscan-frontend  | 2026/10/04 13:44:37 [notice] 1#1: start worker process 39
+geoscan-backend   | INFO:     172.18.0.3:42560 - "POST /v1/plan HTTP/1.1" 200 OK
+geoscan-frontend  | 2026/10/04 13:44:37 [notice] 1#1: start worker process 40
+geoscan-backend   | INFO:     172.18.0.3:42568 - "POST /v1/plan HTTP/1.1" 422 Unprocessable Entity
+geoscan-frontend  | 2026/10/04 13:44:37 [notice] 1#1: start worker process 41
+geoscan-frontend  | 2026/10/04 13:44:37 [notice] 1#1: start worker process 42
+geoscan-frontend  | 2026/10/04 13:44:37 [notice] 1#1: start worker process 43
+geoscan-backend   | INFO:     172.18.0.3:42570 - "POST /v1/plan HTTP/1.1" 422 Unprocessable Entity
+geoscan-backend   | INFO:     172.18.0.3:42572 - "POST /v1/plan HTTP/1.1" 422 Unprocessable Entity
+geoscan-backend   | INFO:     172.18.0.3:42578 - "POST /v1/plan HTTP/1.1" 422 Unprocessable Entity
+geoscan-frontend  | 2026/10/04 13:44:37 [notice] 1#1: start worker process 44
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:45:20 +0000] "GET / HTTP/1.1" 200 1142 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36" "-"
+geoscan-backend   | INFO:     172.18.0.3:42590 - "POST /v1/plan HTTP/1.1" 422 Unprocessable Entity
+geoscan-backend   | INFO:     172.18.0.3:42602 - "POST /v1/plan HTTP/1.1" 422 Unprocessable Entity
+geoscan-backend   | INFO:     172.18.0.3:42610 - "POST /v1/plan HTTP/1.1" 422 Unprocessable Entity
+geoscan-backend   | INFO:     172.18.0.3:42622 - "POST /v1/plan HTTP/1.1" 422 Unprocessable Entity
+geoscan-backend   | INFO:     172.18.0.3:42634 - "POST /v1/plan HTTP/1.1" 422 Unprocessable Entity
+geoscan-backend   | INFO:     172.18.0.3:42650 - "POST /v1/plan HTTP/1.1" 422 Unprocessable Entity
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:45:20 +0000] "GET /assets/index-D5ZT76rB.js HTTP/1.1" 200 1836813 "http://localhost:8080/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:45:20 +0000] "GET /assets/index-BYJ65PwT.css HTTP/1.1" 200 64429 "http://localhost:8080/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:46:11 +0000] "GET /api/health HTTP/1.1" 200 15 "-" "Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.26200; ru-RU) PowerShell/7.6.5" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:46:28 +0000] "GET /assets/airport-C5MAPGVy.png HTTP/1.1" 200 13550 "http://localhost:8080/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36" "-"
+geoscan-backend   | INFO:     172.18.0.3:42658 - "POST /v1/plan HTTP/1.1" 422 Unprocessable Entity
+geoscan-backend   | ERROR:    Planner call failed
+geoscan-backend   | Traceback (most recent call last):
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:46:55 +0000] "POST /api/v1/plan HTTP/1.1" 200 21854 "http://localhost:8080/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:48:53 +0000] "GET / HTTP/1.1" 200 1142 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:49:14 +0000] "GET /docs HTTP/1.1" 200 1018 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:49:35 +0000] "GET /openapi.json HTTP/1.1" 200 8750 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |   File "/app/app/main.py", line 36, in plan
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:49:56 +0000] "GET /redoc HTTP/1.1" 200 900 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "GET / HTTP/1.1" 200 1142 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "GET /docs HTTP/1.1" 200 1018 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |     result_dict = await run_in_threadpool(call_planner, request_json)
+geoscan-backend   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/starlette/concurrency.py", line 34, in run_in_threadpool
+geoscan-backend   |     return await anyio.to_thread.run_sync(func)
+geoscan-backend   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/anyio/to_thread.py", line 65, in run_sync
+geoscan-backend   |     return await get_async_backend().run_sync_in_worker_thread(
+geoscan-backend   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 2706, in run_sync_in_worker_thread
+geoscan-backend   |     return await future
+geoscan-backend   |            ^^^^^^^^^^^^
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 1100, in run
+geoscan-backend   |     result = context.run(func, *args)
+geoscan-backend   |              ^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-backend   |   File "/app/app/planner_client.py", line 35, in call_planner
+geoscan-backend   |     raise RuntimeError(result["error"])
+geoscan-backend   | RuntimeError: INVALID_REQUEST: empty polygon
+geoscan-backend   | INFO:     172.18.0.3:42670 - "POST /v1/plan HTTP/1.1" 500 Internal Server Error
+geoscan-backend   | ERROR:    Planner call failed
+geoscan-backend   | Traceback (most recent call last):
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "GET /openapi.json HTTP/1.1" 200 8750 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |   File "/app/app/main.py", line 36, in plan
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "GET /redoc HTTP/1.1" 200 900 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |     result_dict = await run_in_threadpool(call_planner, request_json)
+geoscan-backend   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/starlette/concurrency.py", line 34, in run_in_threadpool
+geoscan-backend   |     return await anyio.to_thread.run_sync(func)
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "GET /api/health HTTP/1.1" 200 15 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/anyio/to_thread.py", line 65, in run_sync
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /v1/plan HTTP/1.1" 405 157 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |     return await get_async_backend().run_sync_in_worker_thread(
+geoscan-backend   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 2706, in run_sync_in_worker_thread
+geoscan-backend   |     return await future
+geoscan-backend   |            ^^^^^^^^^^^^
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /api/v1/plan HTTP/1.1" 200 21854 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /api/v1/plan HTTP/1.1" 422 1425 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /api/v1/plan HTTP/1.1" 422 1489 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /api/v1/plan HTTP/1.1" 422 1491 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /api/v1/plan HTTP/1.1" 422 1500 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 1100, in run
+geoscan-backend   |     result = context.run(func, *args)
+geoscan-backend   |              ^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /api/v1/plan HTTP/1.1" 422 1567 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /api/v1/plan HTTP/1.1" 422 1579 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /api/v1/plan HTTP/1.1" 422 1494 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /api/v1/plan HTTP/1.1" 422 1496 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |   File "/app/app/planner_client.py", line 35, in call_planner
+geoscan-backend   |     raise RuntimeError(result["error"])
+geoscan-backend   | RuntimeError: INVALID_REQUEST: need 1..100 start points
+geoscan-backend   | INFO:     172.18.0.3:42684 - "POST /v1/plan HTTP/1.1" 500 Internal Server Error
+geoscan-backend   | ERROR:    Planner call failed
+geoscan-backend   | Traceback (most recent call last):
+geoscan-backend   |   File "/app/app/main.py", line 36, in plan
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /api/v1/plan HTTP/1.1" 422 259 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /api/v1/plan HTTP/1.1" 422 1521 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /api/v1/plan HTTP/1.1" 422 161 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /api/v1/plan HTTP/1.1" 500 43 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |     result_dict = await run_in_threadpool(call_planner, request_json)
+geoscan-backend   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /api/v1/plan HTTP/1.1" 500 54 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /api/v1/plan HTTP/1.1" 500 74 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /api/v1/plan HTTP/1.1" 500 54 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /api/v1/plan HTTP/1.1" 500 51 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/starlette/concurrency.py", line 34, in run_in_threadpool
+geoscan-backend   |     return await anyio.to_thread.run_sync(func)
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /api/v1/plan HTTP/1.1" 500 58 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /api/v1/plan HTTP/1.1" 500 156 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /api/v1/plan HTTP/1.1" 422 158 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/anyio/to_thread.py", line 65, in run_sync
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /api/v1/plan HTTP/1.1" 422 566 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "GET /api/v1/plan HTTP/1.1" 405 31 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |     return await get_async_backend().run_sync_in_worker_thread(
+geoscan-backend   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "GET /api/unknown HTTP/1.1" 404 22 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "OPTIONS /api/v1/plan HTTP/1.1" 200 2 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 2706, in run_sync_in_worker_thread
+geoscan-backend   |     return await future
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |            ^^^^^^^^^^^^
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 1100, in run
+geoscan-backend   |     result = context.run(func, *args)
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |              ^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |   File "/app/app/planner_client.py", line 35, in call_planner
+geoscan-backend   |     raise RuntimeError(result["error"])
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /api/v1/export/mission-planner HTTP/1.1" 200 544 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /api/v1/export/geoscan-kml HTTP/1.1" 200 23724 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /api/v1/export/mission-planner HTTP/1.1" 422 176 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /api/v1/export/geoscan-kml HTTP/1.1" 422 176 "-" "Python-urllib/3.12" "-"
+geoscan-backend   | RuntimeError: INVALID_REQUEST: coordinates must contain exactly two numbers
+geoscan-backend   | INFO:     172.18.0.3:42700 - "POST /v1/plan HTTP/1.1" 500 Internal Server Error
+geoscan-backend   | ERROR:    Planner call failed
+geoscan-backend   | Traceback (most recent call last):
+geoscan-backend   |   File "/app/app/main.py", line 36, in plan
+geoscan-backend   |     result_dict = await run_in_threadpool(call_planner, request_json)
+geoscan-backend   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/starlette/concurrency.py", line 34, in run_in_threadpool
+geoscan-backend   |     return await anyio.to_thread.run_sync(func)
+geoscan-frontend  | 2026/10/04 13:50:13 [warn] 31#31: *104 a client request body is buffered to a temporary file /var/cache/nginx/client_temp/0000000001, client: 172.18.0.1, server: _, request: "POST /api/v1/export/mission-planner HTTP/1.1", host: "127.0.0.1:8080"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:13 +0000] "POST /api/v1/export/mission-planner HTTP/1.1" 200 1055 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:14 +0000] "POST /api/v1/export/geoscan-kml HTTP/1.1" 200 23736 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/anyio/to_thread.py", line 65, in run_sync
+geoscan-backend   |     return await get_async_backend().run_sync_in_worker_thread(
+geoscan-backend   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:14 +0000] "GET /api/health HTTP/1.1" 200 15 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:18 +0000] "GET /api/health HTTP/1.1" 200 15 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 2706, in run_sync_in_worker_thread
+geoscan-backend   |     return await future
+geoscan-backend   |            ^^^^^^^^^^^^
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:50:39 +0000] "POST /v1/plan HTTP/1.1" 405 157 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:51:00 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 1100, in run
+geoscan-backend   |     result = context.run(func, *args)
+geoscan-backend   |              ^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-backend   |   File "/app/app/planner_client.py", line 35, in call_planner
+geoscan-backend   |     raise RuntimeError(result["error"])
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:51:21 +0000] "POST /api/v1/plan HTTP/1.1" 200 21854 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:51:42 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:03 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-backend   | RuntimeError: INVALID_REQUEST: invalid WGS84 coordinate
+geoscan-backend   | INFO:     172.18.0.3:42704 - "POST /v1/plan HTTP/1.1" 500 Internal Server Error
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:24 +0000] "POST /api/v1/plan HTTP/1.1" 422 1425 "-" "Python-urllib/3.12" "-"
+geoscan-backend   | ERROR:    Planner call failed
+geoscan-backend   | Traceback (most recent call last):
+geoscan-backend   |   File "/app/app/main.py", line 36, in plan
+geoscan-backend   |     result_dict = await run_in_threadpool(call_planner, request_json)
+geoscan-backend   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/starlette/concurrency.py", line 34, in run_in_threadpool
+geoscan-backend   |     return await anyio.to_thread.run_sync(func)
+geoscan-backend   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/anyio/to_thread.py", line 65, in run_sync
+geoscan-backend   |     return await get_async_backend().run_sync_in_worker_thread(
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:46 +0000] "POST /api/v1/plan HTTP/1.1" 422 1489 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:46 +0000] "GET / HTTP/1.1" 200 1142 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:46 +0000] "GET /docs HTTP/1.1" 200 1018 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:46 +0000] "GET /openapi.json HTTP/1.1" 200 8750 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:46 +0000] "GET /redoc HTTP/1.1" 200 900 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:46 +0000] "GET /api/health HTTP/1.1" 200 15 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:46 +0000] "POST /v1/plan HTTP/1.1" 405 157 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 2706, in run_sync_in_worker_thread
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:46 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:46 +0000] "POST /api/v1/plan HTTP/1.1" 200 21854 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:46 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:46 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:46 +0000] "POST /api/v1/plan HTTP/1.1" 422 1425 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:46 +0000] "POST /api/v1/plan HTTP/1.1" 422 1489 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:46 +0000] "POST /api/v1/plan HTTP/1.1" 422 1491 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:46 +0000] "POST /api/v1/plan HTTP/1.1" 422 1500 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:46 +0000] "POST /api/v1/plan HTTP/1.1" 422 1567 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:46 +0000] "POST /api/v1/plan HTTP/1.1" 422 1579 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:46 +0000] "POST /api/v1/plan HTTP/1.1" 422 1494 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:46 +0000] "POST /api/v1/plan HTTP/1.1" 422 1496 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:46 +0000] "POST /api/v1/plan HTTP/1.1" 422 259 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |     return await future
+geoscan-backend   |            ^^^^^^^^^^^^
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 1100, in run
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:46 +0000] "POST /api/v1/plan HTTP/1.1" 422 1521 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:46 +0000] "POST /api/v1/plan HTTP/1.1" 422 161 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:46 +0000] "POST /api/v1/plan HTTP/1.1" 500 43 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:46 +0000] "POST /api/v1/plan HTTP/1.1" 500 54 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:46 +0000] "POST /api/v1/plan HTTP/1.1" 500 74 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:46 +0000] "POST /api/v1/plan HTTP/1.1" 500 54 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |     result = context.run(func, *args)
+geoscan-backend   |              ^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-backend   |   File "/app/app/planner_client.py", line 35, in call_planner
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:46 +0000] "POST /api/v1/plan HTTP/1.1" 500 51 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:46 +0000] "POST /api/v1/plan HTTP/1.1" 500 58 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:47 +0000] "POST /api/v1/plan HTTP/1.1" 500 156 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:47 +0000] "POST /api/v1/plan HTTP/1.1" 422 158 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:47 +0000] "POST /api/v1/plan HTTP/1.1" 422 566 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:47 +0000] "GET /api/v1/plan HTTP/1.1" 405 31 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:47 +0000] "GET /api/unknown HTTP/1.1" 404 22 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |     raise RuntimeError(result["error"])
+geoscan-backend   | RuntimeError: INVALID_REQUEST: duplicate UAV id uav3
+geoscan-backend   | INFO:     172.18.0.3:42718 - "POST /v1/plan HTTP/1.1" 500 Internal Server Error
+geoscan-backend   | ERROR:    Planner call failed
+geoscan-backend   | Traceback (most recent call last):
+geoscan-backend   |   File "/app/app/main.py", line 36, in plan
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:47 +0000] "OPTIONS /api/v1/plan HTTP/1.1" 200 2 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:47 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |     result_dict = await run_in_threadpool(call_planner, request_json)
+geoscan-backend   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:47 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:47 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:47 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:47 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/starlette/concurrency.py", line 34, in run_in_threadpool
+geoscan-backend   |     return await anyio.to_thread.run_sync(func)
+geoscan-backend   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/anyio/to_thread.py", line 65, in run_sync
+geoscan-backend   |     return await get_async_backend().run_sync_in_worker_thread(
+geoscan-backend   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 2706, in run_sync_in_worker_thread
+geoscan-backend   |     return await future
+geoscan-backend   | INFO:     172.18.0.3:42724 - "POST /v1/plan HTTP/1.1" 500 Internal Server Error
+geoscan-backend   |            ^^^^^^^^^^^^
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 1100, in run
+geoscan-backend   |     result = context.run(func, *args)
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:47 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:47 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |              ^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:47 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:47 +0000] "POST /api/v1/export/mission-planner HTTP/1.1" 200 544 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:47 +0000] "POST /api/v1/export/geoscan-kml HTTP/1.1" 200 23724 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:47 +0000] "POST /api/v1/export/mission-planner HTTP/1.1" 422 176 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:47 +0000] "POST /api/v1/export/geoscan-kml HTTP/1.1" 422 176 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |   File "/app/app/planner_client.py", line 35, in call_planner
+geoscan-backend   |     raise RuntimeError(result["error"])
+geoscan-backend   | RuntimeError: INVALID_REQUEST: cruise_speed is out of range
+geoscan-frontend  | 2026/10/04 13:52:47 [warn] 34#34: *213 a client request body is buffered to a temporary file /var/cache/nginx/client_temp/0000000002, client: 172.18.0.1, server: _, request: "POST /api/v1/export/mission-planner HTTP/1.1", host: "127.0.0.1:8080"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:47 +0000] "POST /api/v1/export/mission-planner HTTP/1.1" 200 1055 "-" "Python-urllib/3.12" "-"
+geoscan-backend   | ERROR:    Planner call failed
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:47 +0000] "POST /api/v1/export/geoscan-kml HTTP/1.1" 200 23736 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:47 +0000] "POST /api/v1/plan HTTP/1.1" 200 16316 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:47 +0000] "POST /api/v1/plan HTTP/1.1" 200 10322 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:47 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:47 +0000] "POST /api/v1/plan HTTP/1.1" 200 16156 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:47 +0000] "POST /api/v1/plan HTTP/1.1" 200 402454 "-" "Python-urllib/3.12" "-"
+geoscan-backend   | Traceback (most recent call last):
+geoscan-backend   |   File "/app/app/main.py", line 36, in plan
+geoscan-backend   |     result_dict = await run_in_threadpool(call_planner, request_json)
+geoscan-backend   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/starlette/concurrency.py", line 34, in run_in_threadpool
+geoscan-backend   |     return await anyio.to_thread.run_sync(func)
+geoscan-backend   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/anyio/to_thread.py", line 65, in run_sync
+geoscan-backend   |     return await get_async_backend().run_sync_in_worker_thread(
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:47 +0000] "POST /api/v1/plan HTTP/1.1" 200 402454 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 2026/10/04 13:52:47 [warn] 35#35: *229 a client request body is buffered to a temporary file /var/cache/nginx/client_temp/0000000003, client: 172.18.0.1, server: _, request: "POST /api/v1/export/mission-planner HTTP/1.1", host: "127.0.0.1:8080"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:47 +0000] "POST /api/v1/export/mission-planner HTTP/1.1" 200 1696 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:48 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:48 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:52:48 +0000] "GET /api/health HTTP/1.1" 200 15 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:53:06 +0000] "POST /api/v1/plan HTTP/1.1" 422 1491 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:53:27 +0000] "POST /api/v1/plan HTTP/1.1" 422 1500 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:53:48 +0000] "POST /api/v1/plan HTTP/1.1" 422 1567 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:54:10 +0000] "POST /api/v1/plan HTTP/1.1" 422 1579 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:54:30 +0000] "POST /api/v1/plan HTTP/1.1" 422 1494 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:54:52 +0000] "POST /api/v1/plan HTTP/1.1" 422 1496 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:13 +0000] "POST /api/v1/plan HTTP/1.1" 422 259 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:15 +0000] "POST /api/v1/plan HTTP/1.1" 200 23448 "http://localhost:8080/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:34 +0000] "POST /api/v1/plan HTTP/1.1" 422 1521 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "GET / HTTP/1.1" 200 1142 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "GET /docs HTTP/1.1" 200 1018 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "GET /openapi.json HTTP/1.1" 200 8750 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "GET /redoc HTTP/1.1" 200 900 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "GET /api/health HTTP/1.1" 200 15 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 2706, in run_sync_in_worker_thread
+geoscan-backend   |     return await future
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "POST /v1/plan HTTP/1.1" 405 157 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "POST /api/v1/plan HTTP/1.1" 500 67 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |            ^^^^^^^^^^^^
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "POST /api/v1/plan HTTP/1.1" 200 21854 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 1100, in run
+geoscan-backend   |     result = context.run(func, *args)
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "POST /api/v1/plan HTTP/1.1" 422 1425 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |              ^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "POST /api/v1/plan HTTP/1.1" 422 1489 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |   File "/app/app/planner_client.py", line 35, in call_planner
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "POST /api/v1/plan HTTP/1.1" 422 1491 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "POST /api/v1/plan HTTP/1.1" 422 1500 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "POST /api/v1/plan HTTP/1.1" 422 1567 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |     raise RuntimeError(result["error"])
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "POST /api/v1/plan HTTP/1.1" 422 1579 "-" "Python-urllib/3.12" "-"
+geoscan-backend   | RuntimeError: INFEASIBLE: cannot safely assign survey segment 1 (range/home/turn geometry/base/operation window); heuristic may reject a feasible alternative
+geoscan-backend   | INFO:     172.18.0.3:42738 - "POST /v1/plan HTTP/1.1" 500 Internal Server Error
+geoscan-backend   | INFO:     172.18.0.3:42742 - "POST /v1/plan HTTP/1.1" 422 Unprocessable Entity
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "POST /api/v1/plan HTTP/1.1" 422 1494 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "POST /api/v1/plan HTTP/1.1" 422 1496 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "POST /api/v1/plan HTTP/1.1" 422 259 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "POST /api/v1/plan HTTP/1.1" 422 1521 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "POST /api/v1/plan HTTP/1.1" 422 161 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "POST /api/v1/plan HTTP/1.1" 500 43 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "POST /api/v1/plan HTTP/1.1" 500 54 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "POST /api/v1/plan HTTP/1.1" 500 74 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "POST /api/v1/plan HTTP/1.1" 500 54 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "POST /api/v1/plan HTTP/1.1" 500 51 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "POST /api/v1/plan HTTP/1.1" 500 58 "-" "Python-urllib/3.12" "-"
+geoscan-backend   | INFO:     172.18.0.3:42758 - "POST /v1/plan HTTP/1.1" 422 Unprocessable Entity
+geoscan-backend   | INFO:     172.18.0.3:42764 - "GET /v1/plan HTTP/1.1" 405 Method Not Allowed
+geoscan-backend   | INFO:     172.18.0.3:42780 - "GET /unknown HTTP/1.1" 404 Not Found
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "POST /api/v1/plan HTTP/1.1" 500 156 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "POST /api/v1/plan HTTP/1.1" 422 158 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "POST /api/v1/plan HTTP/1.1" 422 566 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "GET /api/v1/plan HTTP/1.1" 405 31 "-" "Python-urllib/3.12" "-"
+geoscan-backend   | INFO:     172.18.0.3:42786 - "OPTIONS /v1/plan HTTP/1.1" 200 OK
+geoscan-backend   | INFO:     172.18.0.3:42802 - "POST /v1/plan HTTP/1.1" 200 OK
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "GET /api/unknown HTTP/1.1" 404 22 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "OPTIONS /api/v1/plan HTTP/1.1" 200 2 "-" "Python-urllib/3.12" "-"
+geoscan-backend   | INFO:     172.18.0.3:42868 - "POST /v1/plan HTTP/1.1" 200 OK
+geoscan-backend   | INFO:     172.18.0.3:42812 - "POST /v1/plan HTTP/1.1" 200 OK
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-backend   | INFO:     172.18.0.3:42832 - "POST /v1/plan HTTP/1.1" 200 OK
+geoscan-backend   | INFO:     172.18.0.3:42870 - "POST /v1/plan HTTP/1.1" 200 OK
+geoscan-backend   | INFO:     172.18.0.3:42846 - "POST /v1/plan HTTP/1.1" 200 OK
+geoscan-backend   | INFO:     172.18.0.3:42852 - "POST /v1/plan HTTP/1.1" 200 OK
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:42 +0000] "POST /api/v1/export/mission-planner HTTP/1.1" 200 544 "-" "Python-urllib/3.12" "-"
+geoscan-backend   | INFO:     172.18.0.3:42826 - "POST /v1/plan HTTP/1.1" 200 OK
+geoscan-frontend  | 2026/10/04 13:55:42 [warn] 38#38: *340 a client request body is buffered to a temporary file /var/cache/nginx/client_temp/0000000004, client: 172.18.0.1, server: _, request: "POST /api/v1/export/geoscan-kml HTTP/1.1", host: "127.0.0.1:8080"
+geoscan-backend   | INFO:     172.18.0.3:42886 - "POST /v1/export/mission-planner HTTP/1.1" 200 OK
+geoscan-backend   | INFO:     172.18.0.3:42902 - "POST /v1/export/geoscan-kml HTTP/1.1" 200 OK
+geoscan-backend   | INFO:     172.18.0.3:42912 - "POST /v1/export/mission-planner HTTP/1.1" 422 Unprocessable Entity
+geoscan-backend   | INFO:     172.18.0.3:42918 - "POST /v1/export/geoscan-kml HTTP/1.1" 422 Unprocessable Entity
+geoscan-backend   | /usr/local/lib/python3.11/zipfile.py:1606: UserWarning: Duplicate name: 'uav3.waypoints'
+geoscan-backend   |   return self._open_to_write(zinfo, force_zip64=force_zip64)
+geoscan-backend   | INFO:     172.18.0.3:42932 - "POST /v1/export/mission-planner HTTP/1.1" 200 OK
+geoscan-backend   | INFO:     172.18.0.3:42936 - "POST /v1/export/geoscan-kml HTTP/1.1" 200 OK
+geoscan-backend   | INFO:     172.18.0.3:42944 - "POST /v1/plan HTTP/1.1" 200 OK
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:43 +0000] "POST /api/v1/export/geoscan-kml HTTP/1.1" 200 23724 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:43 +0000] "POST /api/v1/export/mission-planner HTTP/1.1" 422 176 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:43 +0000] "POST /api/v1/export/geoscan-kml HTTP/1.1" 422 176 "-" "Python-urllib/3.12" "-"
+geoscan-backend   | INFO:     172.18.0.3:42956 - "POST /v1/plan HTTP/1.1" 200 OK
+geoscan-frontend  | 2026/10/04 13:55:43 [warn] 38#38: *346 a client request body is buffered to a temporary file /var/cache/nginx/client_temp/0000000005, client: 172.18.0.1, server: _, request: "POST /api/v1/export/mission-planner HTTP/1.1", host: "127.0.0.1:8080"
+geoscan-backend   | INFO:     172.18.0.3:42970 - "POST /v1/plan HTTP/1.1" 200 OK
+geoscan-backend   | INFO:     172.18.0.3:42976 - "POST /v1/plan HTTP/1.1" 200 OK
+geoscan-backend   | INFO:     172.18.0.3:42990 - "POST /v1/plan HTTP/1.1" 200 OK
+geoscan-backend   | INFO:     172.18.0.3:42996 - "POST /v1/plan HTTP/1.1" 200 OK
+geoscan-backend   | INFO:     172.18.0.3:43008 - "POST /v1/export/mission-planner HTTP/1.1" 200 OK
+geoscan-backend   | INFO:     172.18.0.3:43014 - "POST /v1/plan HTTP/1.1" 200 OK
+geoscan-backend   | INFO:     172.18.0.3:43030 - "POST /v1/plan HTTP/1.1" 200 OK
+geoscan-backend   | INFO:     172.18.0.3:43046 - "GET /health HTTP/1.1" 200 OK
+geoscan-backend   | INFO:     172.18.0.3:42968 - "POST /v1/plan HTTP/1.1" 422 Unprocessable Entity
+geoscan-backend   | ERROR:    Planner call failed
+geoscan-backend   | Traceback (most recent call last):
+geoscan-backend   |   File "/app/app/main.py", line 36, in plan
+geoscan-backend   |     result_dict = await run_in_threadpool(call_planner, request_json)
+geoscan-backend   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/starlette/concurrency.py", line 34, in run_in_threadpool
+geoscan-backend   |     return await anyio.to_thread.run_sync(func)
+geoscan-backend   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/anyio/to_thread.py", line 65, in run_sync
+geoscan-backend   |     return await get_async_backend().run_sync_in_worker_thread(
+geoscan-backend   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:43 +0000] "POST /api/v1/export/mission-planner HTTP/1.1" 200 1055 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:43 +0000] "POST /api/v1/export/geoscan-kml HTTP/1.1" 200 23736 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:43 +0000] "POST /api/v1/plan HTTP/1.1" 200 16316 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 2706, in run_sync_in_worker_thread
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:43 +0000] "POST /api/v1/plan HTTP/1.1" 200 10322 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |     return await future
+geoscan-backend   |            ^^^^^^^^^^^^
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 1100, in run
+geoscan-backend   |     result = context.run(func, *args)
+geoscan-backend   |              ^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:43 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-backend   | INFO:     172.18.0.3:37280 - "POST /v1/plan HTTP/1.1" 500 Internal Server Error
+geoscan-backend   |   File "/app/app/planner_client.py", line 35, in call_planner
+geoscan-backend   |     raise RuntimeError(result["error"])
+geoscan-backend   | RuntimeError: INVALID_REQUEST: empty polygon
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:43 +0000] "POST /api/v1/plan HTTP/1.1" 200 212082 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:43 +0000] "POST /api/v1/plan HTTP/1.1" 200 16156 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:43 +0000] "POST /api/v1/plan HTTP/1.1" 200 402454 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 2026/10/04 13:55:43 [warn] 39#39: *362 a client request body is buffered to a temporary file /var/cache/nginx/client_temp/0000000006, client: 172.18.0.1, server: _, request: "POST /api/v1/export/mission-planner HTTP/1.1", host: "127.0.0.1:8080"
+geoscan-backend   | ERROR:    Planner call failed
+geoscan-backend   | Traceback (most recent call last):
+geoscan-backend   |   File "/app/app/main.py", line 36, in plan
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:43 +0000] "POST /api/v1/export/mission-planner HTTP/1.1" 200 1696 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:43 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:43 +0000] "POST /api/v1/plan HTTP/1.1" 200 10323 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |     result_dict = await run_in_threadpool(call_planner, request_json)
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:43 +0000] "GET /api/health HTTP/1.1" 200 15 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:55:54 +0000] "POST /api/v1/plan HTTP/1.1" 422 161 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:56:16 +0000] "POST /api/v1/plan HTTP/1.1" 500 43 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/starlette/concurrency.py", line 34, in run_in_threadpool
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:56:37 +0000] "POST /api/v1/plan HTTP/1.1" 500 54 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:56:58 +0000] "POST /api/v1/plan HTTP/1.1" 500 74 "-" "Python-urllib/3.12" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:57:19 +0000] "POST /api/v1/plan HTTP/1.1" 500 54 "-" "Python-urllib/3.12" "-"
+geoscan-backend   |     return await anyio.to_thread.run_sync(func)
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:57:41 +0000] "GET / HTTP/1.1" 304 0 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:57:41 +0000] "GET /assets/index-D5ZT76rB.js HTTP/1.1" 304 0 "http://localhost:8080/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36" "-"
+geoscan-frontend  | 172.18.0.1 - - [04/Oct/2026:13:57:41 +0000] "GET /assets/index-BYJ65PwT.css HTTP/1.1" 304 0 "http://localhost:8080/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36" "-"
+geoscan-backend   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/anyio/to_thread.py", line 65, in run_sync
+geoscan-backend   |     return await get_async_backend().run_sync_in_worker_thread(
+geoscan-backend   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 2706, in run_sync_in_worker_thread
+geoscan-backend   |     return await future
+geoscan-backend   |            ^^^^^^^^^^^^
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 1100, in run
+geoscan-backend   |     result = context.run(func, *args)
+geoscan-backend   |              ^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-backend   |   File "/app/app/planner_client.py", line 35, in call_planner
+geoscan-backend   |     raise RuntimeError(result["error"])
+geoscan-backend   | RuntimeError: INVALID_REQUEST: need 1..100 start points
+geoscan-backend   | INFO:     172.18.0.3:57260 - "POST /v1/plan HTTP/1.1" 500 Internal Server Error
+geoscan-backend   | ERROR:    Planner call failed
+geoscan-backend   | Traceback (most recent call last):
+geoscan-backend   |   File "/app/app/main.py", line 36, in plan
+geoscan-backend   |     result_dict = await run_in_threadpool(call_planner, request_json)
+geoscan-backend   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-backend   | INFO:     172.18.0.3:50512 - "POST /v1/plan HTTP/1.1" 500 Internal Server Error
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/starlette/concurrency.py", line 34, in run_in_threadpool
+geoscan-backend   |     return await anyio.to_thread.run_sync(func)
+geoscan-backend   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/anyio/to_thread.py", line 65, in run_sync
+geoscan-backend   |     return await get_async_backend().run_sync_in_worker_thread(
+geoscan-backend   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 2706, in run_sync_in_worker_thread
+geoscan-backend   |     return await future
+geoscan-backend   |            ^^^^^^^^^^^^
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 1100, in run
+geoscan-backend   |     result = context.run(func, *args)
+geoscan-backend   |              ^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-backend   |   File "/app/app/planner_client.py", line 35, in call_planner
+geoscan-backend   |     raise RuntimeError(result["error"])
+geoscan-backend   | RuntimeError: INVALID_REQUEST: coordinates must contain exactly two numbers
+geoscan-backend   | ERROR:    Planner call failed
+geoscan-backend   | Traceback (most recent call last):
+geoscan-backend   |   File "/app/app/main.py", line 36, in plan
+geoscan-backend   |     result_dict = await run_in_threadpool(call_planner, request_json)
+geoscan-backend   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/starlette/concurrency.py", line 34, in run_in_threadpool
+geoscan-backend   |     return await anyio.to_thread.run_sync(func)
+geoscan-backend   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/anyio/to_thread.py", line 65, in run_sync
+geoscan-backend   |     return await get_async_backend().run_sync_in_worker_thread(
+geoscan-backend   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 2706, in run_sync_in_worker_thread
+geoscan-backend   |     return await future
+geoscan-backend   |            ^^^^^^^^^^^^
+geoscan-backend   |   File "/usr/local/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 1100, in run
+geoscan-backend   |     result = context.run(func, *args)
+geoscan-backend   |              ^^^^^^^^^^^^^^^^^^^^^^^^
+geoscan-backend   |   File "/app/app/planner_client.py", line 35, in call_planner
+geoscan-backend   |     raise RuntimeError(result["error"])
+geoscan-backend   | RuntimeError: INVALID_REQUEST: invalid WGS84 coordinate
+geoscan-backend   | INFO:     172.18.0.3:39230 - "POST /v1/plan HTTP/1.1" 500 Internal Server Error

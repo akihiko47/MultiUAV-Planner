@@ -1,0 +1,57 @@
+{"name": "GET /", "status": "PASS", "http": 200, "elapsed_seconds": 0.031}
+{"name": "GET /docs", "status": "PASS", "http": 200, "elapsed_seconds": 0.015}
+{"name": "GET /openapi.json", "status": "PASS", "http": 200, "elapsed_seconds": 0.016}
+{"name": "GET /redoc", "status": "PASS", "http": 200, "elapsed_seconds": 0.0}
+{"name": "GET /api/health", "status": "PASS", "http": 200, "elapsed_seconds": 0.016}
+{"name": "documented README plan URL", "status": "PASS", "http": 200, "elapsed_seconds": 0.047}
+{"name": "original base_request with explicit GSD", "status": "PASS", "http": 200, "elapsed_seconds": 0.11}
+{"name": "smoke real planner", "status": "PASS", "sorties": 1, "elapsed_seconds": 0.0}
+{"name": "plan frontend_example", "status": "PASS", "sorties": 2, "elapsed_seconds": 0.047}
+{"name": "plan min_flight_distance", "status": "PASS", "sorties": 1, "elapsed_seconds": 0.062}
+{"name": "plan timezone_offset", "status": "PASS", "sorties": 1, "elapsed_seconds": 0.063}
+{"name": "validation missing_gsd", "status": "PASS", "http": 422, "elapsed_seconds": 0.031}
+{"name": "validation zero_gsd", "status": "PASS", "http": 422, "elapsed_seconds": 0.031}
+{"name": "validation negative_gsd", "status": "PASS", "http": 422, "elapsed_seconds": 0.016}
+{"name": "validation too_large_gsd", "status": "PASS", "http": 422, "elapsed_seconds": 0.0}
+{"name": "validation lidar", "status": "PASS", "http": 422, "elapsed_seconds": 0.015}
+{"name": "validation geophysical", "status": "PASS", "http": 422, "elapsed_seconds": 0.016}
+{"name": "validation unknown_type", "status": "PASS", "http": 422, "elapsed_seconds": 0.0}
+{"name": "validation unknown_camera", "status": "PASS", "http": 422, "elapsed_seconds": 0.015}
+{"name": "validation invalid_date", "status": "PASS", "http": 422, "elapsed_seconds": 0.016}
+{"name": "validation no_uavs", "status": "PASS", "http": 422, "elapsed_seconds": 0.015}
+{"name": "validation wrong_geometry_type", "status": "PASS", "http": 422, "elapsed_seconds": 0.016}
+{"name": "client error semantics empty_polygon", "status": "PASS", "http": 422, "elapsed_seconds": 0.016}
+{"name": "client error semantics no_starts", "status": "PASS", "http": 422, "elapsed_seconds": 0.015}
+{"name": "client error semantics bad_coordinate_dimension", "status": "PASS", "http": 422, "elapsed_seconds": 0.016}
+{"name": "client error semantics invalid_latitude", "status": "PASS", "http": 422, "elapsed_seconds": 0.016}
+{"name": "client error semantics duplicate_uav", "status": "PASS", "http": 422, "elapsed_seconds": 0.031}
+{"name": "client error semantics negative_speed", "status": "PASS", "http": 422, "elapsed_seconds": 0.031}
+{"name": "client error semantics infeasible_time", "status": "PASS", "http": 422, "elapsed_seconds": 0.047}
+{"name": "malformed JSON", "status": "PASS", "http": 422, "elapsed_seconds": 0.031}
+{"name": "empty JSON", "status": "PASS", "http": 422, "elapsed_seconds": 0.016}
+{"name": "wrong method", "status": "PASS", "http": 405, "elapsed_seconds": 0.015}
+{"name": "unknown API path", "status": "PASS", "http": 404, "elapsed_seconds": 0.032}
+{"name": "CORS preflight", "status": "PASS", "http": 200, "elapsed_seconds": 0.031}
+{"name": "8 concurrent HTTP calculations", "status": "PASS", "calls": 8, "deterministic": true, "elapsed_seconds": 0.062}
+{"name": "Mission Planner ZIP", "status": "PASS", "files": ["uav3.waypoints"], "elapsed_seconds": 0.032}
+{"name": "Geoscan KML", "status": "PASS", "folders": 1, "elapsed_seconds": 0.125}
+{"name": "invalid export mission-planner", "status": "PASS", "http": 422, "elapsed_seconds": 0.031}
+{"name": "invalid export geoscan-kml", "status": "PASS", "http": 422, "elapsed_seconds": 0.0}
+{"name": "repeat sortie unique ZIP filenames", "status": "PASS", "files": ["uav3_sortie_1.waypoints", "uav3_sortie_2.waypoints"], "elapsed_seconds": 0.015}
+{"name": "KML XML escaping of UAV id", "status": "PASS", "folders": 1, "elapsed_seconds": 0.125}
+{"name": "KML type and CDATA escaping", "status": "PASS", "folders": 1, "elapsed_seconds": 0.125}
+{"name": "repeat sortie distinct KML styles", "status": "PASS", "folders": 2, "elapsed_seconds": 0.25}
+{"name": "ZIP suffix collision", "status": "PASS", "files": ["uav3_sortie_1.waypoints", "uav3_sortie_2.waypoints", "uav3_sortie_1_2.waypoints"], "elapsed_seconds": 0.031}
+{"name": "ZIP path encoding", "status": "PASS", "files": ["..%2Ffolder%2Fuav.waypoints"], "elapsed_seconds": 0.032}
+{"name": "canonical health", "status": "PASS", "http": 200, "elapsed_seconds": 0.031}
+{"name": "HTTP scenario holes", "status": "PASS", "sorties": 1, "elapsed_seconds": 0.047}
+{"name": "HTTP scenario concave_polygon", "status": "PASS", "sorties": 1, "elapsed_seconds": 0.047}
+{"name": "HTTP scenario clockwise_polygon", "status": "PASS", "sorties": 1, "elapsed_seconds": 0.047}
+{"name": "HTTP scenario fixed_wing_turn_radius", "status": "PASS", "sorties": 1, "elapsed_seconds": 0.062}
+{"name": "HTTP scenario multiple_sorties", "status": "PASS", "sorties": 6, "elapsed_seconds": 0.063}
+{"name": "HTTP scenario 100km2_ten_uavs", "status": "PASS", "sorties": 18, "elapsed_seconds": 0.109}
+{"name": "actual multi-sortie ZIP filenames", "status": "PASS", "files": ["uav3_sortie_1.waypoints", "uav3_sortie_2.waypoints", "uav3_sortie_3.waypoints", "uav3_sortie_4.waypoints", "uav3_sortie_5.waypoints", "uav3_sortie_6.waypoints"], "elapsed_seconds": 0.047}
+{"name": "HTTP survey multispectral", "status": "PASS", "sorties": 1, "elapsed_seconds": 0.047}
+{"name": "HTTP survey Thermal", "status": "PASS", "sorties": 1, "elapsed_seconds": 0.047}
+{"name": "health after negative and concurrent cases", "status": "PASS", "http": 200, "elapsed_seconds": 0.015}
+TOTAL 56 PASS 56 FAIL 0

@@ -1,0 +1,183 @@
+{
+  "survey_area": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          37.614318,
+          57.366793
+        ],
+        [
+          37.616936,
+          57.366215
+        ],
+        [
+          37.617065,
+          57.363624
+        ],
+        [
+          37.616078,
+          57.36175
+        ],
+        [
+          37.616807,
+          57.360245
+        ],
+        [
+          37.620799,
+          57.360037
+        ],
+        [
+          37.624532,
+          57.363045
+        ],
+        [
+          37.627622,
+          57.365845
+        ],
+        [
+          37.628094,
+          57.368575
+        ],
+        [
+          37.626807,
+          57.371281
+        ],
+        [
+          37.623974,
+          57.372369
+        ],
+        [
+          37.620069,
+          57.371536
+        ],
+        [
+          37.617065,
+          57.371999
+        ],
+        [
+          37.614318,
+          57.366793
+        ]
+      ],
+      [
+        [
+          37.619979,
+          57.369318
+        ],
+        [
+          37.623787,
+          57.369439
+        ],
+        [
+          37.623895,
+          57.368068
+        ],
+        [
+          37.620161,
+          57.367924
+        ],
+        [
+          37.619979,
+          57.369318
+        ]
+      ]
+    ]
+  },
+  "start_points": [
+    {
+      "id": "sp1",
+      "coordinates": [
+        37.630963325500495,
+        57.367900116522684
+      ]
+    },
+    {
+      "id": "sp2",
+      "coordinates": [
+        37.61330673596396,
+        57.36712620233841
+      ]
+    }
+  ],
+  "uav_types": [
+    {
+      "id": "geoscan_801",
+      "name": "\u0413\u0435\u043e\u0441\u043a\u0430\u043d 801",
+      "max_flight_distance": 20000,
+      "max_distance_from_home": 10000,
+      "cruise_speed": 15,
+      "min_speed": 0,
+      "max_speed": 15,
+      "min_alt": 50,
+      "max_alt": 4000,
+      "min_turn_radius": 0,
+      "min_voltage": 15,
+      "climb_speed": 5,
+      "descent_speed": 3,
+      "cameras": [
+        "geoscan_801_visible_wide",
+        "geoscan_801_visible_narrow",
+        "geoscan_801_thermal"
+      ]
+    },
+    {
+      "id": "geoscan_gemini",
+      "name": "\u0413\u0435\u043e\u0441\u043a\u0430\u043d Gemini",
+      "max_flight_distance": 30000,
+      "max_distance_from_home": 5000,
+      "cruise_speed": 15,
+      "min_speed": 0,
+      "max_speed": 15,
+      "min_alt": 25,
+      "max_alt": 500,
+      "min_turn_radius": 0,
+      "min_voltage": 15,
+      "climb_speed": 5,
+      "descent_speed": 3,
+      "cameras": [
+        "geoscan_pf1b",
+        "geoscan_pollux",
+        "sony_umc_r10c"
+      ]
+    }
+  ],
+  "cameras": [
+    {
+      "id": "geoscan_pf1b",
+      "name": "Geoscan PF1B",
+      "type": "RGB",
+      "focalLength": 20,
+      "matrixX": 23.5,
+      "matrixY": 15.6,
+      "matrixPixX": 6000,
+      "matrixPixY": 4000
+    },
+    {
+      "id": "geoscan_801_visible_wide",
+      "name": "Geoscan 801 Visible Wide",
+      "type": "RGB",
+      "focalLength": 4.35,
+      "matrixX": 6.17,
+      "matrixY": 4.55,
+      "matrixPixX": 4000,
+      "matrixPixY": 3000
+    }
+  ],
+  "uavs": [
+    {
+      "id": "uav1",
+      "type_id": "geoscan_801",
+      "camera_id": "geoscan_801_visible_wide"
+    },
+    {
+      "id": "uav2",
+      "type_id": "geoscan_gemini",
+      "camera_id": "geoscan_pf1b"
+    }
+  ],
+  "survey_type": "RGB",
+  "gsd": 3,
+  "optimization_criteria": "min_time",
+  "operation_start_time": "2026-11-18T05:36:00.000Z"
+}

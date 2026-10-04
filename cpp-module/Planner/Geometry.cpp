@@ -338,56 +338,67 @@ std::vector<Point> Geometry::route(Point a, Point b, double extra) const {
     return {};
   if (clear(a, b))
     return {a, b};
-  std::vector<Point> nodes{a, b};
   double limit = distance(a, b) * 2 + 5000 + extra * 10;
-  for (auto &o : obstacles) {
-    if (o.minx > std::max(a.x, b.x) + limit ||
-        o.maxx < std::min(a.x, b.x) - limit ||
-        o.miny > std::max(a.y, b.y) + limit ||
-        o.maxy < std::min(a.y, b.y) - limit)
-      continue;
-    auto v = extra > 0 ? inflate(o.vertices, extra) : o.vertices;
-    for (auto p : v)
-      if (free(p))
-        nodes.push_back(p);
-  }
-  if (nodes.size() > 3000)
-    throw std::runtime_error(
-        "RESOURCE_LIMIT: visibility graph exceeds 3000 vertices");
-  std::vector<double> d(nodes.size(), 1e100);
-  std::vector<int> prev(nodes.size(), -1);
-  std::vector<bool> done(nodes.size());
-  using Item = std::pair<double, std::size_t>;
-  std::priority_queue<Item, std::vector<Item>, std::greater<Item>> q;
-  d[0] = 0;
-  q.emplace(distance(a, b), 0);
-  while (!q.empty()) {
-    deadline.check();
-    auto i = q.top().second;
-    q.pop();
-    if (done[i])
-      continue;
-    done[i] = true;
-    if (i == 1)
-      break;
-    for (std::size_t j = 1; j < nodes.size(); ++j) {
-      if (done[j])
+  // Start with the obstacles near this transit. The old graph included every
+  // zone in a multi-kilometre envelope even for a short hop around one hole.
+  // All candidate edges still use clear(), which checks every obstacle.
+  auto search = [&](double margin) -> std::vector<Point> {
+    std::vector<Point> nodes{a, b};
+    for (auto &o : obstacles) {
+      if (o.minx > std::max(a.x, b.x) + margin ||
+          o.maxx < std::min(a.x, b.x) - margin ||
+          o.miny > std::max(a.y, b.y) + margin ||
+          o.maxy < std::min(a.y, b.y) - margin)
         continue;
-      double nd = d[i] + distance(nodes[i], nodes[j]);
-      if (nd < d[j] && clear(nodes[i], nodes[j])) {
-        d[j] = nd;
-        prev[j] = int(i);
-        q.emplace(nd + distance(nodes[j], b), j);
+      auto v = extra > 0 ? inflate(o.vertices, extra) : o.vertices;
+      for (auto p : v)
+        if (free(p))
+          nodes.push_back(p);
+    }
+    if (nodes.size() > 3000)
+      throw std::runtime_error(
+          "RESOURCE_LIMIT: visibility graph exceeds 3000 vertices");
+    std::vector<double> d(nodes.size(), 1e100);
+    std::vector<int> prev(nodes.size(), -1);
+    std::vector<bool> done(nodes.size());
+    using Item = std::pair<double, std::size_t>;
+    std::priority_queue<Item, std::vector<Item>, std::greater<Item>> q;
+    d[0] = 0;
+    q.emplace(distance(a, b), 0);
+    while (!q.empty()) {
+      deadline.check();
+      auto i = q.top().second;
+      q.pop();
+      if (done[i])
+        continue;
+      done[i] = true;
+      if (i == 1)
+        break;
+      for (std::size_t j = 1; j < nodes.size(); ++j) {
+        if (done[j])
+          continue;
+        double nd = d[i] + distance(nodes[i], nodes[j]);
+        if (nd < d[j] && clear(nodes[i], nodes[j])) {
+          d[j] = nd;
+          prev[j] = int(i);
+          q.emplace(nd + distance(nodes[j], b), j);
+        }
       }
     }
+    if (prev[1] < 0)
+      return {};
+    std::vector<Point> path;
+    for (int i = 1; i >= 0; i = prev[std::size_t(i)])
+      path.push_back(nodes[std::size_t(i)]);
+    std::reverse(path.begin(), path.end());
+    return path;
+  };
+  for (double margin = std::min(limit, std::max(100., extra * 2));;
+       margin = std::min(limit, margin * 2)) {
+    auto path = search(margin);
+    if (!path.empty() || margin >= limit)
+      return path;
   }
-  if (prev[1] < 0)
-    return {};
-  std::vector<Point> path;
-  for (int i = 1; i >= 0; i = prev[std::size_t(i)])
-    path.push_back(nodes[std::size_t(i)]);
-  std::reverse(path.begin(), path.end());
-  return path;
 }
 std::vector<Track> Geometry::tracks(double spacing, std::size_t limit) const {
   std::vector<Track> result;

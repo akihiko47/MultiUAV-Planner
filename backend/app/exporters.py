@@ -1,6 +1,9 @@
 import io
 import zipfile
+from collections import Counter
 from typing import List
+from urllib.parse import quote
+from xml.sax.saxutils import escape
 
 from app.models import PlanResponse, UAVAssignment
 
@@ -90,10 +93,23 @@ def build_mission_planner_file(assignment: UAVAssignment) -> str:
 
 def build_mission_planner_zip(plan: PlanResponse) -> bytes:
     buf = io.BytesIO()
+    totals = Counter(a.uav_id for a in plan.uav_assignments)
+    sorties = Counter()
+    used_names = set()
     with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
         for a in plan.uav_assignments:
+            sorties[a.uav_id] += 1
+            stem = quote(a.uav_id, safe="-_") or "uav"
+            if totals[a.uav_id] > 1:
+                stem += f"_sortie_{sorties[a.uav_id]}"
+            filename = f"{stem}.waypoints"
+            suffix = 2
+            while filename in used_names:
+                filename = f"{stem}_{suffix}.waypoints"
+                suffix += 1
+            used_names.add(filename)
             content = build_mission_planner_file(a)
-            zf.writestr(f"{a.uav_id}.waypoints", content)
+            zf.writestr(filename, content)
     return buf.getvalue()
 
 
@@ -138,7 +154,7 @@ def build_geoscan_kml(plan: PlanResponse) -> str:
         color = ["ff0000ff", "ff00ff00", "ffff0000", "ffffff00",
                  "ffff00ff", "ff00ffff"][i % 6]
         styles += f"""
-    <Style id="route_{a.uav_id}">
+    <Style id="route_{i}">
         <LineStyle>
             <color>{color}</color>
             <width>3</width>
@@ -149,12 +165,12 @@ def build_geoscan_kml(plan: PlanResponse) -> str:
     </Style>"""
 
     folders = ""
-    for a in plan.uav_assignments:
+    for i, a in enumerate(plan.uav_assignments):
         folders += f"""
     <Folder>
-        <name>{a.uav_id} ({a.type_id})</name>
+        <name>{escape(a.uav_id)} ({escape(a.type_id)})</name>
         <description><![CDATA[
-            camera: {a.camera_id}<br/>
+            camera: {a.camera_id.replace(']]>', ']]]]><![CDATA[>')}<br/>
             takeoff: {a.takeoff_time.isoformat()}<br/>
             landing: {a.landing_time.isoformat()}<br/>
             estimated_time: {a.estimated_time:.2f} s<br/>
@@ -163,8 +179,8 @@ def build_geoscan_kml(plan: PlanResponse) -> str:
         ]]></description>
 
         <Placemark>
-            <name>Маршрут {a.uav_id}</name>
-            <styleUrl>#route_{a.uav_id}</styleUrl>
+            <name>Маршрут {escape(a.uav_id)}</name>
+            <styleUrl>#route_{i}</styleUrl>
             <LineString>
                 <tessellate>1</tessellate>
                 <altitudeMode>absolute</altitudeMode>
