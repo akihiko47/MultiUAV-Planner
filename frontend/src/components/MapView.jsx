@@ -8,6 +8,7 @@ import { airportIcon } from "../utils/icons";
 import ZonesLayer from "./ZonesLayer";
 import RoutesLayer from "./RoutesLayer";
 import GeomanTooltips from "./GeomanTooltips";
+import MissionPlayer from "./MissionPlayer";
 
 import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css';
 
@@ -44,7 +45,7 @@ function SinglePolygonControl() {
 }
 
 
-export default function MapView({ mapRef, assignments, hiddenRoutes }) {
+export default function MapView({ mapRef, assignments, hiddenRoutes, uavNames, onLoadExample }) {
   const center = [55.751244, 37.618423];
   const zoom = 10;
 
@@ -69,6 +70,8 @@ export default function MapView({ mapRef, assignments, hiddenRoutes }) {
 
       <ZonesLayer />
       <RoutesLayer assignments={assignments} hiddenRoutes={hiddenRoutes} />
+      <MissionPlayer assignments={assignments} hiddenRoutes={hiddenRoutes}
+        uavNames={uavNames} onLoadExample={onLoadExample} />
 
       <GeomanControls
         options={{

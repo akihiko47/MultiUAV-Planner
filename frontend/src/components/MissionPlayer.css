@@ -1,0 +1,77 @@
+.map-bottom-dock {
+  position: absolute;
+  z-index: 800;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  pointer-events: none;
+}
+.map-bottom-dock > * { pointer-events: auto; }
+.map-bottom-dock .map-example-btn { position: static; }
+.mission-player {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--panel-bg);
+  color: var(--text-h);
+  box-shadow: var(--shadow-lg);
+  cursor: default;
+  padding: 12px 16px;
+}
+.mission-toolbar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.mission-toolbar strong { font-size: 13px; margin-right: 4px; }
+.mission-player button, .mission-player select {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text-h);
+  font: inherit;
+  cursor: pointer;
+  min-height: 30px;
+  padding: 3px 9px;
+}
+.mission-player button:hover { border-color: var(--accent); background: var(--code-bg); }
+.mission-player button:focus-visible, .mission-player select:focus-visible,
+.mission-player input:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.mission-player .mission-play { color: white; background: var(--accent); min-width: 36px; }
+.mission-time { font-variant-numeric: tabular-nums; font-size: 12px; white-space: nowrap; }
+.mission-time span { color: var(--text); }
+.mission-speed { display: flex; align-items: center; gap: 6px; font-size: 12px; }
+.mission-collapse {
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--panel-bg);
+  color: var(--text-h);
+  box-shadow: var(--shadow-sm);
+  font: 600 12px var(--sans);
+  cursor: pointer;
+}
+.mission-collapse:hover { border-color: var(--accent); background: var(--code-bg); }
+.mission-collapse:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.mission-caption { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4px; color: var(--text); font-size: 11px; margin: 10px 0; }
+.mission-ruler, .mission-lane { display: grid; grid-template-columns: 100px minmax(0, 1fr); align-items: center; gap: 12px; }
+.mission-ruler { font-size: 10px; color: var(--text); }
+.mission-ticks { display: flex; justify-content: space-between; font-variant-numeric: tabular-nums; }
+.mission-ruler input { display: block; width: 100%; margin: 4px 0 8px; cursor: pointer; accent-color: var(--accent); }
+.mission-lanes { max-height: min(180px, 25vh); overflow-y: auto; padding: 0 9px; margin: 0 -9px; }
+.mission-lane { min-height: 34px; }
+.mission-uav { display: flex; align-items: center; gap: 6px; font-size: 12px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.mission-uav i { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.mission-uav-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mission-track { position: relative; height: 26px; background: var(--bg); border-radius: 4px; cursor: pointer; }
+.mission-flight { position: absolute; top: 5px; height: 16px; background: var(--flight-color); border-radius: 3px; }
+.mission-player .mission-event { position: absolute; top: -5px; min-height: 26px; height: 26px; width: 18px; padding: 0; border-radius: 4px; font-size: 14px; line-height: 24px; border-color: var(--flight-color); z-index: 2; }
+.mission-event.takeoff { left: -9px; }
+.mission-event.landing { right: -9px; }
+.mission-playhead { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--text-h); z-index: 3; pointer-events: none; }
+.mission-lane.is-hidden .mission-uav, .mission-lane.is-hidden .mission-flight { opacity: 0.45; }
+.mission-endpoints { display: flex; justify-content: space-between; padding-left: 112px; margin-top: 6px; font-size: 10px; color: var(--text); }
+.mission-drone { background: none; border: none; filter: drop-shadow(0 2px 3px #0006); }
+.mission-drone svg { width: 34px; height: 34px; }
+@media (max-width: 768px) { .mission-player, .mission-drone { display: none; } }

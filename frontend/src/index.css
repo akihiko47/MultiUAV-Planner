@@ -65,7 +65,7 @@ body {
    РАСКЛАДКА
    ========================================= */
 .app { display: flex; height: 100vh; }
-.map-area { flex: 1; height: 100%; isolation: isolate; }
+.map-area { flex: 1; min-width: 0; position: relative; height: 100%; isolation: isolate; }
 
 .side-panel {
   width: 360px;
@@ -387,6 +387,21 @@ body.dark .form-field select {
 }
 
 .route-item:hover { background: var(--code-bg); }
+
+.route-item:has(.route-name) { height: auto; min-height: 46px; cursor: default; }
+.route-item .route-label { flex-direction: column; align-items: stretch; gap: 0; }
+.route-name {
+  width: 100%;
+  min-width: 0;
+  padding: 2px 4px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-h);
+  font: 500 13px var(--sans);
+}
+.route-name:hover { border-color: var(--border); }
+.route-name:focus { outline: 2px solid var(--accent); background: var(--input-bg); }
 
 .route-swatch {
   width: 12px;

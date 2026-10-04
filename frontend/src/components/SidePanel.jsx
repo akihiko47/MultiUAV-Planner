@@ -29,6 +29,8 @@ export default function SidePanel({
   assignments,
   hiddenRoutes,
   onToggleRoute,
+  uavNames,
+  onRenameUav,
   isOpen,
   onClose,
 }) {
@@ -129,6 +131,8 @@ export default function SidePanel({
         assignments={assignments}
         hiddenRoutes={hiddenRoutes}
         onToggle={onToggleRoute}
+        uavNames={uavNames}
+        onRename={onRenameUav}
       />
 
       <InformationPanel planResult={planResult} />

@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
 import { getRouteColor } from '../utils/routeColors';
+import { getUavName } from '../utils/uavNames';
 
-export default function RoutesPanel({ assignments, hiddenRoutes, onToggle }) {
+export default function RoutesPanel({ assignments, hiddenRoutes, onToggle, uavNames, onRename }) {
   const hasRoutes = assignments && assignments.length > 0;
 
   // Группируем по uav_id: одна строка на борт, независимо от числа вылетов
@@ -26,6 +27,7 @@ export default function RoutesPanel({ assignments, hiddenRoutes, onToggle }) {
   return (
     <div className="routes-panel">
       <h3>Маршруты</h3>
+      {hasRoutes && <small className="form-hint">Нажмите на название борта, чтобы изменить его.</small>}
 
       {!hasRoutes && (
         <p className="routes-empty">
@@ -38,21 +40,37 @@ export default function RoutesPanel({ assignments, hiddenRoutes, onToggle }) {
         const isVisible = !hiddenRoutes[g.uav_id];
 
         return (
-          <label key={g.uav_id} className="route-item">
+          <div key={g.uav_id} className="route-item">
             <input
               type="checkbox"
               checked={isVisible}
               onChange={() => onToggle(g.uav_id)}
+              aria-label={`Показать маршрут ${getUavName(uavNames, g.uav_id, g.type_id)}`}
             />
             <span className="route-swatch" style={{ background: color }} />
             <span className="route-label">
-              {g.uav_id}
+              <input className="route-name" type="text" maxLength={40}
+                aria-label={`Название борта ${g.uav_id}`}
+                title="Изменить название борта · Enter — сохранить, Escape — отменить"
+                key={getUavName(uavNames, g.uav_id, g.type_id)}
+                defaultValue={getUavName(uavNames, g.uav_id, g.type_id)}
+                onBlur={(event) => {
+                  onRename(g.uav_id, g.type_id, event.target.value);
+                  event.target.value = event.target.value.trim() || g.uav_id;
+                }}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter') event.currentTarget.blur();
+                  if (event.key === 'Escape') {
+                    event.currentTarget.value = getUavName(uavNames, g.uav_id, g.type_id);
+                    event.currentTarget.blur();
+                  }
+                }} />
               <span className="route-type">
                 {g.type_id}
                 {g.sorties > 1 && ` · ${g.sorties} вылетов`}
               </span>
             </span>
-          </label>
+          </div>
         );
       })}
     </div>
