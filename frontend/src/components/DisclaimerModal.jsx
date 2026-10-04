@@ -1,16 +1,16 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
+import ModalShell from './ModalShell';
 
 export default function DisclaimerModal() {
   const [isOpen, setIsOpen] = useState(true);
 
-  const handleClose = () => setIsOpen(false);
+  const handleClose = useCallback(() => setIsOpen(false), []);
 
   if (!isOpen) return null;
 
   return (
-    <div className="modal-overlay" onClick={handleClose}>
-      <div className="modal" onClick={(e) => e.stopPropagation()}>
-        <h3>Важно</h3>
+    <ModalShell onClose={handleClose} titleId="disclaimer-title">
+        <h3 id="disclaimer-title">Перед планированием</h3>
 
         <p className="modal-text">
           Пожалуйста, уточните запретные зоны перед вылетом.
@@ -53,7 +53,6 @@ export default function DisclaimerModal() {
         <button className="submit-btn" onClick={handleClose}>
           Понял
         </button>
-      </div>
-    </div>
+    </ModalShell>
   );
 }

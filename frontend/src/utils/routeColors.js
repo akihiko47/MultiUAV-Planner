@@ -1,9 +1,6 @@
-export function getRouteColor(index, total) {
-  if (total <= 1) return 'hsl(48, 100%, 50%)'; // золотой
+const ROUTE_COLORS = ['#2479bd', '#7d59b7', '#d68a24', '#16917d', '#ce668d', '#57708d', '#b65e31', '#729731'];
 
-  const t = index / (total - 1);   // 0 → 1
-  const hue = 35 + t * 20;         // оранжевый → жёлтый
-  const lightness = 45 + t * 20;   // тёмный → светлый
-
-  return `hsl(${hue}, 100%, ${lightness}%)`;
+export function getRouteColor(index) {
+  if (index < ROUTE_COLORS.length) return ROUTE_COLORS[Math.max(0, index)];
+  return `hsl(${(index * 137.508) % 360}, 60%, 46%)`;
 }

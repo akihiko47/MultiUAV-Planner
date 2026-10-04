@@ -3,22 +3,23 @@ import noFlyZones from '../data/no_fly_zones.json';
 import restrictionZones from '../data/restriction_zones.json';
 
 const NO_FLY_STYLE = {
-  color: 'red',
-  fillColor: 'red',
-  fillOpacity: 0.2,
+  color: '#cd515c',
+  fillColor: '#cd515c',
+  fillOpacity: 0.12,
+  weight: 1.5,
 };
 
 const RESTRICTION_STYLE = {
-  color: 'orange',
-  fillColor: 'orange',
-  fillOpacity: 0.1,
+  color: '#bf8b35',
+  fillColor: '#bf8b35',
+  fillOpacity: 0.08,
   weight: 1,
   opacity: 0.7,
 };
 
 function renderZones(zones, pathOptions) {
   return zones.map((zone, index) => {
-    const key = zone.id ?? `zone-${index}`;
+    const key = `${zone.id ?? 'zone'}-${index}`;
 
     if (zone.type === 'circle') {
       return (

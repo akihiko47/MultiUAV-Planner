@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import './index.css';
 import 'leaflet/dist/leaflet.css';
 import MapView from './components/MapView';
@@ -9,6 +9,8 @@ import * as ops from './utils/operations';
 import DisclaimerModal from './components/DisclaimerModal';
 import RestrictionWarningModal from './components/RestrictionWarningModal';
 import { loadUavNames, saveUavNames, uavNameKey } from './utils/uavNames';
+import ThemeToggle from './components/ThemeToggle';
+import GithubButton from './components/GithubButton';
 
 const UAVS = uavsData.uavs;
 const DEFAULT_UAV = UAVS[1].id;
@@ -30,6 +32,9 @@ function App() {
   const [restrictionIds, setRestrictionIds] = useState([]);
 
   const [isPanelOpen, setIsPanelOpen] = useState(false);
+  const [panelView, setPanelView] = useState('planning');
+  const closePanel = useCallback(() => setIsPanelOpen(false), []);
+  const closeRestrictions = useCallback(() => setRestrictionIds([]), []);
 
   const settings = {
     selectedUavs, uavCounts, surveyType, gsd, optimization, startDate,
@@ -44,6 +49,7 @@ function App() {
       const result = await ops.handleSubmit(mapRef, settings);
       if (result) {
         setPlanResult(result);
+        setPanelView('results');
         setHiddenRoutes({});
         setRestrictionIds(result.restriction_warnings ?? []);
       }
@@ -63,6 +69,7 @@ function App() {
     if (updates.startDate) setStartDate(updates.startDate);
 
     setPlanResult(null);
+    setPanelView('planning');
     setHiddenRoutes({});
   };
 
@@ -88,6 +95,16 @@ function App() {
 
   return (
     <div className="app">
+      <header className="app-header">
+        <div className="brand">
+          <span className="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="m5 23 11-17 11 17-11-5-11 5Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/><path d="M16 18v8" stroke="currentColor" strokeWidth="2"/></svg></span>
+          <h1>MultiUAV<span> Planner</span></h1>
+        </div>
+        <div className={`workspace-status${planResult ? ' is-ready' : ''}`} role="status">
+          <i />{isSending ? 'Расчёт миссии…' : planResult ? 'Миссия рассчитана' : 'Новая миссия'}
+        </div>
+        <div className="header-actions"><ThemeToggle /><GithubButton /></div>
+      </header>
       <div className="map-area">
         <MapView
           mapRef={mapRef}
@@ -101,6 +118,8 @@ function App() {
           className="panel-toggle-btn"
           onClick={() => setIsPanelOpen(true)}
           aria-label="Открыть настройки"
+          aria-expanded={isPanelOpen}
+          aria-controls="mission-side-panel"
         >
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
             <line x1="3" y1="6" x2="21" y2="6" />
@@ -119,11 +138,13 @@ function App() {
       {restrictionIds.length > 0 && (
       <RestrictionWarningModal
         ids={restrictionIds}
-        onClose={() => setRestrictionIds([])}
+        onClose={closeRestrictions}
       />
       )}
 
       <SidePanel
+        panelView={panelView}
+        setPanelView={setPanelView}
         uavs={UAVS}
         selectedUavs={selectedUavs}
         setSelectedUavs={setSelectedUavs}
@@ -149,7 +170,7 @@ function App() {
         uavNames={uavNames}
         onRenameUav={onRenameUav}
         isOpen={isPanelOpen}
-        onClose={() => setIsPanelOpen(false)}
+        onClose={closePanel}
       />
     </div>
   );

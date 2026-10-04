@@ -2,8 +2,8 @@ export default function InformationPanel({ planResult }) {
   const hasResult = planResult?.uav_assignments?.length > 0;
 
   return (
-    <div className="routes-panel">
-      <h3>Сводка</h3>
+    <div className="routes-panel summary-panel">
+      <h3>Показатели миссии</h3>
 
       {!hasResult && (
         <p className="routes-empty">
@@ -13,15 +13,9 @@ export default function InformationPanel({ planResult }) {
 
       {hasResult && planResult.summary && (
         <div className="flight-summary">
-          <p data-label="Время">
-            {(planResult.summary.total_time / 60).toFixed(1)} мин
-          </p>
-          <p data-label="Дистанция">
-            {(planResult.summary.total_distance / 1000).toFixed(2)} км
-          </p>
-          <p data-label="Дронов">
-            {planResult.summary.uavs_used} из {planResult.summary.uavs_total}
-          </p>
+          <div><span>Время</span><strong>{(planResult.summary.total_time / 60).toLocaleString('ru-RU', { maximumFractionDigits: 1 })}<small>мин</small></strong></div>
+          <div><span>Дистанция</span><strong>{(planResult.summary.total_distance / 1000).toLocaleString('ru-RU', { maximumFractionDigits: 2 })}<small>км</small></strong></div>
+          <div><span>Бортов</span><strong>{planResult.summary.uavs_used}<small>из {planResult.summary.uavs_total}</small></strong></div>
         </div>
       )}
     </div>

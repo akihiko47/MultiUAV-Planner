@@ -78,34 +78,40 @@ function MissionSession({ mission, hiddenRoutes, uavNames }) {
     <button className="mission-collapse" type="button" aria-expanded={!collapsed}
       aria-controls="mission-timeline"
       onClick={() => { setPlaying(false); setCollapsed((value) => !value); }}>
-      {collapsed ? 'Развернуть таймлайн ↑' : 'Свернуть таймлайн ↓'}
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d={collapsed ? 'm6 9 6 6 6-6' : 'm6 15 6-6 6 6'} />
+      </svg>
+      <span>{collapsed ? 'Развернуть плеер миссии' : 'Свернуть плеер миссии'}</span>
     </button>
     {!collapsed && <section id="mission-timeline" className="mission-player"
       aria-label="Плеер миссии" onKeyDown={(event) => event.stopPropagation()}>
       <div className="mission-toolbar">
         <strong>Плеер миссии</strong>
-        {!collapsed && <>
+        <div className="mission-controls">
           <button className="mission-play" type="button" onClick={togglePlay}
-            aria-label={playing ? 'Пауза' : 'Воспроизвести'}>{playing ? 'Ⅱ' : '▶'}</button>
-          <button type="button" onClick={() => { setPlaying(false); seek(0); }}
+            aria-label={playing ? 'Пауза' : 'Воспроизвести'}>
+            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">{playing
+              ? <path d="M5 4h3v12H5zm7 0h3v12h-3z" /> : <path d="m6 3 10 7-10 7z" />}</svg>
+          </button>
+          <button className="mission-reset" type="button" onClick={() => { setPlaying(false); seek(0); }}
             aria-label="В начало миссии" title="В начало миссии">↤</button>
-          <span className="mission-time">{formatElapsed(elapsed)} <span>/ {formatElapsed(mission.duration)}</span></span>
-          <label className="mission-speed">Скорость
+          <label className="mission-speed">
             <select aria-label="Скорость воспроизведения" value={speed} onChange={(event) => setSpeed(Number(event.target.value))}>
               {[0.5, 1, 2, 5, 10, 30, 60, 120].map((value) => <option key={value} value={value}>{value}×</option>)}
             </select>
           </label>
-        </>}
+        </div>
+        <span className="mission-time">{formatElapsed(elapsed)} <span>/ {formatElapsed(mission.duration)}</span></span>
       </div>
       {!collapsed && <div className="mission-body">
-        <div className="mission-caption"><span>{eventTime(time)}</span>
-          <span>↑ взлёт · ↓ посадка</span></div>
+        <div className="mission-caption"><span>{eventTime(time)}</span></div>
         <div className="mission-ruler">
           <span>Борт / вылеты</span>
           <div className="mission-ruler-track">
             <div className="mission-ticks">{[0, 0.25, 0.5, 0.75, 1].map((fraction) =>
-              <span key={fraction}>{formatElapsed(mission.duration * fraction)}</span>)}</div>
+              <span key={fraction} style={{ left: `${fraction * 100}%` }}>{formatElapsed(mission.duration * fraction)}</span>)}</div>
             <input type="range" min="0" max={mission.duration} step="0.01" value={elapsed}
+              style={{ '--progress': `${progress}%` }}
               aria-label="Время миссии" aria-valuetext={`${formatElapsed(elapsed)} из ${formatElapsed(mission.duration)}`}
               onChange={(event) => seek(Number(event.target.value))} />
           </div>

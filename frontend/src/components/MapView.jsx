@@ -9,6 +9,7 @@ import ZonesLayer from "./ZonesLayer";
 import RoutesLayer from "./RoutesLayer";
 import GeomanTooltips from "./GeomanTooltips";
 import MissionPlayer from "./MissionPlayer";
+import MapGuide from "./MapGuide";
 
 import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css';
 
@@ -72,12 +73,14 @@ export default function MapView({ mapRef, assignments, hiddenRoutes, uavNames, o
       <RoutesLayer assignments={assignments} hiddenRoutes={hiddenRoutes} />
       <MissionPlayer assignments={assignments} hiddenRoutes={hiddenRoutes}
         uavNames={uavNames} onLoadExample={onLoadExample} />
+      <MapGuide assignments={assignments} />
 
       <GeomanControls
         options={{
           drawCircle: false,
           drawCircleMarker: false,
           drawPolyline: false,
+          drawText: false,
         }}
         globalOptions={{
           markerStyle: {

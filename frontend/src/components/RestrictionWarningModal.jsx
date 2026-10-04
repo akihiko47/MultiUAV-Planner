@@ -1,13 +1,11 @@
+import ModalShell from './ModalShell';
+
 export default function RestrictionWarningModal({ ids, onClose }) {
   if (!ids || ids.length === 0) return null;
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div
-        className="modal modal--warning"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <h3>Требуется дополнительная проверка</h3>
+    <ModalShell onClose={onClose} titleId="restriction-title" className="modal--warning">
+        <h3 id="restriction-title">Требуется дополнительная проверка</h3>
 
         <p className="modal-text">
           Маршруты пересекают зоны ограничения полётов. Перед вылетом
@@ -42,7 +40,6 @@ export default function RestrictionWarningModal({ ids, onClose }) {
         <button className="submit-btn" onClick={onClose}>
           Понял, проверю
         </button>
-      </div>
-    </div>
+    </ModalShell>
   );
 }

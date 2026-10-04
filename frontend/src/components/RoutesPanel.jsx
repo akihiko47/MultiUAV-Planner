@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { getRouteColor } from '../utils/routeColors';
 import { getUavName } from '../utils/uavNames';
+import uavsData from '../data/uavs.json';
 
 export default function RoutesPanel({ assignments, hiddenRoutes, onToggle, uavNames, onRename }) {
   const hasRoutes = assignments && assignments.length > 0;
@@ -41,12 +42,14 @@ export default function RoutesPanel({ assignments, hiddenRoutes, onToggle, uavNa
 
         return (
           <div key={g.uav_id} className="route-item">
+            <label className="route-visibility">
             <input
               type="checkbox"
               checked={isVisible}
               onChange={() => onToggle(g.uav_id)}
               aria-label={`Показать маршрут ${getUavName(uavNames, g.uav_id, g.type_id)}`}
             />
+            </label>
             <span className="route-swatch" style={{ background: color }} />
             <span className="route-label">
               <input className="route-name" type="text" maxLength={40}
@@ -66,7 +69,7 @@ export default function RoutesPanel({ assignments, hiddenRoutes, onToggle, uavNa
                   }
                 }} />
               <span className="route-type">
-                {g.type_id}
+                {uavsData.uavs.find((model) => model.id === g.type_id)?.name || g.type_id}
                 {g.sorties > 1 && ` · ${g.sorties} вылетов`}
               </span>
             </span>
