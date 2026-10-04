@@ -8,6 +8,8 @@ export default function SidePanel({
   panelView,
   setPanelView,
   uavs,
+  onEditUav,
+  onAddUav,
   selectedUavs,
   setSelectedUavs,
   uavCounts,
@@ -129,7 +131,9 @@ export default function SidePanel({
         onChange={setSelectedUavs}
         uavCounts={uavCounts}
         onCountsChange={setUavCounts}
+        onEdit={onEditUav}
       />
+      <button type="button" className="download-btn" onClick={onAddUav}>+ Добавить дрон</button>
       </section>
       <section className="planning-section" aria-labelledby="survey-heading">
       <div className="section-heading"><span>02</span><h3 id="survey-heading">Параметры съёмки</h3></div>
@@ -184,6 +188,7 @@ export default function SidePanel({
       </> : hasResult ? <>
       <InformationPanel planResult={planResult} />
       <RoutesPanel
+        uavs={uavs}
         assignments={assignments}
         hiddenRoutes={hiddenRoutes}
         onToggle={onToggleRoute}

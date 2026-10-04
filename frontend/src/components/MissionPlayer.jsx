@@ -4,7 +4,7 @@ import L from 'leaflet';
 import { buildMission, formatElapsed, positionAtTime } from '../utils/missionPlayback';
 import { getRouteColor } from '../utils/routeColors';
 import { getUavName, isFixedWing } from '../utils/uavNames';
-import uavsData from '../data/uavs.json';
+
 import './MissionPlayer.css';
 
 const clock = (time) => new Date(time).toLocaleTimeString('ru-RU');
@@ -20,7 +20,7 @@ function droneIcon(color, fixedWing) {
   });
 }
 
-function MissionSession({ mission, hiddenRoutes, uavNames }) {
+function MissionSession({ uavs, mission, hiddenRoutes, uavNames }) {
   const [elapsed, setElapsed] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [speed, setSpeed] = useState(1);
@@ -28,7 +28,7 @@ function MissionSession({ mission, hiddenRoutes, uavNames }) {
   const elapsedRef = useRef(0);
   const icons = useMemo(() => new Map(mission.groups.map((group) => [group.uavId,
     droneIcon(getRouteColor(group.colorIndex, mission.colorCount),
-      isFixedWing(uavsData.uavs.find((model) => model.id === group.typeId)))])), [mission]);
+      isFixedWing(uavs.find((model) => model.id === group.typeId)))])), [mission, uavs]);
 
   useEffect(() => {
     if (!playing) return;
@@ -147,7 +147,7 @@ function MissionSession({ mission, hiddenRoutes, uavNames }) {
   </>;
 }
 
-export default function MissionPlayer({ assignments, hiddenRoutes, uavNames, onLoadExample }) {
+export default function MissionPlayer({ uavs, assignments, hiddenRoutes, uavNames, onLoadExample }) {
   const dockRef = useRef(null);
   const [desktop, setDesktop] = useState(() => window.matchMedia('(min-width: 769px)').matches);
   const mission = useMemo(() => buildMission(assignments), [assignments]);
@@ -178,7 +178,7 @@ export default function MissionPlayer({ assignments, hiddenRoutes, uavNames, onL
       </svg>
       <span>Загрузить пример</span>
     </button>
-    {desktop && mission && <MissionSession key={version.id} mission={mission}
+    {desktop && mission && <MissionSession uavs={uavs} key={version.id} mission={mission}
       hiddenRoutes={hiddenRoutes} uavNames={uavNames} />}
   </div>;
 }

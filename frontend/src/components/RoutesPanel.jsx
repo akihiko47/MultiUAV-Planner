@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 import { getRouteColor } from '../utils/routeColors';
 import { getUavName } from '../utils/uavNames';
-import uavsData from '../data/uavs.json';
 
-export default function RoutesPanel({ assignments, hiddenRoutes, onToggle, uavNames, onRename }) {
+
+export default function RoutesPanel({ uavs, assignments, hiddenRoutes, onToggle, uavNames, onRename }) {
   const hasRoutes = assignments && assignments.length > 0;
 
   // Группируем по uav_id: одна строка на борт, независимо от числа вылетов
@@ -69,7 +69,7 @@ export default function RoutesPanel({ assignments, hiddenRoutes, onToggle, uavNa
                   }
                 }} />
               <span className="route-type">
-                {uavsData.uavs.find((model) => model.id === g.type_id)?.name || g.type_id}
+                {uavs.find((model) => model.id === g.type_id)?.name || g.type_id}
                 {g.sorties > 1 && ` · ${g.sorties} вылетов`}
               </span>
             </span>

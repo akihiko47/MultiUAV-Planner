@@ -4,6 +4,7 @@ export default function UavSelector({
   onChange,
   uavCounts = {},
   onCountsChange = () => {},
+  onEdit,
 }) {
   const toggle = (id) => {
     if (selected.includes(id)) {
@@ -38,7 +39,7 @@ export default function UavSelector({
                 checked={isChecked}
                 onChange={() => toggle(uav.id)}
               />
-              <span className="uav-model"><strong>{uav.name}</strong><small>{uav.min_turn_radius > 0 ? 'Самолёт' : 'Мультикоптер'} · {uav.cruise_speed} м/с</small></span>
+              <span className="uav-model"><strong>{uav.name}</strong></span>
             </label>
 
             {isChecked && (
@@ -54,6 +55,8 @@ export default function UavSelector({
                 onBlur={() => normalizeCount(uav.id)}
               />
             )}
+            <button type="button" className="uav-edit-btn" onClick={() => onEdit(uav)}
+              aria-label={`Изменить параметры ${uav.name}`} title="Изменить параметры">✎</button>
           </div>
         );
       })}

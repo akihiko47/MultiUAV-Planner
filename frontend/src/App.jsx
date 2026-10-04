@@ -4,6 +4,9 @@ import 'leaflet/dist/leaflet.css';
 import MapView from './components/MapView';
 import SidePanel from './components/SidePanel';
 import uavsData from './data/uavs.json';
+import camerasData from './data/cameras.json';
+import UavEditor from './components/UavEditor';
+import { loadUavCatalog, saveUavCatalog, importUavCatalog, mergeCatalog } from './utils/uavCatalog';
 import requestExample from './data/request_example.json';
 import * as ops from './utils/operations';
 import DisclaimerModal from './components/DisclaimerModal';
@@ -18,6 +21,11 @@ const DEFAULT_GSD = '3';
 
 function App() {
   const mapRef = useRef(null);
+  const [catalog, setCatalog] = useState(() => loadUavCatalog({ uavs: UAVS, cameras: camerasData.cameras }));
+  const catalogRef = useRef(catalog);
+  catalogRef.current = catalog;
+  const [editingUav, setEditingUav] = useState(null);
+  const closeEditor = useCallback(() => setEditingUav(null), []);
 
   const [selectedUavs, setSelectedUavs] = useState([DEFAULT_UAV]);
   const [uavCounts, setUavCounts] = useState({ [DEFAULT_UAV]: 2 });
@@ -38,6 +46,7 @@ function App() {
 
   const settings = {
     selectedUavs, uavCounts, surveyType, gsd, optimization, startDate,
+    uavCatalog: catalog.uavs, cameraCatalog: catalog.cameras,
   };
 
   const onDownloadPayload = () => ops.handleDownload(mapRef, settings);
@@ -47,7 +56,7 @@ function App() {
     setIsSending(true);
     try {
       const result = await ops.handleSubmit(mapRef, settings);
-      if (result) {
+      if (result && catalogRef.current === catalog) {
         setPlanResult(result);
         setPanelView('results');
         setHiddenRoutes({});
@@ -59,7 +68,10 @@ function App() {
   };
 
   const onImport = (plan) => {
+    const importedCatalog = importUavCatalog(catalog, plan);
+    saveUavCatalog(importedCatalog);
     const updates = ops.handleImport(mapRef, plan);
+    setCatalog(importedCatalog);
 
     if (updates.selectedUavs) setSelectedUavs(updates.selectedUavs);
     if (updates.uavCounts) setUavCounts(updates.uavCounts);
@@ -76,7 +88,21 @@ function App() {
   const onLoadExample = () => {
     // Пример лежит в src/data/request_example.json и импортируется статически.
     // Используем тот же путь, что и импорт из файла.
-    onImport(requestExample);
+    try { onImport(requestExample); }
+    catch (error) { alert(error.message); }
+  };
+
+  const onSaveUav = (model) => {
+    const updated = { ...catalog, uavs: mergeCatalog(catalog.uavs, [model]) };
+    saveUavCatalog(updated);
+    setCatalog(updated);
+    if (editingUav.isNew) {
+      setSelectedUavs(previous => [...previous, model.id]);
+      setUavCounts(previous => ({ ...previous, [model.id]: 1 }));
+    }
+    setPlanResult(null);
+    setHiddenRoutes({});
+    setRestrictionIds([]);
   };
 
   const onToggleRoute = (uavId) => {
@@ -107,6 +133,7 @@ function App() {
       </header>
       <div className="map-area">
         <MapView
+          uavs={catalog.uavs}
           mapRef={mapRef}
           assignments={planResult?.uav_assignments}
           hiddenRoutes={hiddenRoutes}
@@ -134,6 +161,8 @@ function App() {
         onClick={() => setIsPanelOpen(false)}
       />
       <DisclaimerModal />
+      {editingUav && <UavEditor model={editingUav.model} isNew={editingUav.isNew}
+        cameras={catalog.cameras} onSave={onSaveUav} onClose={closeEditor} />}
 
       {restrictionIds.length > 0 && (
       <RestrictionWarningModal
@@ -145,7 +174,9 @@ function App() {
       <SidePanel
         panelView={panelView}
         setPanelView={setPanelView}
-        uavs={UAVS}
+        uavs={catalog.uavs}
+        onEditUav={model => setEditingUav({ model, isNew: false })}
+        onAddUav={() => setEditingUav({ model: { ...UAVS[1], id: `custom_${crypto.randomUUID()}` }, isNew: true })}
         selectedUavs={selectedUavs}
         setSelectedUavs={setSelectedUavs}
         uavCounts={uavCounts}

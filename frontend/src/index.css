@@ -75,7 +75,6 @@ input[type='checkbox'] { width: 12px; height: 12px; accent-color: var(--accent);
 .uav-check { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0; min-height: 32px; cursor: pointer; }
 .uav-model { display: flex; flex-direction: column; gap: 3px; }
 .uav-model strong { line-height: 18px; font-size: 13px; color: var(--text-h); font-weight: 600; }
-.uav-model small { font-size: 9px; line-height: 12px; color: var(--text); }
 .uav-count { width: 48px; flex-shrink: 0; height: 28px; padding: 0 4px; border: 1px solid var(--border); border-radius: 5px; background: var(--input-bg); color: var(--text-h); text-align: center; font-size: 12px; }
 .panel-actions { flex-shrink: 0; display: flex; flex-direction: column; gap: 8px; padding: 16px; box-shadow: 0 -1px 0 var(--border); background: var(--panel-bg); }
 .panel-actions-row { display: flex; gap: 8px; }
@@ -89,6 +88,24 @@ input[type='checkbox'] { width: 12px; height: 12px; accent-color: var(--accent);
 .button-spinner { width: 15px; height: 15px; border: 2px solid #ffffff66; border-top-color: white; border-radius: 50%; animation: spin 1s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 /* Results and editable fleet names. */
+.uav-edit-btn { flex-shrink: 0; width: 28px; height: 28px; border: 1px solid var(--border); border-radius: 5px; background: var(--panel-bg); color: var(--text-h); font-size: 18px; }
+.uav-edit-btn:hover { background: var(--bg); border-color: var(--accent); }
+.modal.uav-editor { max-width: 660px; }
+.uav-editor form { display: flex; flex-direction: column; gap: 16px; }
+.uav-editor-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.uav-editor-cameras { border: 1px solid var(--border); border-radius: 8px; padding: 12px; }
+.uav-editor-cameras legend { color: var(--text-h); font-weight: 600; padding: 0 4px; }
+.uav-editor-cameras label { display: flex; align-items: center; gap: 8px; min-height: 32px; cursor: pointer; }
+.uav-editor-cameras small { color: var(--text); }
+.uav-editor-error { color: #cd515c; }
+.uav-editor-actions { display: flex; gap: 12px; }
+.uav-editor-actions > button { flex: 1; }
+@media (max-width: 540px) {
+  .uav-editor { padding: 20px; }
+  .uav-editor-grid { grid-template-columns: minmax(0, 1fr); }
+  .uav-editor input { font-size: 16px; }
+  .uav-editor-cameras label { min-height: 44px; }
+}
 .routes-panel { display: flex; flex-direction: column; gap: 8px; border-top: 1px solid var(--border); padding-top: 12px; }
 .routes-panel:first-child { border-top: 0; padding-top: 0; }
 .routes-panel h3 { font-size: 12px; font-weight: 600; color: var(--text-h); }

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
-export default function ModalShell({ children, onClose, titleId, className = '' }) {
+export default function ModalShell({ children, onClose, titleId, className = '', initialFocusSelector = '.submit-btn' }) {
   const dialogRef = useRef(null);
   useEffect(() => {
     const previous = document.activeElement;
@@ -9,7 +9,7 @@ export default function ModalShell({ children, onClose, titleId, className = '' 
     const wasInert = root.inert;
     root.inert = true;
     const dialog = dialogRef.current;
-    dialog.querySelector('.submit-btn')?.focus();
+    dialog.querySelector(initialFocusSelector)?.focus();
     const handleKey = (event) => {
       if (event.key === 'Escape') onClose();
       if (event.key !== 'Tab') return;
@@ -25,7 +25,7 @@ export default function ModalShell({ children, onClose, titleId, className = '' 
       root.inert = wasInert;
       previous?.focus();
     };
-  }, [onClose]);
+  }, [onClose, initialFocusSelector]);
   return createPortal(<div className="modal-overlay" onClick={onClose}>
     <div ref={dialogRef} className={`modal ${className}`} role="dialog" aria-modal="true"
       aria-labelledby={titleId} onClick={(event) => event.stopPropagation()}>{children}</div>

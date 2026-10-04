@@ -46,7 +46,7 @@ function SinglePolygonControl() {
 }
 
 
-export default function MapView({ mapRef, assignments, hiddenRoutes, uavNames, onLoadExample }) {
+export default function MapView({ uavs, mapRef, assignments, hiddenRoutes, uavNames, onLoadExample }) {
   const center = [55.751244, 37.618423];
   const zoom = 10;
 
@@ -71,7 +71,7 @@ export default function MapView({ mapRef, assignments, hiddenRoutes, uavNames, o
 
       <ZonesLayer />
       <RoutesLayer assignments={assignments} hiddenRoutes={hiddenRoutes} />
-      <MissionPlayer assignments={assignments} hiddenRoutes={hiddenRoutes}
+      <MissionPlayer uavs={uavs} assignments={assignments} hiddenRoutes={hiddenRoutes}
         uavNames={uavNames} onLoadExample={onLoadExample} />
       <MapGuide assignments={assignments} />
 
